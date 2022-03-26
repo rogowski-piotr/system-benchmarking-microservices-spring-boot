@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Repository
@@ -21,6 +22,10 @@ public class PlaceRepository {
 
     public List<Place> getPlaces() {
         return places;
+    }
+
+    public Optional<Place> findById(Integer id) {
+        return places.stream().filter(place -> place.getId().equals(id)).findFirst();
     }
 
     @PostConstruct
