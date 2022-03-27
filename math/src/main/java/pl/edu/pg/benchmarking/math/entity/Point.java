@@ -2,10 +2,10 @@ package pl.edu.pg.benchmarking.math.entity;
 
 public class Point {
 
-    private Integer coordinateX;
-    private Integer coordinateY;
+    private Double coordinateX;
+    private Double coordinateY;
 
-    public Point(Integer coordinateX, Integer coordinateY) {
+    public Point(Double coordinateX, Double coordinateY) {
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
     }
@@ -15,19 +15,19 @@ public class Point {
         return String.format("X: %d\tY:%d", this.coordinateX, this.coordinateY);
     }
 
-    public Integer getCoordinateX() {
+    public Double getCoordinateX() {
         return coordinateX;
     }
 
-    public void setCoordinateX(Integer coordinateX) {
+    public void setCoordinateX(Double coordinateX) {
         this.coordinateX = coordinateX;
     }
 
-    public Integer getCoordinateY() {
+    public Double getCoordinateY() {
         return coordinateY;
     }
 
-    public void setCoordinateY(Integer coordinateY) {
+    public void setCoordinateY(Double coordinateY) {
         this.coordinateY = coordinateY;
     }
 

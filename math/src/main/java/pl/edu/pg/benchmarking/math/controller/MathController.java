@@ -6,7 +6,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import pl.edu.pg.benchmarking.math.entity.Point;
 import pl.edu.pg.benchmarking.math.dto.DistanceResponse;
 import pl.edu.pg.benchmarking.math.dto.DistanceRequest;
-import pl.edu.pg.benchmarking.math.service.DistanceService;
+import pl.edu.pg.benchmarking.math.service.SphericalDistanceService;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -16,14 +16,14 @@ import java.util.logging.Logger;
 public class MathController {
 
     private final Logger LOG = Logger.getLogger(this.getClass().getName());
-    private final DistanceService distanceService;
+    private final SphericalDistanceService distanceService;
 
-    public MathController(DistanceService distanceService) {
+    public MathController(SphericalDistanceService distanceService) {
         this.distanceService = distanceService;
     }
 
     @PostMapping
-    public ResponseEntity<DistanceResponse> createPlace(@RequestBody DistanceRequest request, UriComponentsBuilder builder) {
+    public ResponseEntity<DistanceResponse> calculateDistance(@RequestBody DistanceRequest request, UriComponentsBuilder builder) {
         LOG.info("Post points");
         List<Point> points = DistanceRequest.dtoToEntityMapper().apply(request);
         Point point1 = points.get(0);
