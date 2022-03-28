@@ -2,20 +2,17 @@ package pl.edu.pg.benchmarking.math.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 import pl.edu.pg.benchmarking.math.entity.Point;
 import pl.edu.pg.benchmarking.math.dto.DistanceResponse;
 import pl.edu.pg.benchmarking.math.dto.DistanceRequest;
 import pl.edu.pg.benchmarking.math.service.SphericalDistanceService;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("api/math")
 public class MathController {
 
-    private final Logger LOG = Logger.getLogger(this.getClass().getName());
     private final SphericalDistanceService distanceService;
 
     public MathController(SphericalDistanceService distanceService) {
@@ -23,8 +20,7 @@ public class MathController {
     }
 
     @PostMapping
-    public ResponseEntity<DistanceResponse> calculateDistance(@RequestBody DistanceRequest request, UriComponentsBuilder builder) {
-        LOG.info("Post points");
+    public ResponseEntity<DistanceResponse> calculateDistance(@RequestBody DistanceRequest request) {
         List<Point> points = DistanceRequest.dtoToEntityMapper().apply(request);
         Point point1 = points.get(0);
         Point point2 = points.get(1);

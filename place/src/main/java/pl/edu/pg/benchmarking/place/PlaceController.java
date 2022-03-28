@@ -11,13 +11,12 @@ import pl.edu.pg.benchmarking.place.dto.GetPlacesResponse;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("api/places")
 public class PlaceController {
 
-    private PlaceRepository placeRepository;
+    private final PlaceRepository placeRepository;
 
     @Autowired
     public PlaceController(PlaceRepository placeRepository) {

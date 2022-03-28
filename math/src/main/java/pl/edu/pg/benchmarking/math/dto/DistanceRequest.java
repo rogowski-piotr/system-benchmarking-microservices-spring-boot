@@ -1,28 +1,20 @@
 package pl.edu.pg.benchmarking.math.dto;
 
+import lombok.Getter;
 import pl.edu.pg.benchmarking.math.entity.Point;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Getter
 public class DistanceRequest {
-
     private static final Pattern COORDINATE_REGEX = Pattern.compile("([0-9]+.[0-9]+), ([0-9]+.[0-9]+)");
 
     private String coordinate1;
 
     private String coordinate2;
-
-    public String getCoordinate1() {
-        return coordinate1;
-    }
-
-    public String getCoordinate2() {
-        return coordinate2;
-    }
 
     private Double parseToLatitude(String coordinate) {
         Matcher matcher = COORDINATE_REGEX.matcher(coordinate);

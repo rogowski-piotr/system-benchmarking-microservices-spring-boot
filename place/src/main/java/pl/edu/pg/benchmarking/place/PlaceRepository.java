@@ -3,7 +3,7 @@ package pl.edu.pg.benchmarking.place;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Getter;
 import org.springframework.stereotype.Repository;
 
 import java.io.Reader;
@@ -18,11 +18,8 @@ public class PlaceRepository {
 
     private final Logger LOG = Logger.getLogger(this.getClass().getName());
 
+    @Getter
     private List<Place> places;
-
-    public List<Place> getPlaces() {
-        return places;
-    }
 
     public Optional<Place> findById(Integer id) {
         return places.stream().filter(place -> place.getId().equals(id)).findFirst();
