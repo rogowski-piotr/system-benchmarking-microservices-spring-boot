@@ -5,55 +5,41 @@ import pl.edu.pg.benchmarking.math.entity.Point;
 import java.util.List;
 import java.util.function.Function;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DistanceRequest {
 
-    private static final Logger LOG = Logger.getLogger(DistanceRequest.class.getName());
+    private static final Pattern COORDINATE_REGEX = Pattern.compile("([0-9]+.[0-9]+), ([0-9]+.[0-9]+)");
 
-    private Double point1CoordinateX;
+    private String coordinate1;
 
-    private Double point1CoordinateY;
+    private String coordinate2;
 
-    private Double point2CoordinateX;
-
-    private Double point2CoordinateY;
-
-    public Double getPoint1CoordinateX() {
-        return point1CoordinateX;
+    public String getCoordinate1() {
+        return coordinate1;
     }
 
-    public Double getPoint1CoordinateY() {
-        return point1CoordinateY;
+    public String getCoordinate2() {
+        return coordinate2;
     }
 
-    public Double getPoint2CoordinateX() {
-        return point2CoordinateX;
+    private Double parseToLatitude(String coordinate) {
+        Matcher matcher = COORDINATE_REGEX.matcher(coordinate);
+        matcher.matches();
+        return Double.valueOf(matcher.group(1));
     }
 
-    public Double getPoint2CoordinateY() {
-        return point2CoordinateY;
-    }
-
-    public void setPoint1CoordinateX(Double point1CoordinateX) {
-        this.point1CoordinateX = point1CoordinateX;
-    }
-
-    public void setPoint1CoordinateY(Double point1CoordinateY) {
-        this.point1CoordinateY = point1CoordinateY;
-    }
-
-    public void setPoint2CoordinateX(Double point2CoordinateX) {
-        this.point2CoordinateX = point2CoordinateX;
-    }
-
-    public void setPoint2CoordinateY(Double point2CoordinateY) {
-        this.point2CoordinateY = point2CoordinateY;
+    private Double parseToLongitude(String coordinate) {
+        Matcher matcher = COORDINATE_REGEX.matcher(coordinate);
+        matcher.matches();
+        return Double.valueOf(matcher.group(2));
     }
 
     public static Function<DistanceRequest, List<Point>> dtoToEntityMapper() {
         return request -> List.of(
-                new Point(request.point1CoordinateX, request.point1CoordinateY),
-                new Point(request.point2CoordinateX, request.point2CoordinateY)
+                new Point(request.parseToLatitude(request.getCoordinate1()), request.parseToLongitude(request.getCoordinate1())),
+                new Point(request.parseToLatitude(request.getCoordinate2()), request.parseToLongitude(request.getCoordinate2()))
         );
     }
 

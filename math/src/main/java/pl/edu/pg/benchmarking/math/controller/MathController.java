@@ -30,8 +30,8 @@ public class MathController {
         Point point2 = points.get(1);
 
         Double distance = distanceService.calculateDistance(
-                point1.getCoordinateX(), point1.getCoordinateY(),
-                point2.getCoordinateX(), point2.getCoordinateY());
+                point1.getLatitude(), point1.getLongitude(),
+                point2.getLatitude(), point2.getLongitude());
 
         return ResponseEntity.ok(DistanceResponse.entityToDtoMapper().apply(distance));
     }

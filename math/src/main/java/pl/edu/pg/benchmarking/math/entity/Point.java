@@ -2,33 +2,33 @@ package pl.edu.pg.benchmarking.math.entity;
 
 public class Point {
 
-    private Double coordinateX;
-    private Double coordinateY;
+    private Double latitude;
+    private Double longitude;
 
-    public Point(Double coordinateX, Double coordinateY) {
-        this.coordinateX = coordinateX;
-        this.coordinateY = coordinateY;
+    public Point(Double latitude, Double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     @Override
     public String toString() {
-        return String.format("X: %d\tY:%d", this.coordinateX, this.coordinateY);
+        return String.format("X: %f\tY:%f", this.latitude, this.longitude);
     }
 
-    public Double getCoordinateX() {
-        return coordinateX;
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setCoordinateX(Double coordinateX) {
-        this.coordinateX = coordinateX;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
-    public Double getCoordinateY() {
-        return coordinateY;
+    public Double getLongitude() {
+        return longitude;
     }
 
-    public void setCoordinateY(Double coordinateY) {
-        this.coordinateY = coordinateY;
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
 }
