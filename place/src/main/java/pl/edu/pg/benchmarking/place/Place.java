@@ -1,24 +1,20 @@
 package pl.edu.pg.benchmarking.place;
 
-import java.util.List;
-
 public class Place {
 
     private Integer id;
     private String city;
-    private String latitude;
-    private String longitude;
+    private String coordinates;
 
-    Place (Integer id, String city, String latitude, String longitude) {
+    Place (Integer id, String city, String coordinates) {
         this.id = id;
         this.city = city;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.coordinates = coordinates;
     }
 
     @Override
     public String toString() {
-        return String.format("{ id: %d, cityName: %s, latitude: %s, longitude: %s }", this.id, this.city, this.latitude, this.longitude);
+        return String.format("{ id: %d, cityName: %s, coordinates: %s }", this.id, this.city, this.coordinates);
     }
 
     public Integer getId() {
@@ -29,12 +25,8 @@ public class Place {
         return city;
     }
 
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
+    public String getCoordinates() {
+        return coordinates;
     }
 
     public void setId(Integer id) {
@@ -45,16 +37,8 @@ public class Place {
         this.city = city;
     }
 
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
     }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public static List<Place> list = List.of(
-            new Place(0, "name1", "a", "b")
-    );
 
 }
