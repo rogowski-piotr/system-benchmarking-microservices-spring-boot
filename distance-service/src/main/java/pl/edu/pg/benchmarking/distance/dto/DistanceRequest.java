@@ -1,6 +1,7 @@
 package pl.edu.pg.benchmarking.distance.dto;
 
 import lombok.Getter;
+import lombok.Setter;
 import pl.edu.pg.benchmarking.distance.entity.Point;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Getter
+@Setter
 public class DistanceRequest {
     private static final Pattern COORDINATE_REGEX = Pattern.compile("([0-9]+.[0-9]+), ([0-9]+.[0-9]+)");
 
