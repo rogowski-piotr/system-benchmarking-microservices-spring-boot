@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "3c755a65-bbef-4834-b4af-ce09e8adbc7e",
+		"name": "System Benchmarking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "All Places",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/places",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"places"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "One Place",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/places/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"places",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "distance",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"coordinate1\": \"54.367, 18.633\",\r\n    \"coordinate2\": \"50.05, 19.95\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/distance",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"distance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Route 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/route1?id=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"route1"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Route 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/route2?id=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"route2"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
