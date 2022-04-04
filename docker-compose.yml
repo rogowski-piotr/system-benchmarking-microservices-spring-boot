@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  place-service:
+    build: place-service/
+    container_name: place-service
+    networks:
+      - app-network
+    ports:
+      - 8081:8081
+
+  distance-service:
+    build: distance-service/
+    container_name: distance-service
+    networks:
+      - app-network
+    ports:
+      - 8082:8082
+
+  route1-service:
+    build: route1-service/
+    container_name: route1-service
+    networks:
+      - app-network
+    ports:
+      - 8083:8083
+
+  route2-service:
+    build: route2-service/
+    container_name: route2-service
+    networks:
+      - app-network
+    ports:
+      - 8084:8084
+
+  # gateway:
+  #   build: gateway/
+  #   container_name: gateway
+  #   networks:
+  #     - app-network
+  #   ports:
+  #     - 8080:8080
+
+networks:
+  app-network:
