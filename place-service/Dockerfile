@@ -1,9 +1,11 @@
 FROM maven:3.8.3-openjdk-17
 
+EXPOSE 8081/tcp
+
 WORKDIR /app
 
-COPY . /app
+COPY coordinates.json /app
 
-RUN mvn clean package -Dmaven.test.skip
+ADD target/place-service-1.0.0.jar /app
 
-ENTRYPOINT ["java","-jar","target/place-service-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","place-service-1.0.0.jar"]

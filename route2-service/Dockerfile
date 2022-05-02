@@ -1,9 +1,9 @@
 FROM maven:3.8.3-openjdk-17
 
+EXPOSE 8084/tcp
+
 WORKDIR /app
 
-COPY . /app
+ADD target/route2-service-1.0.0.jar /app
 
-RUN mvn clean package -Dmaven.test.skip
-
-ENTRYPOINT ["java","-jar","target/route2-service-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","route2-service-1.0.0.jar"]

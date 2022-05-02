@@ -17,7 +17,13 @@ jobs:
           distribution: 'adopt'
 
       - name: Test place-service
-        run: cd place-service/ && mvn clean test
+        run: cd place-service/ && make test
         
       - name: Test distance-service
-        run: cd distance-service/ && mvn clean test
+        run: cd distance-service/ && make test
+        
+      - name: Test route1-service
+        run: cd route1-service/ && make test
+        
+      - name: Test route2-service
+        run: cd route2-service/ && make test

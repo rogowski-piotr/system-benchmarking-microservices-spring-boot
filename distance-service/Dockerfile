@@ -1,9 +1,9 @@
 FROM maven:3.8.3-openjdk-17
 
+EXPOSE 8082/tcp
+
 WORKDIR /app
 
-COPY . /app
+ADD target/distance-service-1.0.0.jar /app
 
-RUN mvn clean package -Dmaven.test.skip
-
-ENTRYPOINT ["java","-jar","target/distance-service-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","distance-service-1.0.0.jar"]
