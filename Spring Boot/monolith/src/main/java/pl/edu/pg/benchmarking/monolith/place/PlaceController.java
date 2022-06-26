@@ -16,23 +16,23 @@ import java.util.Optional;
 @RequestMapping("api/places")
 public class PlaceController {
 
-    private final PlaceRepository placeRepository;
+    private final PlaceService placeService;
 
     @Autowired
-    public PlaceController(PlaceRepository placeRepository) {
-        this.placeRepository = placeRepository;
+    public PlaceController(PlaceService placeService) {
+        this.placeService = placeService;
     }
 
     @GetMapping
     public ResponseEntity<Iterable<GetPlacesResponse.Place>> getAllPlaces() {
-        List<Place> resultList = placeRepository.getPlaces();
+        List<Place> resultList = placeService.getAllPlaces();
         return ResponseEntity.ok(
                 GetPlacesResponse.entityToDtoMapper().apply(resultList));
     }
 
     @GetMapping("{id}")
     public ResponseEntity<GetPlaceResponse> getSinglePlace(@PathVariable(name = "id") Integer id) {
-        Optional<Place> placeOptional = placeRepository.findById(id);
+        Optional<Place> placeOptional = placeService.getPlace(id);
         return placeOptional
                 .map(place -> ResponseEntity.ok(GetPlaceResponse.entityToDtoMapper().apply(place)))
                 .orElseGet(() -> ResponseEntity.noContent().build());

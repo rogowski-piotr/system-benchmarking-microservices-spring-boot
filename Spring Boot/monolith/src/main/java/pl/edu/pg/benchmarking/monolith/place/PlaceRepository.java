@@ -18,15 +18,18 @@ public class PlaceRepository {
 
     private final Logger LOG = Logger.getLogger(this.getClass().getName());
 
-    @Getter
     private List<Place> places;
 
-    public Optional<Place> findById(Integer id) {
+    protected Optional<Place> findById(Integer id) {
         return places.stream().filter(place -> place.getId().equals(id)).findFirst();
     }
 
+    protected List<Place> findAll() {
+        return places;
+    }
+
     @PostConstruct
-    public void postConstruct() {
+    private void postConstruct() {
         try {
             Reader reader = Files.newBufferedReader(Paths.get("coordinates.json"));
             places = new Gson().fromJson(reader, new TypeToken<List<Place>>() {}.getType());

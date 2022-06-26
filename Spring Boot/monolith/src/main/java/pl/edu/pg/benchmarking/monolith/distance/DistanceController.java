@@ -26,9 +26,7 @@ public class DistanceController {
         Point point1 = points.get(0);
         Point point2 = points.get(1);
 
-        Double distance = distanceService.calculateDistance(
-                point1.getLatitude(), point1.getLongitude(),
-                point2.getLatitude(), point2.getLongitude());
+        Double distance = distanceService.calculateDistanceBetweenPoints(point1, point2);
 
         return ResponseEntity.ok(DistanceResponse.entityToDtoMapper().apply(distance));
     }
