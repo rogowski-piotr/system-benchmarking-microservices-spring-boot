@@ -4,7 +4,7 @@ from .place_controller import place_views
 
 
 app = Flask(__name__)
-app.config.from_object("website.config")
+app.config.from_object("static.config")
 
 
 # Register Blueprints

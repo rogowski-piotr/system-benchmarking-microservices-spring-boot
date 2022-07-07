@@ -1,5 +1,5 @@
 from website import app
-import website.config as config
+import static.config as config
 
 app = app
 
