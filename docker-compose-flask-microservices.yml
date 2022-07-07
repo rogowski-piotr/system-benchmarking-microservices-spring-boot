@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  place-service:
+    build: Flask/microservices/place-service/
+    container_name: place-service
+    ports:
+      - 8080:8080
