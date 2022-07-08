@@ -10,7 +10,7 @@ distance_service = SphericalDistanceService()
 
 @distance_views.route('/', methods=['POST'], strict_slashes=False)
 def calculate_distance() -> dict:
-    points = distance_request.entity_to_dto_mapper(request.json)
+    points = distance_request.dto_to_entity_mapper(request.json)
     point1 = points[0]
     point2 = points[1]
 

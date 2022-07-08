@@ -1,16 +1,17 @@
 import re
-from typing import List
-# from static.utils import attributes
+from typing import List, Final
 from website.point import Point
 
 
-def entity_to_dto_mapper(request: dict) -> List[Point]:
+COORDINATE_REGEX: Final[str] = "([0-9]+.[0-9]+), ([0-9]+.[0-9]+)"
+
+
+def dto_to_entity_mapper(request: dict) -> List[Point]:
     return DistanceRequest(request).points
 
 
 class DistanceRequest:
     def __init__(self, request: dict) -> None:
-        self.regex = "([0-9]+.[0-9]+), ([0-9]+.[0-9]+)"
         self.coordinate1 = request["coordinate1"]
         self.coordinate2 = request["coordinate2"]
         self.points = [
@@ -19,9 +20,9 @@ class DistanceRequest:
         ]
 
     def parse_to_latitude(self, coordinate: str) -> float:
-        result = re.search(self.regex, coordinate)
+        result = re.search(COORDINATE_REGEX, coordinate)
         return float(result.group(1))
 
-    def parse_to_longitude(self, coordinate: str) -> str:
-        result = re.search(self.regex, coordinate)
+    def parse_to_longitude(self, coordinate: str) -> float:
+        result = re.search(COORDINATE_REGEX, coordinate)
         return float(result.group(2))
