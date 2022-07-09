@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-using SystemBenchmarking.Data.Models;
-using SystemBenchmarking.Data.Requests;
 using SystemBenchmarking.Data.Services;
+using SystemBenchmarking.Shared.Models;
 
 namespace SystemBenchmarking.Microservices.PlaceService.Controllers
 {

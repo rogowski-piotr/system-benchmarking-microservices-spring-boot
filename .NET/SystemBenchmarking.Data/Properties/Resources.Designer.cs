@@ -61,40 +61,12 @@ namespace SystemBenchmarking.Data.Properties {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu [
-        ///  {
-        ///    &quot;id&quot;: 0,
-        ///    &quot;city&quot;: &quot;Adamów (siedleckie)&quot;,
-        ///    &quot;coordinates&quot;: &quot;51.75, 22.25&quot;
-        ///  },
-        ///  {
-        ///    &quot;id&quot;: 1,
-        ///    &quot;city&quot;: &quot;Adamów (zamojskie)&quot;,
-        ///    &quot;coordinates&quot;: &quot;50.6, 23.167&quot;
-        ///  },
-        ///  {
-        ///    &quot;id&quot;: 2,
-        ///    &quot;city&quot;: &quot;Adamówka&quot;,
-        ///    &quot;coordinates&quot;: &quot;50.267, 22.7&quot;
-        ///  },
-        ///  {
-        ///    &quot;id&quot;: 3,
-        ///    &quot;city&quot;: &quot;Aleksandrów&quot;,
-        ///    &quot;coordinates&quot;: &quot;51.267, 19.983&quot;
-        ///  },
-        ///  {
-        ///    &quot;id&quot;: 4,
-        ///    &quot;city&quot;: &quot;Aleksandrów Kujawski&quot;,
-        ///    &quot;coordinates&quot;: &quot;52.883, 18.7&quot;
-        ///  },
-        ///  {
-        ///    &quot;id&quot;: 5,
-        ///    &quot;city&quot;: &quot;Aleksandrów Łódzki&quot;,
-        ///    &quot;coordinates&quot;: &quot;5 [obcięto pozostałą część ciągu]&quot;;.
+        ///   Wyszukuje zlokalizowany zasób typu System.Byte[].
         /// </summary>
-        internal static string coordinates {
+        internal static byte[] coordinates {
             get {
-                return ResourceManager.GetString("coordinates", resourceCulture);
+                object obj = ResourceManager.GetObject("coordinates", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

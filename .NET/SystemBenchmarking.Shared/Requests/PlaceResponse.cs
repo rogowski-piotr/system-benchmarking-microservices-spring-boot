@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using SystemBenchmarking.Shared.Models;
 
-using SystemBenchmarking.Data.Models;
-
-namespace SystemBenchmarking.Data.Requests
+namespace SystemBenchmarking.Shared.Requests
 {
     public class PlaceResponse
     {

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
-using SystemBenchmarking.Data.Models;
+using SystemBenchmarking.Shared.Models;
 
 namespace SystemBenchmarking.Data.Services
 {

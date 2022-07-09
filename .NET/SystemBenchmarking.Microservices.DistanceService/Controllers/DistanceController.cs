@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-using SystemBenchmarking.Data.Requests;
-using SystemBenchmarking.Data.Responses;
 using SystemBenchmarking.Shared;
+using SystemBenchmarking.Shared.Requests;
+using SystemBenchmarking.Shared.Responses;
 
 namespace SystemBenchmarking.Microservices.DistanceService.Controllers
 {
