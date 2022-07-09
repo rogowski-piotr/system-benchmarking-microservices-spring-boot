@@ -8,6 +8,8 @@ namespace SystemBenchmarking.Shared
 {
     public static class Extensions
     {
+        #region Universal
+
         public const double RADIANS_MULTIPLICATION = Math.PI / 180;
 
         public static double ToRadians(this double val)
@@ -19,5 +21,7 @@ namespace SystemBenchmarking.Shared
             collection[idx1] = collection[idx2];
             collection[idx2] = tmp;
         }
+
+        #endregion
     }
 }
