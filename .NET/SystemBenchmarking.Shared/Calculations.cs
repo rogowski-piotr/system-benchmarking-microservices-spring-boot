@@ -52,12 +52,7 @@ namespace SystemBenchmarking.Shared
 
         public static List<int> ComputeRoute(int[] places)
         {
-            var permutations = ComputePermutationRecursive(places); //Something very strange in Java, need consultations
-
-            foreach (var permutation in permutations)
-            {
-                //todo
-            }
+            throw new NotImplementedException();
         }
     }
 }
