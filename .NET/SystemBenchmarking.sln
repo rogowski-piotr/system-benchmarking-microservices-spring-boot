@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemBenchmarking.Shared",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemBenchmarking.Data", "SystemBenchmarking.Data\SystemBenchmarking.Data.csproj", "{2ECAF6FC-3E89-439F-AB78-D50AA6504E41}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemBenchmarking.Microservices.PlaceService", "SystemBenchmarking.Microservices\SystemBenchmarking.Microservices.PlaceService\SystemBenchmarking.Microservices.PlaceService.csproj", "{F50AE74F-9ED0-408B-AEBB-FA8453571AED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{2ECAF6FC-3E89-439F-AB78-D50AA6504E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ECAF6FC-3E89-439F-AB78-D50AA6504E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ECAF6FC-3E89-439F-AB78-D50AA6504E41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F50AE74F-9ED0-408B-AEBB-FA8453571AED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F50AE74F-9ED0-408B-AEBB-FA8453571AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F50AE74F-9ED0-408B-AEBB-FA8453571AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F50AE74F-9ED0-408B-AEBB-FA8453571AED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{FBA7922C-5800-4F17-B26A-9EF291F6DF49} = {61266ED7-EEEA-4B17-8E9A-EB1B77E7DCB7}
 		{D4C887A7-7132-48D0-861E-A21AA3154522} = {2976A6D3-BC3A-476B-B567-97BA3DD9FD6B}
 		{2ECAF6FC-3E89-439F-AB78-D50AA6504E41} = {2976A6D3-BC3A-476B-B567-97BA3DD9FD6B}
+		{F50AE74F-9ED0-408B-AEBB-FA8453571AED} = {BFBC766C-AAF7-42C9-BA55-1DC40525BCFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C06E3462-1018-4BC1-8488-4B684ED85F89}
