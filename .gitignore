@@ -1,0 +1,14 @@
+﻿################################################################################
+# Ten plik .gitignore został utworzony automatycznie przez Microsoft(R) Visual Studio.
+################################################################################
+
+# .NET
+/.vs
+bin
+obj
+AppPackages
+BundleArtifacts
+.vs
+
+# Java
+#target
