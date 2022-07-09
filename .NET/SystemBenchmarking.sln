@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libaries", "Libaries", "{2976A6D3-BC3A-476B-B567-97BA3DD9FD6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemBenchmarking.Monolith", "SystemBenchmarking.Monolith\SystemBenchmarking.Monolith.csproj", "{FBA7922C-5800-4F17-B26A-9EF291F6DF49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemBenchmarking.Monolith", "SystemBenchmarking.Monolith\SystemBenchmarking.Monolith.csproj", "{FBA7922C-5800-4F17-B26A-9EF291F6DF49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemBenchmarking.Shared", "SystemBenchmarking.Shared\SystemBenchmarking.Shared.csproj", "{D4C887A7-7132-48D0-861E-A21AA3154522}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemBenchmarking.Shared", "SystemBenchmarking.Shared\SystemBenchmarking.Shared.csproj", "{D4C887A7-7132-48D0-861E-A21AA3154522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemBenchmarking.Data", "SystemBenchmarking.Data\SystemBenchmarking.Data.csproj", "{2ECAF6FC-3E89-439F-AB78-D50AA6504E41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemBenchmarking.Data", "SystemBenchmarking.Data\SystemBenchmarking.Data.csproj", "{2ECAF6FC-3E89-439F-AB78-D50AA6504E41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
