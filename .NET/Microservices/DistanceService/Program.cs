@@ -1,32 +1,26 @@
+using DistanceService.Requests;
+using DistanceService.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSingleton<SphericalDistanceService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+var distanceService = new SphericalDistanceService();
 
-var summaries = new[]
+//Should be GET
+app.MapPost("/api/distance", (DistanceRequest req) =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    var points = req.GetPoints();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateTime.Now.AddDays(index),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+    var point1 = points[0];
+    var point2 = points[1];
+
+    var distance = distanceService.CalculateDistance(point1.Latitude, point1.Longitude, point2.Latitude, point2.Longitude);
+
+    return Results.Ok(distance);
 });
 
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
