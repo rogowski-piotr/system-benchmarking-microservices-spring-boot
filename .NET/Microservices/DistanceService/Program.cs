@@ -1,4 +1,5 @@
 using DistanceService.Requests;
+using DistanceService.Responses;
 using DistanceService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,7 +18,7 @@ app.MapPost("/api/distance", (DistanceRequest req) =>
 
     var distance = distanceService.CalculateDistance(point1.Latitude, point1.Longitude, point2.Latitude, point2.Longitude);
 
-    return Results.Ok(distance);
+    return Results.Ok(new DistanceResponse(distance));
 });
 
 app.Run();
