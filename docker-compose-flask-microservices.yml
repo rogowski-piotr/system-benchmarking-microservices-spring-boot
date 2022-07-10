@@ -12,6 +12,12 @@ services:
     container_name: distance-service
     networks:
       - app-network
+
+  route1-service:
+    build: Flask/microservices/route1-service/
+    container_name: route1-service
+    networks:
+      - app-network
     
   reverse-proxy:
     image: nginx:latest
