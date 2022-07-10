@@ -13,5 +13,5 @@ class Config(object):
 
 
 # dependent services URL's
-place_service_url = "http://localhost:8081/api/"
-distance_service_url="http://localhost:8082/api/"
+place_service_url = "http://place-service:8081/api/"
+distance_service_url="http://distance-service:8082/api/"
