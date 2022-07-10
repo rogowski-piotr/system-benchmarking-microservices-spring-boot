@@ -1,32 +1,23 @@
+using PlaceService.Repositories;
+using PlaceService.Responses;
+
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+var repository = new PlaceRepository();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+//Get all places
+app.MapGet("/api/places", () => Results.Ok(PlacesResponse.GetPlacesResponses(repository.Places)));
 
-app.MapGet("/weatherforecast", () =>
+//Get single place
+app.MapGet("/api/places/{id}", (int id) =>
 {
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateTime.Now.AddDays(index),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
+    var place = repository.FindById(id);
+
+    if (place == null)
+        return Results.NotFound();
+
+    return Results.Ok(new PlaceResponse(place));
 });
 
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
