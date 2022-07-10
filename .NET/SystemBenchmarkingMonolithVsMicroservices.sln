@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32616.157
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{964B1983-865A-4F18-A0DC-2FC019C52A5E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Monolith", "Monolith", "{16AD158E-64E3-4697-95E9-14044B29808E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DistanceService", "Microservices\DistanceService\DistanceService.csproj", "{9572C5BF-EF5E-436E-94E9-50690E6C869B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Route1Service", "Microservices\Route1Service\Route1Service.csproj", "{87C3FABD-7082-4A89-8179-89C31DB04249}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaceService", "Microservices\PlaceService\PlaceService.csproj", "{055775E6-5DE9-4F33-8FE1-9AFB13BF14A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Route2Service", "Microservices\Route2Service\Route2Service.csproj", "{4EA8598F-2BA5-4A79-AACB-F54BF2344C27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monolith", "Monolith\Monolith.csproj", "{DACB91E2-4DE5-4B05-824C-37E2FAC90F00}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9572C5BF-EF5E-436E-94E9-50690E6C869B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9572C5BF-EF5E-436E-94E9-50690E6C869B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9572C5BF-EF5E-436E-94E9-50690E6C869B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9572C5BF-EF5E-436E-94E9-50690E6C869B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87C3FABD-7082-4A89-8179-89C31DB04249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87C3FABD-7082-4A89-8179-89C31DB04249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87C3FABD-7082-4A89-8179-89C31DB04249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87C3FABD-7082-4A89-8179-89C31DB04249}.Release|Any CPU.Build.0 = Release|Any CPU
+		{055775E6-5DE9-4F33-8FE1-9AFB13BF14A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{055775E6-5DE9-4F33-8FE1-9AFB13BF14A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{055775E6-5DE9-4F33-8FE1-9AFB13BF14A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{055775E6-5DE9-4F33-8FE1-9AFB13BF14A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EA8598F-2BA5-4A79-AACB-F54BF2344C27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EA8598F-2BA5-4A79-AACB-F54BF2344C27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EA8598F-2BA5-4A79-AACB-F54BF2344C27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EA8598F-2BA5-4A79-AACB-F54BF2344C27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DACB91E2-4DE5-4B05-824C-37E2FAC90F00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DACB91E2-4DE5-4B05-824C-37E2FAC90F00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DACB91E2-4DE5-4B05-824C-37E2FAC90F00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DACB91E2-4DE5-4B05-824C-37E2FAC90F00}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9572C5BF-EF5E-436E-94E9-50690E6C869B} = {964B1983-865A-4F18-A0DC-2FC019C52A5E}
+		{87C3FABD-7082-4A89-8179-89C31DB04249} = {964B1983-865A-4F18-A0DC-2FC019C52A5E}
+		{055775E6-5DE9-4F33-8FE1-9AFB13BF14A6} = {964B1983-865A-4F18-A0DC-2FC019C52A5E}
+		{4EA8598F-2BA5-4A79-AACB-F54BF2344C27} = {964B1983-865A-4F18-A0DC-2FC019C52A5E}
+		{DACB91E2-4DE5-4B05-824C-37E2FAC90F00} = {16AD158E-64E3-4697-95E9-14044B29808E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C76379BE-D059-4214-8095-834CEB0754E2}
+	EndGlobalSection
+EndGlobal
