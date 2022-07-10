@@ -3,9 +3,6 @@ using DistanceService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddSingleton<SphericalDistanceService>();
-
 var app = builder.Build();
 
 var distanceService = new SphericalDistanceService();
