@@ -18,6 +18,12 @@ services:
     container_name: route1-service
     networks:
       - app-network
+  
+  route2-service:
+    build: Flask/microservices/route2-service/
+    container_name: route2-service
+    networks:
+      - app-network
     
   reverse-proxy:
     image: nginx:latest
