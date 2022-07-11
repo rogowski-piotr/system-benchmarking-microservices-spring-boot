@@ -38,7 +38,7 @@
                         Swap(elements, i, n - 1);
 
                     else
-                        Swap(elements, 0, n);
+                        Swap(elements, 0, n - 1);
                 }
 
                 ComputePermutationRecursive(n - 1, elements, listOfPermutations);
