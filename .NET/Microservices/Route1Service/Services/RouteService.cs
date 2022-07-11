@@ -46,7 +46,7 @@
             return closesNeighborId.Value;
         }
 
-        public async Task<List<int>> ComputeRoute(List<int> places)
+        public async Task<List<int>> ComputeRouteAsync(List<int> places)
         {
             var currentPlace = places[0];
             var placeAmount = places.Count;

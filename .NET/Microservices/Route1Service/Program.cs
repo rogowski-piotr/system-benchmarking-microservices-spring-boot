@@ -16,7 +16,7 @@ app.MapGet("/api/route1", async ([FromQuery(Name = "id")]string placeQueryString
     //To support query string like ?id=1,2,3,4...
     var ids = Array.ConvertAll(placeQueryString.Split(','), x => Int32.Parse(x)).ToList();
 
-    return Results.Ok(await routeService.ComputeRoute(ids));
+    return Results.Ok(await routeService.ComputeRouteAsync(ids));
 });
 
 app.Run();
