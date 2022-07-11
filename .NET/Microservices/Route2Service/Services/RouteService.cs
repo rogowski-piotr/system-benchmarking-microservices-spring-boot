@@ -10,5 +10,13 @@
             _distanceRepository = distanceRepository;
             _placeRepository = placeRepository;
         }
+
+        public async Task<double> FindDistanceAsync(int place1Id, int place2Id)
+        {
+            var cords1 = _placeRepository.FindPlaceCoordinatesAsync(place1Id);
+            var cords2 = _placeRepository.FindPlaceCoordinatesAsync(place2Id);
+
+            return await _distanceRepository.FindDistanceAsync(await cords1, await cords2);
+        }
     }
 }
