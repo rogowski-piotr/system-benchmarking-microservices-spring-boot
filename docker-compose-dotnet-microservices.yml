@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  place-service:
+    image: place-service:dotnet
+    build: .NET/Microservices/PlaceService/
+    container_name: place-service
+    networks:
+      - app-network
+
+  distance-service:
+    image: distance-service:dotnet
+    build: .NET/Microservices/DistanceService/
+    container_name: distance-service
+    networks:
+    - app-network
+
+  route1-service:
+    image: route1-service:dotnet
+    build: .NET/Microservices/Route1Service/
+    container_name: route1-service
+    networks:
+    - app-network
+
+  route2-service:
+    image: route2-service:dotnet
+    build: .NET/Microservices/Route2Service/
+    container_name: route2-service
+    networks:
+    - app-network
+
+  reverse-proxy:
+    image: nginx:latest
+    container_name: reverse-proxy
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - app-network
+    ports:
+      - 8080:8080
+
+networks:
+  app-network:
