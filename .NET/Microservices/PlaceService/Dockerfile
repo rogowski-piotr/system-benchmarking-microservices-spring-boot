@@ -18,4 +18,5 @@ RUN dotnet publish "PlaceService.csproj" -r linux-x64 -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+ENV ASPNETCORE_URLS http://*:8081
 ENTRYPOINT ["dotnet", "PlaceService.dll"]
