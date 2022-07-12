@@ -12,3 +12,6 @@ BundleArtifacts
 
 # Java
 #target
+
+# Bartek
+docker-publish.ps1
