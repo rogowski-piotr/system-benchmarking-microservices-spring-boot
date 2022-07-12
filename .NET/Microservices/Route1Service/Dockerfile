@@ -13,7 +13,7 @@ WORKDIR "/src/Route1Service"
 RUN dotnet build "Route1Service.csproj" -r linux-x64 -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Route1Service.csproj" -r linux-x64 -c Release -o /app/publish
+RUN dotnet publish "Route1Service.csproj" -r linux-x64 --no-self-contained -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

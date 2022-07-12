@@ -12,7 +12,7 @@ WORKDIR "/src/Route2Service"
 RUN dotnet build "Route2Service.csproj" -r linux-x64 -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Route2Service.csproj" -r linux-x64 -c Release -o /app/publish
+RUN dotnet publish "Route2Service.csproj" -r linux-x64 --no-self-contained -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

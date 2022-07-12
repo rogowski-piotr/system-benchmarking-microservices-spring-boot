@@ -13,7 +13,7 @@ WORKDIR "/src/DistanceService"
 RUN dotnet build "DistanceService.csproj" -r linux-x64 -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "DistanceService.csproj" -r linux-x64 -c Release -o /app/publish
+RUN dotnet publish "DistanceService.csproj" -r linux-x64 -c Release --no-self-contained -o /app/publish
 
 FROM base AS final
 WORKDIR /app
