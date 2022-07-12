@@ -13,5 +13,10 @@ jobs:
       - name: Build docker environment
         run: docker-compose -f docker-compose-spring-boot-microservices.yml up --build -d
 
+      - run: pip install -r .github/e2e/requirements.txt
+
+      - name: Wait for services
+        run: python3 .github/e2e/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
+
       - name: Run e2e tests
-        run: pip install -r .github/e2e/requirements.txt && python -m pytest --timeout=10 .github/e2e/
+        run: python -m pytest --timeout=10 .github/e2e/
