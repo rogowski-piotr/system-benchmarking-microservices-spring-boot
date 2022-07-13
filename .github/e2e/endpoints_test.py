@@ -16,10 +16,11 @@ def test_place_service():
     response = requests.request("GET", url, headers=headers, data=payload)
 
     # then
-    assert response.status_code == 200
+    assert response.status_code == 200, f"Unexpected response code {response.status_code}, expected 200"
     places_amount_in_response = len(json.loads(response.text))
     expected_places_amount = 2318
-    assert places_amount_in_response == expected_places_amount
+    assert places_amount_in_response == expected_places_amount, \
+        f"Expected {expected_places_amount} places, found {places_amount_in_response}"
 
 
 def test_distance_service():
@@ -39,10 +40,12 @@ def test_distance_service():
     response = requests.request("POST", url, headers=headers, data=payload)
 
     # then
-    expected_value = 488
+    expected_distance = 488
     distance_value_in_response = int(json.loads(response.text)["distance"])
-    assert response.status_code == 200
-    assert distance_value_in_response == expected_value
+    assert response.status_code == 200, \
+    f"Unexpected response code {response.status_code}, expected 200"
+    assert distance_value_in_response == expected_distance, \
+        f"Bad distance ({str.strip(response.text)}), expected {expected_distance}"
 
 
 def test_route1_service():
@@ -60,8 +63,10 @@ def test_route1_service():
 
     # then
     expected_response = "[13,235,3,46,456]"
-    assert response.status_code == 200
-    assert str.strip(response.text) == expected_response
+    assert response.status_code == 200, \
+        f"Unexpected response code {response.status_code}, expected 200"
+    assert str.strip(response.text) == expected_response, \
+        f"Bad route ({str.strip(response.text)}), expected {expected_response}"
 
 
 def test_route2_service():
@@ -79,5 +84,7 @@ def test_route2_service():
 
     # then
     expected_response = "[5,2,2317,900,5]"
-    assert response.status_code == 200
-    assert str.strip(response.text) == expected_response
+    assert response.status_code == 200, \
+        f"Unexpected response code {response.status_code}, expected 200"
+    assert str.strip(response.text) == expected_response, \
+        f"Bad route ({str.strip(response.text)}), expected {expected_response}"
