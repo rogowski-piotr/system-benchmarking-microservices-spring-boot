@@ -1,6 +1,10 @@
 name: e2e tests
 
-on: push
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
 
 jobs:
   spring-boot-microservices:
