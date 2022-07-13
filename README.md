@@ -1,0 +1,1 @@
+![Tests e2e status](https://github.com/rogowski-piotr/system-benchmarking-monolith-vs-microservices/actions/workflows/test.yml/badge.svg)
