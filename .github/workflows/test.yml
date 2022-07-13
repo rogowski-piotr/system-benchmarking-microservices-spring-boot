@@ -1,8 +1,6 @@
 name: e2e-tests
 
 on:
-  push:
-    if: inside_open_pr
   pull_request:
     branches:
       - main
