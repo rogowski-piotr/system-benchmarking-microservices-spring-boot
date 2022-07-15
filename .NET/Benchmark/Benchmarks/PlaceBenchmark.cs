@@ -8,5 +8,6 @@ namespace Benchmark.Benchmarks
 {
     public class PlaceBenchmark
     {
+
     }
 }
