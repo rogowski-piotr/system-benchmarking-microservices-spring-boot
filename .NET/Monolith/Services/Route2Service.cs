@@ -49,7 +49,7 @@ namespace Monolith.Services
             return listOfPermutations;
         }
 
-        public async Task<List<int>> ComputeRouteAsync(List<int> places)
+        public List<int> ComputeRoute(List<int> places)
         {
             //Created array - places[1] ... places[length - 1], is this the thing which java is doing?
             var listOfPermutations = ComputePermutationRecursive(places.Skip(1).ToArray());
