@@ -6,10 +6,10 @@ using Route2Service.Services;
 namespace Route2Service.Controllers
 {
     [ApiController]
-    public class RouteController : ControllerBase
+    public class Route1Controller : ControllerBase
     {
         private readonly RouteService _routeService;
-        public RouteController(RouteService routeService)
+        public Route1Controller(RouteService routeService)
         {
             _routeService = routeService;
         }
