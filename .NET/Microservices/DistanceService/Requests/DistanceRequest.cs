@@ -16,9 +16,6 @@ namespace DistanceService.Requests
         [JsonPropertyName("coordinate2")]
         public string Coordinate2 { get; set; }
 
-        private DistanceRequest(string cord1, string cord2)
-            => (Coordinate1, Coordinate2) = (cord1, cord2);
-
         private static double ParseToLatitude(string cord)
             => Double.Parse(regex.Match(cord).Groups[1].Value, CultureInfo.InvariantCulture);
 
