@@ -12,12 +12,7 @@ namespace PlaceService.Responses
         [JsonPropertyName("city")]
         public string City { get; set; }
 
-        public PlacesResponse()
-        {
-
-        }
-
-        public PlacesResponse(int id, string city)
+        private PlacesResponse(int id, string city)
         {
             Id = id;
             City = city;

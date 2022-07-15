@@ -15,23 +15,14 @@ namespace PlaceService.Responses
         [JsonPropertyName("coordinates")]
         public string Coordinates { get; set; }
 
-        public PlaceResponse()
-        {
-
-        }
-
-        public PlaceResponse(int id, string city, string coordinates)
+        private PlaceResponse(int id, string city, string coordinates)
         {
             Id = id;
             City = city;
             Coordinates = coordinates;
         }
 
-        public PlaceResponse(Place place)
-        {
-            Id = place.Id;
-            City = place.City;
-            Coordinates = place.Coordinates;
-        }
+        public static PlaceResponse EntityToDtoMapper(Place place)
+            => new(place.Id, place.City, place.Coordinates);
     }
 }
