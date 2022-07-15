@@ -3,10 +3,13 @@
     public class DistanceResponse
     {
         public double Distance { get; private set; }
-
-        public DistanceResponse(double distance)
+        
+        private DistanceResponse(double distance)
         {
             Distance = distance;
         }
+
+        public static DistanceResponse EntityToDtoMapper(double distance)
+            => new(distance);
     }
 }
