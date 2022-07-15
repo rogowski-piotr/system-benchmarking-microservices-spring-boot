@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Benchmark": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "BENCHMARK_TARGET": "PLACE"
+      }
+    }
+  }
+}

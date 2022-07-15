@@ -4,6 +4,18 @@ using BenchmarkDotNet.Running;
 
 Console.WriteLine("Benchmarking...");
 
+var choice = Environment.GetEnvironmentVariable("BENCHMARK_TARGET");
+var benchClass = choice.ToUpper() switch
+{
+    "DISTANCE" => typeof(DistanceBenchmark),
+    "PLACE" => typeof(PlaceBenchmark),
+    "ROUTE1" => typeof(Route1Benchmark),
+    "ROUTE2" => typeof(Route2Benchmark)
+};
+
+var summary = BenchmarkRunner.Run(benchClass);
+
+//Compilation conditions
 #if DISTANCE
 
 var summary = BenchmarkRunner.Run<DistanceBenchmark>();
