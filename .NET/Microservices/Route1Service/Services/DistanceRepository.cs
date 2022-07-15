@@ -6,9 +6,9 @@ namespace Route1Service.Services
     {
         private readonly HttpClient _httpClient;
 
-        public DistanceRepository(string uri)
+        public DistanceRepository(IConfiguration configuration)
         {
-            _httpClient = new() { BaseAddress = new(uri) };
+            _httpClient = new() { BaseAddress = new(configuration["DistanceServiceUri"]) };
         }
 
         public async Task<double> FindDistanceAsync(string cord1, string cord2)
