@@ -1,5 +1,4 @@
 using PlaceService.Repositories;
-using PlaceService.Responses;
 
 var builder = WebApplication.CreateBuilder(args);
 

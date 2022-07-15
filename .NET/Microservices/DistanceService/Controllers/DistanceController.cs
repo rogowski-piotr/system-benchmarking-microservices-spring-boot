@@ -2,7 +2,6 @@
 using DistanceService.Responses;
 using DistanceService.Services;
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DistanceService.Controllers

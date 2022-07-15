@@ -1,4 +1,4 @@
-﻿namespace DistanceService.Responses
+﻿namespace Benchmark.Models.Responses
 {
     public class DistanceResponse
     {

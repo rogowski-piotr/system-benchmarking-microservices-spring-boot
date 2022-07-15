@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 
 using Route1Service.Services;
 

@@ -1,5 +1,3 @@
-using DistanceService.Requests;
-using DistanceService.Responses;
 using DistanceService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
