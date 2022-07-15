@@ -8,6 +8,10 @@ namespace Benchmark.Benchmarks
 {
     public class PlaceBenchmark
     {
+        [GlobalSetup]
+        public void Setup()
+        {
 
+        }
     }
 }
