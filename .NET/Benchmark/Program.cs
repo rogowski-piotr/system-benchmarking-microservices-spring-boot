@@ -2,19 +2,21 @@
 
 using BenchmarkDotNet.Running;
 
-#if Distance
+Console.WriteLine("Benchmarking...");
+
+#if DISTANCE
 
 var summary = BenchmarkRunner.Run<DistanceBenchmark>();
 
-#elif Place
+#elif PLACE
 
 var summary = BenchmarkRunner.Run<PlaceBenchmark>();
 
-#elif Route1
+#elif ROUTE1
 
 var summary = BenchmarkRunner.Run<Route1Benchmark>();
 
-#elif Route2
+#elif ROUTE2
 
 var summary = BenchmarkRunner.Run<Route2Benchmark>();
 
