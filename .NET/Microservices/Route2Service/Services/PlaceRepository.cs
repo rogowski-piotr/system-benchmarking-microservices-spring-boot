@@ -6,9 +6,9 @@ namespace Route2Service.Services
     {
         private readonly HttpClient _httpClient;
 
-        public PlaceRepository(string uri)
+        public PlaceRepository(IConfiguration configuration)
         {
-            _httpClient = new() { BaseAddress = new(uri) };
+            _httpClient = new() { BaseAddress = new(configuration["PlaceServiceUri"]) };
         }
 
         public async Task<string> FindPlaceCoordinatesAsync(int placeId)
