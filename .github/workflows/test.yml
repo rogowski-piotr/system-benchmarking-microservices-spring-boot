@@ -2,7 +2,6 @@ name: e2e-tests
 
 on: push
 
-
 jobs:
   spring-boot-microservices:
     runs-on: ubuntu-latest
@@ -61,23 +60,23 @@ jobs:
         run: python -m pytest --timeout=10 .github/e2e/
 
 
-  # flask-monolith:
-  #   runs-on: ubuntu-latest
+  flask-monolith:
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Download repository
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v2
 
-  #     - name: Build docker environment
-  #       run: docker-compose -f docker-compose-flask-monolith.yml up --build -d
+      - name: Build docker environment
+        run: docker-compose -f docker-compose-flask-monolith.yml up --build -d
 
-  #     - run: pip install -r .github/e2e/requirements.txt
+      - run: pip install -r .github/e2e/requirements.txt
 
-  #     - name: Wait for services
-  #       run: python3 .github/e2e/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
+      - name: Wait for services
+        run: python3 .github/e2e/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
 
-  #     - name: Run e2e tests
-  #       run: python -m pytest --timeout=10 .github/e2e/
+      - name: Run e2e tests
+        run: python -m pytest --timeout=10 .github/e2e/
 
 
   dotnet-microservices:
