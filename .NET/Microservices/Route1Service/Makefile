@@ -1,4 +1,4 @@
-﻿IMAGE_NAME=route1-service:dotnet
+﻿IMAGE_NAME=route1-service
 CONTAINER_NAME=route1-service
 NETWORK_NAME=app-network
 

@@ -1,4 +1,4 @@
-﻿IMAGE_NAME=monolith:dotnet
+﻿IMAGE_NAME=monolith
 CONTAINER_NAME=monolith-dotnet
 NETWORK_NAME=app-network
 

@@ -1,4 +1,4 @@
-﻿IMAGE_NAME=route2-service:dotnet
+﻿IMAGE_NAME=route2-service
 CONTAINER_NAME=route2-service
 NETWORK_NAME=app-network
 

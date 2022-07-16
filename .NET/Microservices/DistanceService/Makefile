@@ -1,4 +1,4 @@
-﻿IMAGE_NAME=distance-service:dotnet
+﻿IMAGE_NAME=distance-service
 CONTAINER_NAME=distance-service
 NETWORK_NAME=app-network
 

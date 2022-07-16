@@ -1,4 +1,4 @@
-﻿IMAGE_NAME=place-service:dotnet
+﻿IMAGE_NAME=place-service
 CONTAINER_NAME=place-service
 NETWORK_NAME=app-network
 
