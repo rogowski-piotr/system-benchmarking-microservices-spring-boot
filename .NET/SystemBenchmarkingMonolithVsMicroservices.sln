@@ -25,10 +25,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Route2Service", "Microservi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monolith", "Monolith\Monolith.csproj", "{DACB91E2-4DE5-4B05-824C-37E2FAC90F00}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Benchmark", "Benchmark", "{874A750F-E858-4E99-8DDD-EE38140586ED}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benchmark", "Benchmark\Benchmark.csproj", "{F00CB520-5432-45A7-AA7F-EE062BEA0E76}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,10 +51,6 @@ Global
 		{DACB91E2-4DE5-4B05-824C-37E2FAC90F00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DACB91E2-4DE5-4B05-824C-37E2FAC90F00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DACB91E2-4DE5-4B05-824C-37E2FAC90F00}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F00CB520-5432-45A7-AA7F-EE062BEA0E76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F00CB520-5432-45A7-AA7F-EE062BEA0E76}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F00CB520-5432-45A7-AA7F-EE062BEA0E76}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F00CB520-5432-45A7-AA7F-EE062BEA0E76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,7 +61,6 @@ Global
 		{055775E6-5DE9-4F33-8FE1-9AFB13BF14A6} = {964B1983-865A-4F18-A0DC-2FC019C52A5E}
 		{4EA8598F-2BA5-4A79-AACB-F54BF2344C27} = {964B1983-865A-4F18-A0DC-2FC019C52A5E}
 		{DACB91E2-4DE5-4B05-824C-37E2FAC90F00} = {16AD158E-64E3-4697-95E9-14044B29808E}
-		{F00CB520-5432-45A7-AA7F-EE062BEA0E76} = {874A750F-E858-4E99-8DDD-EE38140586ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C76379BE-D059-4214-8095-834CEB0754E2}
