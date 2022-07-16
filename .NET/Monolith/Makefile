@@ -2,6 +2,8 @@
 CONTAINER_NAME=monolith-dotnet
 NETWORK_NAME=app-network
 
+.DEFAULT_GOAL := build_run
+
 .create_network:
 	@docker network create ${NETWORK_NAME}
 
