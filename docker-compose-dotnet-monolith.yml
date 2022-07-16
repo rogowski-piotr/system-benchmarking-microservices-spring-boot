@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   monolith:
-    build: .NET/Monolith/
+    build: .NET/monolith/
     container_name: monolith
     ports:
       - 8080:8080

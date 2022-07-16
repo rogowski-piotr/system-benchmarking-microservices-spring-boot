@@ -2,25 +2,25 @@ version: '3.8'
 
 services:
   place-service:
-    build: .NET/Microservices/PlaceService/
+    build: .NET/microservices/place-service/
     container_name: place-service
     networks:
       - app-network
 
   distance-service:
-    build: .NET/Microservices/DistanceService/
+    build: .NET/microservices/distance-service/
     container_name: distance-service
     networks:
     - app-network
 
   route1-service:
-    build: .NET/Microservices/Route1Service/
+    build: .NET/microservices/route1-service/
     container_name: route1-service
     networks:
     - app-network
 
   route2-service:
-    build: .NET/Microservices/Route2Service/
+    build: .NET/microservices/route2-service/
     container_name: route2-service
     networks:
     - app-network
