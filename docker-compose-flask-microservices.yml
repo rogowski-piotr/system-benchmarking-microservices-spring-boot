@@ -3,25 +3,25 @@ version: '3.8'
 services:
   place-service:
     build: Flask/microservices/place-service/
-    container_name: flask-place-service
+    container_name: flask-place-service-container
     networks:
       - app-network
 
   distance-service:
     build: Flask/microservices/distance-service/
-    container_name: flask-distance-service
+    container_name: flask-distance-service-container
     networks:
       - app-network
 
   route1-service:
     build: Flask/microservices/route1-service/
-    container_name: flask-route1-service
+    container_name: flask-route1-service-container
     networks:
       - app-network
   
   route2-service:
     build: Flask/microservices/route2-service/
-    container_name: flask-route2-service
+    container_name: flask-route2-service-container
     networks:
       - app-network
     
