@@ -3,25 +3,25 @@ version: '3.9'
 services:
   place-service:
     build: Spring Boot/microservices/place-service/
-    container_name: place-service
+    container_name: spring_boot-place-service
     networks:
       - app-network
 
   distance-service:
     build: Spring Boot/microservices/distance-service/
-    container_name: distance-service
+    container_name: spring_boot-distance-service
     networks:
       - app-network
 
   route1-service:
     build: Spring Boot/microservices/route1-service/
-    container_name: route1-service
+    container_name: spring_boot-route1-service
     networks:
       - app-network
 
   route2-service:
     build: Spring Boot/microservices/route2-service/
-    container_name: route2-service
+    container_name: spring_boot-route2-service
     networks:
       - app-network
 
