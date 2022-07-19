@@ -3,6 +3,7 @@ version: '3.9'
 services:
   monolith:
     build: Dotnet/monolith/
-    container_name: dotnet-monolith
+    image: dotnet-monolith-image
+    container_name: dotnet-monolith-container
     ports:
       - 8080:8080

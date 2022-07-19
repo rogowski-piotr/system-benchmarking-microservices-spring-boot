@@ -3,6 +3,7 @@ version: '3.8'
 services:
   monolith:
     build: Flask/monolith/
-    container_name: flask-monolith
+    image: flask-monolith-image
+    container_name: flask-monolith-container
     ports:
       - 8080:8080
