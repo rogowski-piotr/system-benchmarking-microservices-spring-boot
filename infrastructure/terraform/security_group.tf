@@ -41,6 +41,15 @@ resource "aws_security_group" "security_group" {
     cidr_blocks = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
+# creating inbound rule for all tcp ports
+  ingress {
+    description = "Allow all trafic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
 # outbound rule protocal -1 means all and port 0 means all
   egress {
     from_port   = 0
