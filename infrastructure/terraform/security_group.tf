@@ -5,9 +5,9 @@ resource "aws_security_group" "security_group" {
   vpc_id      = aws_default_vpc.default_vpc.id            # here we are using default vpc attribute id,
                                                           # which we created before for attribute referancing 
   
-# creating inbound rule for tcp port 8080 to use jenkins
+# creating inbound rule for tcp port 8080
   ingress {
-    description = "Allow Jenkins"
+    description = "Allow TCP"
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
