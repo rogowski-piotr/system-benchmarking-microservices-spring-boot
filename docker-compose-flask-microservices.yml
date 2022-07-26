@@ -3,14 +3,14 @@ version: '3.8'
 services:
   place-service:
     build: Flask/microservices/place-service/
-    image: flask-place-service-image
+    image: powisis/flask-place-service-image
     container_name: flask-place-service-container
     networks:
       - app-network
 
   distance-service:
     build: Flask/microservices/distance-service/
-    image: flask-distance-service-image
+    image: powisis/flask-distance-service-image
     container_name: flask-distance-service-container
     networks:
       - app-network
