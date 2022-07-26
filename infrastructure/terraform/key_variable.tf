@@ -5,5 +5,5 @@ variable "key_name" {
 
 # base_path for refrencing 
 variable "base_path" {
-  default = "/home/krajpurohit/terra-infra/"
+  default = "~/repos/university/system-benchmarking-monolith-vs-microservices/infrastructure/terraform/"
 }
