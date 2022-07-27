@@ -8,7 +8,7 @@ distance_views = Blueprint('distance', __name__)
 distance_service = SphericalDistanceService()
 
 
-@distance_views.route('/', methods=['POST'], strict_slashes=False)
+@distance_views.route('', methods=['POST'])
 def calculate_distance() -> dict:
     points = distance_request.dto_to_entity_mapper(request.json)
     point1 = points[0]
