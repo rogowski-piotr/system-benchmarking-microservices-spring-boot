@@ -8,7 +8,7 @@ def test_place_service():
     port = "8080"
     endpoint = "/api/places"
     params = ""
-    url = f"http://{host}:{port}{endpoint}{params}/"
+    url = f"http://{host}:{port}{endpoint}{params}"
     payload = {}
     headers = {}
 
@@ -29,7 +29,7 @@ def test_distance_service():
     port = "8080"
     endpoint = "/api/distance"
     params = ""
-    url = f"http://{host}:{port}{endpoint}{params}/"
+    url = f"http://{host}:{port}{endpoint}{params}"
     payload = json.dumps({
         "coordinate1": "54.367, 18.633",
         "coordinate2": "50.05, 19.95"
@@ -54,7 +54,7 @@ def test_route1_service():
     port = "8080"
     endpoint = "/api/route1"
     params = "?id=13,46,235,456,3"
-    url = f"http://{host}:{port}{endpoint}{params}/"
+    url = f"http://{host}:{port}{endpoint}{params}"
     payload = {}
     headers = {}
 
@@ -75,7 +75,7 @@ def test_route2_service():
     port = "8080"
     endpoint = "/api/route2"
     params = "?id=5,900,2317,2"
-    url = f"http://{host}:{port}{endpoint}{params}/"
+    url = f"http://{host}:{port}{endpoint}{params}"
     payload = {}
     headers = {}
 
