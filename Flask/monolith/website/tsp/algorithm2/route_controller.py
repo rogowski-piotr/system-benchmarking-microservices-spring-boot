@@ -7,7 +7,7 @@ from static.exceptions import *
 route2_views = Blueprint('route2', __name__)
 route_service = RouteService()
 
-@route2_views.route('/', methods=['GET'], strict_slashes=False)
+@route2_views.route('', methods=['GET'])
 def compute_route():
     try:
         route = route_service.compute_route(request.args["id"])
