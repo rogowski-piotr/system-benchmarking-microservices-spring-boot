@@ -8,9 +8,9 @@ ENV FLASK_ENV "development"
 
 WORKDIR /app
 
-COPY static/requirements.txt .
-
 RUN pip3 install --upgrade pip
+
+COPY static/requirements.txt .
 RUN pip3 install -r requirements.txt
 
 COPY . /app
