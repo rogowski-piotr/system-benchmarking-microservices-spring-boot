@@ -3,29 +3,25 @@ version: '3.8'
 services:
   place-service:
     build: Dotnet/microservices/place-service/
-    image: dotnet-place-service-image
-    container_name: dotnet-place-service-container
+    container_name: place-service
     networks:
       - app-network
 
   distance-service:
     build: Dotnet/microservices/distance-service/
-    image: dotnet-distance-service-image
-    container_name: dotnet-distance-service-container
+    container_name: distance-service
     networks:
     - app-network
 
   route1-service:
     build: Dotnet/microservices/route1-service/
-    image: dotnet-route1-service-image
-    container_name: dotnet-route1-service-container
+    container_name: route1-service
     networks:
     - app-network
 
   route2-service:
     build: Dotnet/microservices/route2-service/
-    image: dotnet-route2-service-image
-    container_name: dotnet-route2-service-container
+    container_name: route2-service
     networks:
     - app-network
 
