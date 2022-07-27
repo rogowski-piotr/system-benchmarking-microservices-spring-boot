@@ -7,7 +7,7 @@ from website.tsp.algorithm1.route_service import RouteService
 route1_views = Blueprint('route1', __name__)
 route_service = RouteService()
 
-@route1_views.route('/', methods=['GET'], strict_slashes=False)
+@route1_views.route('', methods=['GET'])
 def compute_route():
     try:
         route = route_service.compute_route(request.args["id"])

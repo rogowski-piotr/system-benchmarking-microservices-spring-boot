@@ -8,14 +8,14 @@ place_views = Blueprint('place', __name__)
 place_repository = PlaceRepository()
 
 
-@place_views.route('/', methods=['GET'], strict_slashes=False)
+@place_views.route('', methods=['GET'])
 def get_all_places() -> dict:
     places = place_repository.find_all()
     dto = places_response.entity_to_dto_mapper(places)
     return jsonify(dto)
 
 
-@place_views.route('/<int:place_id>', methods=['GET'], strict_slashes=False)
+@place_views.route('/<int:place_id>', methods=['GET'])
 def get_single_place(place_id: int) -> dict:
     place = place_repository.find_by_id(place_id)
     if not place:
