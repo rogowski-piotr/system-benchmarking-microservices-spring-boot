@@ -1,0 +1,7 @@
+# TODO:
+# for dla wszystkich docker-compose:
+#     - docker system prune --all -f
+#     - uruchomienie docker-compose
+#     - uruchomienie testów obciążeniowych
+#     - zebranie danych ?? (na razie pusto)
+#     - docker rm -f $(docker ps -aq)

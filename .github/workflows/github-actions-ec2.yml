@@ -1,5 +1,7 @@
 name: "Push-repo-to-EC2"
 
+
+ # TODO: Nazwać go np. priper klaud envajroment,
 on: 
   workflow_dispatch:
     inputs:
@@ -26,3 +28,8 @@ jobs:
           REMOTE_HOST: ${{ secrets.HOST_DNS }}
           REMOTE_USER: ubuntu
           TARGET: /home/ubuntu
+
+# TODO: zainstalowac ansibla, odpalić ansibla playbook
+
+
+#TODO: DOCKER + PROMETUESZ 
