@@ -37,10 +37,10 @@ jobs:
           username: ubuntu
           port: 22 
           script:  |
-            curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-            python3 get-pip.py --user
-            python3 -m pip install --user ansible
-            ansible-playbook --connection=local 127.0.0.1 -chdir="./infrastructure/ansible" provision_web_server.yml
+            curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3 get-pip.py --user && python3 -m pip install --user ansible && ansible-playbook --connection=local 127.0.0.1 -chdir="./infrastructure/ansible" provision_web_server.yml
+            
+            
+            
           
       # - name: Install Ansible
       #   run:  sudo apt-get install -y ansible
