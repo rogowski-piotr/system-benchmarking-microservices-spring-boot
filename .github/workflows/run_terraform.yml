@@ -20,6 +20,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Parametrize terraform instance type on AWS
+        run: sed -i 's/INSTANCE_TYPE/${{ secrets.INSTANCE_TYPE }}/g' infrastructure/terraform/ec2_instances.tf
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
