@@ -29,6 +29,7 @@ jobs:
           REMOTE_USER: ubuntu
           TARGET: /home/ubuntu
 
+      #installing
       - name: Install Ansible
       - run:  sudo apt-get install -y ansible
 
