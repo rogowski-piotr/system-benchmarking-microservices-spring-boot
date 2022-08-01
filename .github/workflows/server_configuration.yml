@@ -39,8 +39,9 @@ jobs:
           script:  |
             sudo apt update && lsb_release -a &&\
              sudo apt-get install -y ansible &&\
-              pwd && ls -la &&\
-              ansible-playbook --connection=local 127.0.0.1 ./infrastructure/ansible/provision_web_server.yml
+              cd infrastructure/ansible &&\
+               pwd && ls -la &&\
+                ansible-playbook --connection=local provision_web_server.yml
             
             
             
