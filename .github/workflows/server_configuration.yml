@@ -1,4 +1,4 @@
-name: "Placing files on the server"
+name: "Server configuration"
 
 # on: 
 #   workflow_dispatch:
@@ -29,6 +29,9 @@ jobs:
           REMOTE_USER: ubuntu
           TARGET: /home/ubuntu
 
+      - name: Install Ansible
+      - run:  sudo apt-get install -y ansible
+
       - name: Run playbook
         uses: dawidd6/action-ansible-playbook@v2
         with:
@@ -36,10 +39,6 @@ jobs:
           playbook: provision_web_server.yml
           # Optional, directory where playbooks live
           directory: ./infrastructure/ansible
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.HOST_DNS }}
-          REMOTE_USER: ubuntu
+          key: ${{env.EC2_SSH_KEY}}
 
-
-#TODO: DOCKER + PROMETUESZ 
+#TODO: DOCKER + PROMETUESZ
