@@ -1,16 +1,16 @@
-name: "Terraform"
+name: "Preparing the cloud environment"
 
-# on: 
-#   workflow_dispatch:
-#     inputs:
-#       logLevel:
-#         description: 'Log level'     
-#         required: true
-#         default: 'warning'
-#       tags:
-#         description: 'Test scenario tags'  
+on: 
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario tags'  
 
-on: push
+# on: push
 
 jobs:
   terraform:
@@ -24,14 +24,6 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-
-      - name: ls
-        id: ls
-        run: ls -lhar
-
-      - name: pwd
-        id: pwd
-        run: pwd
 
       - name: Terraform Format
         id: fmt

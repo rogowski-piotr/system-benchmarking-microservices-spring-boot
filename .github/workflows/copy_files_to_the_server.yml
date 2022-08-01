@@ -1,7 +1,5 @@
-name: "Push-repo-to-EC2"
+name: "Placing files on the server"
 
-
- # TODO: Nazwać go np. priper klaud envajroment,
 on: 
   workflow_dispatch:
     inputs:
@@ -11,6 +9,8 @@ on:
         default: 'warning'
       tags:
         description: 'Test scenario tags'  
+
+# on: push
 
 jobs:
   deploy:
