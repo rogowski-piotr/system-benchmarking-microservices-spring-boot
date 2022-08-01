@@ -29,28 +29,30 @@ jobs:
           REMOTE_USER: ubuntu
           TARGET: /home/ubuntu
 
-      # - name: Install Ansible
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     key: ${{ secrets.EC2_SSH_KEY }}
-      #     host: ${{ secrets.HOST_DNS }}
-      #     username: ubuntu
-      #     port: 22 
-      #     script:  |
-      #       sudo apt-get install -y ansible
-          
       - name: Install Ansible
-        run:  sudo apt-get install -y ansible
-
-      - name: Run playbook
-        uses: dawidd6/action-ansible-playbook@v2
+        uses: appleboy/ssh-action@master
         with:
-          # Required, playbook filepath
-          playbook: provision_web_server.yml
-          # Optional, directory where playbooks live
-          directory: ./infrastructure/ansible
-          key: ${{env.EC2_SSH_KEY}}
-          known_hosts: webservers
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.HOST_DNS }}
+          username: ubuntu
+          port: 22 
+          script:  |
+            sudo apt-get install -y ansible
+            ansible-playbook --connection=local 127.0.0.1 -chdir="./infrastructure/ansible" provision_web_server.yml
+          
+      # - name: Install Ansible
+      #   run:  sudo apt-get install -y ansible
+
+      # - name: Run playbook
+      #   uses: dawidd6/action-ansible-playbook@v2
+      #   with:
+      #     # Required, playbook filepath
+      #     playbook: provision_web_server.yml
+      #     # Optional, directory where playbooks live
+      #     directory: ./infrastructure/ansible
+      #     key: ${{env.EC2_SSH_KEY}}
+      #     inventory: 
+      #     known_hosts: webservers
 
 
 #TODO: DOCKER + PROMETUESZ
