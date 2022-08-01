@@ -1,16 +1,16 @@
 name: "Placing files on the server"
 
-on: 
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'     
-        required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario tags'  
+# on: 
+#   workflow_dispatch:
+#     inputs:
+#       logLevel:
+#         description: 'Log level'     
+#         required: true
+#         default: 'warning'
+#       tags:
+#         description: 'Test scenario tags'  
 
-# on: push
+on: push
 
 jobs:
   deploy:
@@ -29,7 +29,17 @@ jobs:
           REMOTE_USER: ubuntu
           TARGET: /home/ubuntu
 
-# TODO: zainstalowac ansibla, odpalić ansibla playbook
+      - name: Run playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          # Required, playbook filepath
+          playbook: provision_web_server.yml
+          # Optional, directory where playbooks live
+          directory: ./infrastructure/ansible
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ubuntu
 
 
 #TODO: DOCKER + PROMETUESZ 
