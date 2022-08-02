@@ -5,3 +5,26 @@
 #     - uruchomienie testów obciążeniowych
 #     - zebranie danych ?? (na razie pusto)
 #     - docker rm -f $(docker ps -aq)
+name: "Launching benchmarks"
+
+on: push
+
+jobs:
+  deploy:
+    name: Performance of benchmarks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Running benchmarks for flask application in monolith version
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.HOST_DNS }}
+          username: ubuntu
+          port: 22 
+          script:  |
+            docker rm -f $(docker ps -aq) && docker system prune --all -f &&\
+             docker-compose -f docker-compose-flask-monolith.yml up --build -d &&\
+              #Here will be the launch of the tests
+               #Here will be the Data Collection
+                docker rm -f $(docker ps -aq) && docker system prune --all -f &&\
