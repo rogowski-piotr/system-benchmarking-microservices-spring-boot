@@ -45,3 +45,18 @@ jobs:
                 docker rm -f $(docker ps -aq) && docker system prune --all -f 
                  echo Benchmark for monolith version of flask application completed, system cleared
 
+      - name: Running benchmarks for dotnet application in monolith version
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.HOST_DNS }}
+          username: ubuntu
+          port: 22 
+          script:  |
+            docker rm -f $(docker ps -aq); docker system prune --all -f &&\
+             docker-compose -f docker-compose-dotnet-monolith.yml up --build -d &&\
+              echo Here will be the launch of the tests 
+               echo Here will be the Data Collection 
+                docker rm -f $(docker ps -aq) && docker system prune --all -f 
+                 echo Benchmark for monolith version of flask application completed, system cleared
+
