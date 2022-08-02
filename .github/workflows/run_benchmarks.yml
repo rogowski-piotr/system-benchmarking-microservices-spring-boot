@@ -25,6 +25,6 @@ jobs:
           script:  |
             docker rm -f $(docker ps -aq); docker system prune --all -f &&\
              docker-compose -f docker-compose-flask-monolith.yml up --build -d &&\
-              #Here will be the launch of the tests &&\
-               #Here will be the Data Collection &&\
+              #Here will be the launch of the tests 
+               #Here will be the Data Collection 
                 docker rm -f $(docker ps -aq) && docker system prune --all -f &&\
