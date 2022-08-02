@@ -3,12 +3,18 @@ name: "Preparing the cloud environment"
 on: 
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'     
+      instanceType:
+        description: 'Instance type'     
         required: true
-        default: 'warning'
-      tags:
-        description: 'Test scenario tags'  
+        type: 'choice'
+        options:
+        - t2.nano
+        - t2.micro
+        - t2.small
+        - t2.medium
+        - t2.large
+        - t2.xlarge
+        - t2.2xlarge
 
 # on: push
 
