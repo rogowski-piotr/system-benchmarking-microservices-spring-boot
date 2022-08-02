@@ -1,10 +1,3 @@
-# TODO:
-# for dla wszystkich docker-compose:
-#     - docker system prune --all -f
-#     - uruchomienie docker-compose
-#     - uruchomienie testów obciążeniowych
-#     - zebranie danych ?? (na razie pusto)
-#     - docker rm -f $(docker ps -aq)
 name: "Launching benchmarks"
 
 on: push
@@ -43,7 +36,7 @@ jobs:
               echo Here will be the launch of the tests 
                echo Here will be the Data Collection 
                 docker rm -f $(docker ps -aq) && docker system prune --all -f 
-                 echo Benchmark for monolith version of flask application completed, system cleared
+                 echo Benchmark for microservices version of flask application completed, system cleared
 
       - name: Running benchmarks for dotnet application in monolith version
         uses: appleboy/ssh-action@master
@@ -58,7 +51,7 @@ jobs:
               echo Here will be the launch of the tests 
                echo Here will be the Data Collection 
                 docker rm -f $(docker ps -aq) && docker system prune --all -f 
-                 echo Benchmark for monolith version of flask application completed, system cleared
+                 echo Benchmark for monolith version of dotnet application completed, system cleared
 
       - name: Running benchmarks for dotnet application in microservices version
         uses: appleboy/ssh-action@master
@@ -73,7 +66,7 @@ jobs:
               echo Here will be the launch of the tests 
                echo Here will be the Data Collection 
                 docker rm -f $(docker ps -aq) && docker system prune --all -f 
-                 echo Benchmark for monolith version of flask application completed, system cleared
+                 echo Benchmark for microservices version of dotnet application completed, system cleared
 
       - name: Running benchmarks for spring boot application in monolith version
         uses: appleboy/ssh-action@master
@@ -88,7 +81,7 @@ jobs:
               echo Here will be the launch of the tests 
                echo Here will be the Data Collection 
                 docker rm -f $(docker ps -aq) && docker system prune --all -f 
-                 echo Benchmark for monolith version of flask application completed, system cleared
+                 echo Benchmark for monolith version of spring boot application completed, system cleared
 
       - name: Running benchmarks for spring boot application in microservices version
         uses: appleboy/ssh-action@master
@@ -103,4 +96,4 @@ jobs:
               echo Here will be the launch of the tests 
                echo Here will be the Data Collection 
                 docker rm -f $(docker ps -aq) && docker system prune --all -f 
-                 echo Benchmark for monolith version of flask application completed, system cleared
+                 echo Benchmark for microservices version of spring boot application completed, system cleared
