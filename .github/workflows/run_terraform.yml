@@ -16,8 +16,6 @@ on:
         - t2.xlarge
         - t2.2xlarge
 
-# on: push
-
 jobs:
   terraform:
     name: "Terraform"
@@ -27,7 +25,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Parametrize terraform instance type on AWS
-        run: sed -i 's/INSTANCE_TYPE/${{ secrets.INSTANCE_TYPE }}/g' infrastructure/terraform/ec2_instances.tf
+        run: sed -i 's/INSTANCE_TYPE/ ${{ github.event.inputs.instanceType }}/g' infrastructure/terraform/ec2_instances.tf
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
