@@ -1,0 +1,41 @@
+name: "Launching benchmarks"
+
+on: 
+  workflow_dispatch:
+    inputs:
+      technology:
+        description: 'Choose technology'     
+        required: true
+        type: 'choice'
+        options:
+        - flask
+        - dotnet
+        - spring-boot
+      architecture:
+        escription: 'Choose architecture'     
+        required: true
+        type: 'choice'
+        options:
+        - monolith
+        - microservices
+
+jobs:
+  deploy:
+    name: Performance of benchmarks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Running benchmarks for  ${{ github.event.inputs.technology }} application in ${{ github.event.inputs.architecture }} version
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.HOST_DNS }}
+          username: ubuntu
+          port: 22 
+          script:  |
+            docker rm -f $(docker ps -aq); docker system prune --all -f &&\
+             docker-compose -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml up --build -d &&\
+              echo Here will be the launch of the tests 
+               echo Here will be the Data Collection 
+                docker rm -f $(docker ps -aq) && docker system prune --all -f 
+                 echo Benchmark for ${{ github.event.inputs.architecture }} version of  ${{ github.event.inputs.technology }} application completed, system cleared
