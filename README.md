@@ -48,6 +48,12 @@ Monitoring of application has been implemented in a way that allows to review de
 ### Postprocessing:
 
 ## Architecture Overview
+The <b>microservice architecture</b> consists of five components. One of them is Reverse Proxy and four of them are applications written in a specific programming language:
+ * Place Service - Provide information about places and them coordinates
+ * Distance Service - Calculate spherical distance between passed points
+ * Route1 Service - Solve TSP problem using nearest neighbour algorithm
+ * Route2 Service - Solve TSP problem by checking all variants
+![view](resources/microservices-deployment-diagram.drawio.png)
 
 ## Infrastructure Overview
 
