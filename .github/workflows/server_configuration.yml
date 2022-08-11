@@ -2,9 +2,6 @@ name: "Server configuration"
 
 on: workflow_dispatch
 
-
-# on: push
-
 jobs:
   deploy:
     name: Deploy to EC2 on click
@@ -35,5 +32,12 @@ jobs:
               cd infrastructure/ansible &&\
                ansible-playbook --connection=local provision_web_server.yml
 
-
-#TODO: DOCKER + PROMETUESZ
+      - name: Set up monitoring
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.HOST_DNS }}
+          username: ubuntu
+          port: 22 
+          script:  |
+            sudo docker-compose -f infrastructure/monitoring/docker-compose-monitoring.yml up -d
