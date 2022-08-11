@@ -1,0 +1,13 @@
+apiVersion: 1
+
+datasources:
+  - name: prometheus-data
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    basicAuth: false
+    isDefault: true
+    editable: true
+    jsonData:
+      httpMethod: "GET"
+      tlsSkipVerify: true
