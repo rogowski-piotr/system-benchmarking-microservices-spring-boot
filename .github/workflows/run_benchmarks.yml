@@ -33,4 +33,4 @@ jobs:
           username: ubuntu
           port: 22 
           script:  |
-            bash scripts/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml up
+            bash scripts/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -c false
