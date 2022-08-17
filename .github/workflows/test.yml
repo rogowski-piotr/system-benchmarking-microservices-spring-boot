@@ -1,9 +1,6 @@
 name: e2e-tests
 
-on:
-  push:
-    branches:
-      - master
+on: push
 
 jobs:
   spring-boot-microservices:
