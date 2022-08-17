@@ -12,7 +12,7 @@ on:
         - dotnet
         - spring-boot
       architecture:
-        escription: 'Choose architecture'     
+        description: 'Choose architecture'     
         required: true
         type: 'choice'
         options:
@@ -33,9 +33,4 @@ jobs:
           username: ubuntu
           port: 22 
           script:  |
-            docker rm -f $(docker ps -aq); docker system prune --all -f &&\
-             docker-compose -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml up --build -d &&\
-              echo Here will be the launch of the tests 
-               echo Here will be the Data Collection 
-                docker rm -f $(docker ps -aq) && docker system prune --all -f 
-                 echo Benchmark for ${{ github.event.inputs.architecture }} version of  ${{ github.event.inputs.technology }} application completed, system cleared
+            bash scripts/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -c false
