@@ -32,14 +32,14 @@
       name: docker.io
     become: yes
 
-  - name: Start Docker
-    shell: |
-      systemctl start docker
-      systemctl enable docker
-    become: yes
-
   - name: Configuration of various things
     shell: | 
         sudo groupadd docker  
         sudo usermod -aG docker $USER
         sudo apt install docker-compose -y
+
+  - name: Start Docker
+    shell: |
+      systemctl start docker
+      systemctl enable docker
+    become: yes
