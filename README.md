@@ -57,6 +57,12 @@ Monitoring of application has been implemented in a way that allows to review de
  * Nginx as reverse proxy for microservices
 
 ### Infrastructure:
+The <b>AWS</b> cloud was chosen as the environment for the application.
+The applications run on EC2 which is a virtual machine running the Linux operating system, with the size and performance depending on your needs (to be selected during the launch of the workflow called <a href="https://github.com/rogowski-piotr/system-benchmarking-monolith-vs-microservices/actions/workflows/run_terraform.yml"><i>Preparing the cloud environment</i></a>)
+
+<b>Terraform and Ansible</b> were used to create the entire infrastructure. 
+ * Terraform is responsible for AWS configuration i.e. creating a virtual machine, creating a security group, selecting a key to connect via SSH, setting up a provider along with the region where our machine is to be located, creating a VPC and using the Terraform cloud, it eliminates the need for unnecessary tooling and documentation for teams to use Terraform in production.
+ * Ansible is responsible for properly configuring the server. Installing all the dependencies, running all the necessary services and scripts, and granting the appropriate permissions.
 
 ### Aplication load:
 
