@@ -12,17 +12,19 @@ jobs:
 
       - name: Install Python dependencies
         run:  |
-          pip install -r scripts/wait_for_services/requirements.txt && \
+          pip install -r scripts/service_availability_checker/requirements.txt && \
           pip install -r .github/e2e/requirements.txt
 
       - name: Build docker environment
         run: docker-compose -f docker-compose-spring-boot-microservices.yml up --build -d
 
       - name: Wait for services
-        run: python3 scripts/wait_for_services/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
+        run: python3 scripts/service_availability_checker/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
 
       - name: Run e2e tests
-        run: python -m pytest --timeout=10 .github/e2e/
+        run:  |
+          pip install -r .github/e2e/requirements.txt && \
+          python -m pytest --timeout=10 .github/e2e/
 
 
   spring-boot-monolith:
@@ -34,14 +36,14 @@ jobs:
 
       - name: Install Python dependencies
         run:  |
-          pip install -r scripts/wait_for_services/requirements.txt && \
+          pip install -r scripts/service_availability_checker/requirements.txt && \
           pip install -r .github/e2e/requirements.txt
 
       - name: Build docker environment
         run: docker-compose -f docker-compose-spring-boot-monolith.yml up --build -d
 
       - name: Wait for services
-        run: python3 scripts/wait_for_services/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
+        run: python3 scripts/service_availability_checker/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
 
       - name: Run e2e tests
         run: python -m pytest --timeout=10 .github/e2e/
@@ -56,14 +58,14 @@ jobs:
 
       - name: Install Python dependencies
         run:  |
-          pip install -r scripts/wait_for_services/requirements.txt && \
+          pip install -r scripts/service_availability_checker/requirements.txt && \
           pip install -r .github/e2e/requirements.txt
 
       - name: Build docker environment
         run: docker-compose -f docker-compose-flask-microservices.yml up --build -d
 
       - name: Wait for services
-        run: python3 scripts/wait_for_services/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
+        run: python3 scripts/service_availability_checker/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
 
       - name: Run e2e tests
         run: python -m pytest --timeout=10 .github/e2e/
@@ -78,14 +80,14 @@ jobs:
 
       - name: Install Python dependencies
         run:  |
-          pip install -r scripts/wait_for_services/requirements.txt && \
+          pip install -r scripts/service_availability_checker/requirements.txt && \
           pip install -r .github/e2e/requirements.txt
 
       - name: Build docker environment
         run: docker-compose -f docker-compose-flask-monolith.yml up --build -d
 
       - name: Wait for services
-        run: python3 scripts/wait_for_services/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
+        run: python3 scripts/service_availability_checker/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
 
       - name: Run e2e tests
         run: python -m pytest --timeout=10 .github/e2e/
@@ -100,14 +102,14 @@ jobs:
 
       - name: Install Python dependencies
         run:  |
-          pip install -r scripts/wait_for_services/requirements.txt && \
+          pip install -r scripts/service_availability_checker/requirements.txt && \
           pip install -r .github/e2e/requirements.txt
 
       - name: Build docker environment
         run: docker-compose -f docker-compose-dotnet-microservices.yml up --build -d
 
       - name: Wait for services
-        run: python3 scripts/wait_for_services/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
+        run: python3 scripts/service_availability_checker/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
 
       - name: Run e2e tests
         run: python -m pytest --timeout=10 .github/e2e/
@@ -122,14 +124,14 @@ jobs:
 
       - name: Install Python dependencies
         run:  |
-          pip install -r scripts/wait_for_services/requirements.txt && \
+          pip install -r scripts/service_availability_checker/requirements.txt && \
           pip install -r .github/e2e/requirements.txt
 
       - name: Build docker environment
         run: docker-compose -f docker-compose-dotnet-monolith.yml up --build -d
 
       - name: Wait for services
-        run: python3 scripts/wait_for_services/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
+        run: python3 scripts/service_availability_checker/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
 
       - name: Run e2e tests
         run: python -m pytest --timeout=10 .github/e2e/

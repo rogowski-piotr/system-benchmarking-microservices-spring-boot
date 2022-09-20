@@ -10,10 +10,27 @@ helpFunction()
     exit 1
 }
 
+checkLastStatusFunction()
+{
+    status=$?
+    if [ $status -ne 0 ]; then
+        echo "Error"
+        exit $status
+    fi
+}
+
 setupFunction()
 {
     echo "Building docker"
     docker-compose -f $file up --build -d
+    checkLastStatusFunction
+}
+
+waitForServicesFunction()
+{
+    echo "Waiting for services"
+    bash scripts/service_availability_check.sh localhost 80801
+    checkLastStatusFunction
 }
 
 benchmarkFunction()
@@ -84,6 +101,8 @@ then
 fi
 
 setupFunction
+
+waitForServicesFunction
 
 benchmarkFunction
 
