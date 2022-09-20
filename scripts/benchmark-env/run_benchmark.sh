@@ -6,7 +6,7 @@ helpFunction()
     echo ""
     echo "Usage: $0 [-f <string> (required)] [-c <true|false> (optional)]"
     echo -e "\t-f Name of docker-compose file"
-    echo -e "\t-c Clean docker containers after benchmark process"
+    echo -e "\t-h Address of load generating host"
     exit 1
 }
 
@@ -29,7 +29,12 @@ setupFunction()
 waitForServicesFunction()
 {
     echo "Waiting for services"
-    bash scripts/service_availability_check.sh localhost 80801
+    pip install -r scripts/service_availability_checker/requirements.txt
+    python3 scripts/service_availability_checker/service_availability_checker.py \
+        --host localhost \
+        --port 8080 \
+        --timeout 30 \
+        --health_endpoint /api/places/0
     checkLastStatusFunction
 }
 
@@ -37,7 +42,8 @@ benchmarkFunction()
 {
     echo "Benchmark started!"
     startTimestamp=$(date +%s)
-    sleep 45
+    # ssh ubuntu@${load_generating_host} "bash scripts/load-env/run_load.sh ${hostname}"
+    sleep 30
     finishTimestamp=$(date +%s)
 }
 
@@ -62,53 +68,44 @@ collectDataFunction()
 
 cleanFunction()
 {
-    if $clean_flag ; then
-        echo "Cleaning services"
-        docker-compose --file $file down
+    echo "Cleaning services"
+    docker-compose --file $file down
 
-        echo "Cleaning prometheus metrics"
-        docker-compose \
-            --file infrastructure/monitoring/docker-compose-monitoring.yml up \
-            --build \
-            --force-recreate \
-            --no-deps \
-            --detach \
-            prometheus
-    fi
+    echo "Cleaning prometheus metrics"
+    docker-compose \
+        --file infrastructure/monitoring/docker-compose-monitoring.yml up \
+        --build \
+        --force-recreate \
+        --no-deps \
+        --detach \
+        prometheus
 }
 
 
-clean_flag=true
-
-while getopts "f:c:" opt
+while getopts "f:h:" opt
 do
     case "$opt" in
         f ) file="$OPTARG" ;;
-        c ) if [ "$OPTARG" = true ] || [ "$OPTARG" = false ] ; then
-                clean_flag="$OPTARG"
-            else
-                helpFunction
-            fi
-        ;;
+        h ) load_generating_host="$OPTARG" ;;
         ? ) helpFunction ;;
     esac
 done
 
-if [ -z "$file" ]
+if [ -z "$file" ] || [ -z "$load_generating_host" ]
 then
     echo "Some or all of the parameters are empty";
     helpFunction
 fi
 
-setupFunction
+# setupFunction
 
 waitForServicesFunction
 
-benchmarkFunction
+# benchmarkFunction
 
-collectDataFunction
+# collectDataFunction
 
-cleanFunction
+# cleanFunction
 
 echo "Benchmark finished!"
 exit 0
