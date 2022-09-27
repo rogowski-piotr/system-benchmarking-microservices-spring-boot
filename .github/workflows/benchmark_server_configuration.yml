@@ -41,3 +41,4 @@ jobs:
           port: 22 
           script:  |
             sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d
+            echo ${{ EC2_SSH_KEY }} > .ssh/admin.pem
