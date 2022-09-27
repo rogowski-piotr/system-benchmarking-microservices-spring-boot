@@ -1,4 +1,4 @@
-name: "2. Load generating server configuration"
+name: "3. Load generating server configuration"
 
 on: workflow_dispatch
 
