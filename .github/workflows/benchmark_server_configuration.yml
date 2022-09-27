@@ -1,4 +1,4 @@
-name: "Benchmark server configuration"
+name: "2. Benchmark server configuration"
 
 on: workflow_dispatch
 

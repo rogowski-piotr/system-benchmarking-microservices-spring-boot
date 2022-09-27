@@ -1,4 +1,4 @@
-name: "Launching benchmarks"
+name: "4. Launching benchmarks"
 
 on: 
   workflow_dispatch:

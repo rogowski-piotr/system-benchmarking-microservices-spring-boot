@@ -1,4 +1,4 @@
-name: "Preparing environment in the cloud"
+name: "1. Preparing environment in the cloud"
 
 on: 
   workflow_dispatch:
