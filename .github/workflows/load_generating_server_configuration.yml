@@ -40,5 +40,5 @@ jobs:
           username: ubuntu
           port: 22 
           script:  |
-            bash ./scripts/load-env/prepare_docker_environment.sh -h ${{ secrets.BENCHMARK_DNS }}
-            echo ${{ EC2_SSH_KEY }} > .ssh/admin.pem
+            bash ./scripts/load-env/prepare_docker_environment.sh -h ${{ secrets.BENCHMARK_DNS }} \
+              && echo ${{ EC2_SSH_KEY }} > .ssh/admin.pem
