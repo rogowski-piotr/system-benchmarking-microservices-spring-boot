@@ -9,10 +9,5 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-    networks:
-      - monitoring-network
     ports:
-      - 8085:8080
-
-networks:
-  monitoring-network:
+      - 8081:8080

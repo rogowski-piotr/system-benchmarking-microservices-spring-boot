@@ -38,9 +38,10 @@ waitForServicesFunction()
     checkLastStatusFunction
 }
 
+# TODO: connection via ssh to trigger load
 benchmarkFunction()
 {
-    echo "Benchmark started!"
+    echo "Benchmark started! - not implemented"
     startTimestamp=$(date +%s)
     # ssh ubuntu@${load_generating_host} "bash scripts/load-env/run_load.sh ${hostname}"
     sleep 30
@@ -71,14 +72,15 @@ cleanFunction()
     echo "Cleaning services"
     docker-compose --file $file down
 
-    echo "Cleaning prometheus metrics"
-    docker-compose \
-        --file infrastructure/monitoring/docker-compose-monitoring.yml up \
-        --build \
-        --force-recreate \
-        --no-deps \
-        --detach \
-        prometheus
+    echo "Cleaning prometheus metrics - not implemented!!!"
+    # TODO: connection via ssh to trigger cleaning prometheus metrics
+    # docker-compose \
+    #     --file infrastructure/monitoring/docker-compose-monitoring.yml up \
+    #     --build \
+    #     --force-recreate \
+    #     --no-deps \
+    #     --detach \
+    #     prometheus
 }
 
 
@@ -97,15 +99,18 @@ then
     helpFunction
 fi
 
-# setupFunction
+echo "$file"
+echo "$load_generating_host"
+
+setupFunction
 
 waitForServicesFunction
 
-# benchmarkFunction
+benchmarkFunction
 
-# collectDataFunction
+collectDataFunction
 
-# cleanFunction
+cleanFunction
 
 echo "Benchmark finished!"
 exit 0

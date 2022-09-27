@@ -3,4 +3,4 @@ scrape_configs:
   scrape_interval: 5s
   static_configs:
   - targets:
-    - cadvisor:8080
+    - CADVISOR_HOST_PLACEHOLDER:8081
