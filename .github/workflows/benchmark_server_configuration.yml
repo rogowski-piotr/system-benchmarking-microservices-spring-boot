@@ -4,14 +4,14 @@ on: workflow_dispatch
 
 jobs:
   deploy:
-    name: Deploy to EC2 on click
+    name: Deploy to EC2
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout the files
         uses: actions/checkout@v2
 
-      - name: Deploy to WebServer
+      - name: Deploy to benchmark server
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
