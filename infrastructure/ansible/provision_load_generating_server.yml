@@ -1,0 +1,56 @@
+---
+
+- name: Provision load generating server
+  hosts: localhost
+  connection: local 
+  tasks:
+
+  - name: Install update
+    shell: | 
+        sudo apt-get update -y
+
+  - name: Install pip3
+    apt:
+      update_cache: yes
+      name: python3-pip
+    become: yes
+
+  - name: Install git
+    apt:
+      name: git
+      state: present
+      update_cache: yes
+    become: yes
+
+  - name: Install python docker sdk
+    shell: |
+      pip3 install docker
+    become: yes
+
+  - name: Install docker
+    apt:
+      name: docker.io
+    become: yes
+
+  - name: Configuration of various things
+    shell: | 
+        sudo groupadd docker  
+        sudo usermod -aG docker $USER
+        sudo apt install docker-compose -y
+
+  - name: Installation of Java and JMeter
+    shell: | 
+        sudo apt update -y  
+        sudo apt install openjdk-18-jre -y
+        wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.tgz
+        tar -xf apache-jmeter-5.5.tgz
+        sudo rm apache-jmeter-5.5.tgz
+        cd apache-jmeter-5.5/bin/
+        ./jmeter.sh -n -t examples/CSVSample.jmx -l CSVSample.jtl               #execute the sample jmx file which is in example folder
+
+
+  - name: Start Docker
+    shell: |
+      systemctl start docker
+      systemctl enable docker
+    become: yes

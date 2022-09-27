@@ -1,4 +1,4 @@
-name: "Server configuration"
+name: "Load generating server configuration"
 
 on: workflow_dispatch
 
@@ -30,7 +30,7 @@ jobs:
             sudo apt update &&\
              sudo apt-get install -y ansible &&\
               cd infrastructure/ansible &&\
-               ansible-playbook --connection=local provision_web_server.yml
+               ansible-playbook --connection=local provision_load_generating_server.yml
 
       - name: Set up monitoring
         uses: appleboy/ssh-action@master

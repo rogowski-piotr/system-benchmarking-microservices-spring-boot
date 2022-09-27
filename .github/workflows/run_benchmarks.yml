@@ -29,7 +29,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           key: ${{ secrets.EC2_SSH_KEY }}
-          host: ${{ secrets.HOST_DNS }}
+          host: ${{ secrets.BENCHMARK_DNS }}
           username: ubuntu
           port: 22 
           script:  |

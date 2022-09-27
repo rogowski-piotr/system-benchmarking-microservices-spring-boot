@@ -1,3 +1,4 @@
+import sys
 import argparse
 import threading
 import requests
@@ -5,12 +6,22 @@ import rx
 from rx import operators as op
 
 
+class _SleepEvent(threading.Event):
+    def wait(self, timeout=None):
+        with self._cond:
+            signaled = self._flag
+            if not signaled:
+                signaled = self._cond.wait(timeout)
+            if signaled: sys.exit(0)
+            else: sys.exit(1)
+
+
 class Checker():
     def __init__(self, host: str, port: int, timeout: int, health_endpoint: str) -> None:
         self.timeout = timeout
         self.url = f"http://{host}:{port}{health_endpoint}"
         self.request_interval = 1
-        self.sleep_event = threading.Event()
+        self.sleep_event = _SleepEvent()
 
     def check(self):
         try:
@@ -23,7 +34,8 @@ class Checker():
         if is_up:
             print("UP")
             self.sleep_event.set()
-        else: print ("DOWN")
+            sys.exit(0)
+        else: print("DOWN")
 
     def start(self) -> None:
         rx.interval(self.request_interval).pipe(
