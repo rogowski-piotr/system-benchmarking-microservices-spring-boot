@@ -15,7 +15,7 @@ jobs:
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_HOST: ${{ secrets.LOAD_GENERATING_DNS }}
           REMOTE_USER: ubuntu
           TARGET: /home/ubuntu
 
@@ -23,7 +23,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           key: ${{ secrets.EC2_SSH_KEY }}
-          host: ${{ secrets.HOST_DNS }}
+          host: ${{ secrets.LOAD_GENERATING_DNS }}
           username: ubuntu
           port: 22 
           script:  |
@@ -36,7 +36,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           key: ${{ secrets.EC2_SSH_KEY }}
-          host: ${{ secrets.HOST_DNS }}
+          host: ${{ secrets.LOAD_GENERATING_DNS }}
           username: ubuntu
           port: 22 
           script:  |
