@@ -41,5 +41,14 @@ jobs:
           port: 22 
           script:  |
             bash ./scripts/load-env/prepare_load_environment.sh -h ${{ secrets.BENCHMARK_DNS }} \
-              && sudo mv admin.pem .ssh/ \
-                && sudo chmod 600 .ssh/admin.pem
+
+      - name: Decrypt secret
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.BENCHMARK_DNS }}
+          username: ubuntu
+          port: 22 
+          script:  |
+            gpg --quiet --decrypt --batch --yes --passphrase="${{ secrets.PASSWORD }}" ./infrastructure/ssh_key/admin.pem.gpg > .ssh/admin.pem
+

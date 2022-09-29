@@ -50,4 +50,4 @@ jobs:
           username: ubuntu
           port: 22 
           script:  |
-            gpg --quiet --decrypt --batch --yes --passphrase="${{ secrets.PASSWORD }}" ./infrastructure/ssh_key/admin.pem.gpg > admin.pem
+            gpg --quiet --decrypt --batch --yes --passphrase="${{ secrets.PASSWORD }}" ./infrastructure/ssh_key/admin.pem.gpg > .ssh/admin.pem
