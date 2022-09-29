@@ -48,6 +48,3 @@ jobs:
         run: ./scripts/decryption/decrypt_secret.sh
         env:
           PASSWORD: ${{ secrets.PASSWORD }}
-
-      - name: Test printing your secret (Remove this step in production)
-        run: cat $HOME/secrets/admin.pem
