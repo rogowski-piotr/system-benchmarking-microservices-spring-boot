@@ -41,5 +41,12 @@ jobs:
           port: 22 
           script:  |
             sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d \
-              && printf "${{ secrets.EC2_SSH_KEY }}" | cat > .ssh/admin.pem \
-                && sudo chmod 600 .ssh/admin.pem
+
+      - name: Decrypt large secret
+        uses: actions/checkout@v3
+        run: ./decrypt_secret.sh
+        env:
+          PASSWORD: ${{ secrets.PASSWORD }}
+
+      - name: Test printing your secret (Remove this step in production)
+        run: cat $HOME/secrets/admin.pem
