@@ -42,20 +42,17 @@ jobs:
           script:  |
             sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d
 
-      - name: Set up cAdvisor
+      - name: Decrypt secret
         uses: appleboy/ssh-action@master
         with:
           key: ${{ secrets.EC2_SSH_KEY }}
           host: ${{ secrets.BENCHMARK_DNS }}
           username: ubuntu
-          port: 22 
-          script:  |
-            sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d
+          env:
+            PASSWORD: ${{ secrets.PASSWORD }}
+            port: 22 
+            script:  |
+              gpg --quiet --decrypt --batch --yes --passphrase="$PASSWORD" ./infrastructure/ssh_key/admin.pem.gpg > admin.pem
 
       - uses: actions/checkout@v3
       - name: Decrypt secret
-        env:
-          PASSWORD: ${{ secrets.PASSWORD }}
-          port: 22 
-          script:  |
-            gpg --quiet --decrypt --batch --yes --passphrase="$PASSWORD" ./infrastructure/ssh_key/admin.pem.gpg > admin.pem
