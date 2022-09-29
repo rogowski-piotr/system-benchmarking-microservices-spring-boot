@@ -41,6 +41,5 @@ jobs:
           port: 22 
           script:  |
             sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d \
-              && echo ${{ secrets.EC2_SSH_KEY }} | cat > .ssh/admin.pem \
-                && sudo mv admin.pem .ssh/ \
-                  && sudo chmod 600 .ssh/admin.pem
+              && sudo mv admin.pem .ssh/ \
+                && sudo chmod 600 .ssh/admin.pem
