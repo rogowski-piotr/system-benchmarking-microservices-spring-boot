@@ -40,5 +40,7 @@ jobs:
           username: ubuntu
           port: 22 
           script:  |
-            bash ./scripts/load-env/prepare_docker_environment.sh -h ${{ secrets.BENCHMARK_DNS }} \
-              && echo ${{ secrets.EC2_SSH_KEY }} | cat > .ssh/admin.pem
+            sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d \
+              && echo ${{ secrets.EC2_SSH_KEY }} | cat > .ssh/admin.pem \
+                && sudo mv admin.pem .ssh/ \
+                  && sudo chmod 600 .ssh/admin.pem
