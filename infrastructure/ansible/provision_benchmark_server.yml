@@ -1,4 +1,10 @@
 ---
+- include_vars: key.yml
+
+- name: Put the ssh key in the .ssh directory on the remote server.
+  copy:
+    content="{{ssh_key}}"
+    dest=/.ssh/ssh_key.pem
 
 - name: Provision benchmark server
   hosts: localhost

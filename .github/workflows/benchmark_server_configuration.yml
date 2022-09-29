@@ -41,5 +41,7 @@ jobs:
           port: 22 
           script:  |
             sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d \
-              && sudo mv admin.pem .ssh/ \
-                && sudo chmod 600 .ssh/admin.pem
+              && ansible-vault decrypt .ssh/ssh_key.yml \
+                && expect "Vault password:" \
+                  && send -- "${{ secrets.PASSWORD }}\n" \
+                    && sudo chmod 600 .ssh/ssh_key.pem
