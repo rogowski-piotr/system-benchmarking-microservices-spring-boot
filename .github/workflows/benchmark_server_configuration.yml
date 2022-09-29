@@ -44,12 +44,12 @@ jobs:
 
       - name: Decrypt secret
         uses: appleboy/ssh-action@master
+        env:
+          PASSWORD: ${{ secrets.PASSWORD }}
         with:
           key: ${{ secrets.EC2_SSH_KEY }}
           host: ${{ secrets.BENCHMARK_DNS }}
           username: ubuntu
-          env:
-            PASSWORD: ${{ secrets.PASSWORD }}
-            port: 22 
-            script:  |
-              gpg --quiet --decrypt --batch --yes --passphrase="$PASSWORD" ./infrastructure/ssh_key/admin.pem.gpg > admin.pem
+          port: 22 
+          script:  |
+            gpg --quiet --decrypt --batch --yes --passphrase="$PASSWORD" ./infrastructure/ssh_key/admin.pem.gpg > admin.pem
