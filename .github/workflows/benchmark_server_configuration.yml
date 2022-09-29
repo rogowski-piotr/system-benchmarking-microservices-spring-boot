@@ -42,7 +42,7 @@ jobs:
           script:  |
             sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d
 
-      - name: Decrypt secret
+      - name: Set up cAdvisor
         uses: appleboy/ssh-action@master
         with:
           key: ${{ secrets.EC2_SSH_KEY }}
@@ -53,7 +53,7 @@ jobs:
             sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d
 
       - uses: actions/checkout@v3
-      - name: Decrypt large secret
+      - name: Decrypt secret
         env:
           PASSWORD: ${{ secrets.PASSWORD }}
           port: 22 
