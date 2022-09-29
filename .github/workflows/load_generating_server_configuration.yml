@@ -41,4 +41,4 @@ jobs:
           port: 22 
           script:  |
             bash ./scripts/load-env/prepare_docker_environment.sh -h ${{ secrets.BENCHMARK_DNS }} \
-              && echo ${{ secrets.EC2_SSH_KEY }} > .ssh/admin.pem
+              && echo ${{ secrets.EC2_SSH_KEY }} | cat > .ssh/admin.pem
