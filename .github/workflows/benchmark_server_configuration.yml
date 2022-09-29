@@ -40,7 +40,7 @@ jobs:
           username: ubuntu
           port: 22 
           script:  |
-            sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d \
+            sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d
 
 
       - uses: actions/checkout@v3
