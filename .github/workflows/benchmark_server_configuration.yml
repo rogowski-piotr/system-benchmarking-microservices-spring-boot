@@ -45,7 +45,7 @@ jobs:
 
       - uses: actions/checkout@v3
       - name: Decrypt large secret
-        run: ./decrypt_secret.sh
+        run: ./scripts/decryption/decrypt_secret.sh
         env:
           PASSWORD: ${{ secrets.PASSWORD }}
 
