@@ -42,8 +42,9 @@ jobs:
           script:  |
             sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d \
 
+
+      - uses: actions/checkout@v3
       - name: Decrypt large secret
-        uses: actions/checkout@v3
         run: ./decrypt_secret.sh
         env:
           PASSWORD: ${{ secrets.PASSWORD }}
