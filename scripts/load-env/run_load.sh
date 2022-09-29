@@ -1,11 +1,16 @@
 #!/bin/bash
 
 
+JMETER_PATH="infrastructure/ansible/apache-jmeter-5.5/bin/jmeter.sh"
+JMETER_TEST_PLAN_PATH="infrastructure/JMeterAPITestPlan.jmx"
+JMETER_OUTPUT_PATH="jmeter_output"
+
+
 helpFunction()
 {
     echo ""
     echo "Usage: $0 [-h <string> (required)]"
-    echo -e "\t-f Host IP address"
+    echo -e "\t-h Host IP address"
     exit 1
 }
 
@@ -26,5 +31,4 @@ then
 fi
 
 
-echo $host
-echo $(dirname $0)
+${JMETER_PATH} -n -t ${JMETER_TEST_PLAN_PATH}  -l ${JMETER_OUTPUT_PATH}

@@ -1,9 +1,10 @@
 #!/bin/bash
 
 
-HOST_FILE="benchmark_host"
 PROMETHEUS_CONFIG_PLACEHOLDER="CADVISOR_HOST_PLACEHOLDER"
 PROMETHEUS_CONFIG_PATH="infrastructure/monitoring/prometheus.yml"
+JMETER_CONFIG_PLACEHOLDER="BENCHMARK_HOST_PLACEHOLDER"
+JMETER_CONFIG_PATH="infrastructure/JMeterAPITestPlan.jmx"
 DOCKER_COMPOSE_MONITORING_FILE="infrastructure/monitoring/docker-compose-monitoring.yml"
 
 
@@ -31,12 +32,12 @@ then
     helpFunction
 fi
 
-echo "$BENCHMARK_HOST" > "$HOST_FILE"
 
 sed -i "s/${PROMETHEUS_CONFIG_PLACEHOLDER}/${BENCHMARK_HOST}/g" $PROMETHEUS_CONFIG_PATH
+
+sed -i "s/${JMETER_CONFIG_PLACEHOLDER}/${BENCHMARK_HOST}/g" $JMETER_CONFIG_PATH
 
 docker-compose \
         --file $DOCKER_COMPOSE_MONITORING_FILE up \
 		--build \
 		--detach
-
