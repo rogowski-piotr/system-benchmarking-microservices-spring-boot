@@ -40,7 +40,7 @@ jobs:
           username: ubuntu
           port: 22 
           script:  |
-            bash ./scripts/load-env/prepare_load_environment.sh -h ${{ secrets.BENCHMARK_DNS }} \
+            bash ./scripts/load-env/prepare_load_environment.sh -h ${{ secrets.BENCHMARK_DNS }} 
 
       - name: Decrypt secret
         uses: appleboy/ssh-action@master
