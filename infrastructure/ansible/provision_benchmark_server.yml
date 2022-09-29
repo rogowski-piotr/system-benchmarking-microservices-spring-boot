@@ -4,9 +4,8 @@
   connection: local 
   tasks:
 
-  - include_vars: 
-    file: ssh_key.yml
-    
+  - include_vars: ssh_key.yml
+
   - name: Put the ssh key in the .ssh directory on the remote server.
     copy:
       content="{{ssh_key}}"
