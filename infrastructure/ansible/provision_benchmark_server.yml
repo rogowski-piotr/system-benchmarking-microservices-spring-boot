@@ -4,13 +4,6 @@
   connection: local 
   tasks:
 
-  - include_vars: ssh_key.yml
-
-  - name: Put the ssh key in the .ssh directory on the remote server.
-    copy:
-      content="{{ssh_key}}"
-      dest=/.ssh/ssh_key.pem
-
   - name: Install update
     shell: | 
         sudo apt-get update -y
