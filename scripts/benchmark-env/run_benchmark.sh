@@ -66,7 +66,7 @@ collectDataFunction()
 
     echo "Collecting data from JMeter"
     local JMETER_OUTPUT_PATH="jmeter_output"
-    scp ubuntu@${load_generating_host}:${JMETER_OUTPUT_PATH} output/${file}/jmeter_output
+    scp -i "./.ssh/admin.pem" ubuntu@${load_generating_host}:${JMETER_OUTPUT_PATH} output/${file}/jmeter_output
 }
 
 cleanFunction()
