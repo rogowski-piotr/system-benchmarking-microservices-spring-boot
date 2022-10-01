@@ -51,4 +51,5 @@ jobs:
           port: 22 
           script:  |
             gpg --quiet --decrypt --batch --yes --passphrase="${{ secrets.PASSWORD }}" ./infrastructure/ssh_key/admin.pem.gpg > .ssh/admin.pem
+            chmod 400 .ssh/admin.pem
 
