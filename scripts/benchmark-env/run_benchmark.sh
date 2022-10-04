@@ -1,26 +1,48 @@
 #!/bin/bash
 
-
 helpFunction()
 {
     echo ""
-    echo "Usage: $0 [-f <string> (required)] [-c <true|false> (optional)]"
+    echo "Usage: $0 [-f <string> (required)] [-l <string> (required)] [-b <string> (required)]"
     echo -e "\t-f Name of docker-compose file"
-    echo -e "\t-c Clean docker containers after benchmark process"
+    echo -e "\t-l Public address of load generating host"
+    echo -e "\t-b Public address of benchmark host"
     exit 1
+}
+
+checkLastStatusFunction()
+{
+    status=$?
+    if [ $status -ne 0 ]; then
+        echo "Error"
+        exit $status
+    fi
 }
 
 setupFunction()
 {
     echo "Building docker"
     docker-compose -f $file up --build -d
+    checkLastStatusFunction
+}
+
+waitForServicesFunction()
+{
+    echo "Waiting for services"
+    pip install -r scripts/service_availability_checker/requirements.txt
+    python3 scripts/service_availability_checker/service_availability_checker.py \
+        --host localhost \
+        --port 8080 \
+        --timeout 30 \
+        --health_endpoint /api/places/0
+    checkLastStatusFunction
 }
 
 benchmarkFunction()
 {
-    echo "Benchmark started!"
+    echo "Benchmark started"
     startTimestamp=$(date +%s)
-    sleep 45
+    ssh -i "./.ssh/admin.pem" ubuntu@${load_generating_host} "bash scripts/load-env/run_load.sh ${benchmark_host}"
     finishTimestamp=$(date +%s)
 }
 
@@ -41,49 +63,50 @@ collectDataFunction()
 
     curl --location -g --request GET "http://localhost:9090/api/v1/query_range?query=sum(rate(container_cpu_user_seconds_total{image!=\"\"}[5m])*100)&start=$startTimestamp&end=$finishTimestamp&step=5s" > output/${file}/sum_percentage_cpu_usage_seconds_total.json
     curl --location -g --request GET "http://localhost:9090/api/v1/query_range?query=sum(container_memory_usage_bytes{image!=\"\"})/1024/1024&start=$startTimestamp&end=$finishTimestamp&step=5s" > output/${file}/sum_memory_usage_bytes.json
+
+    echo "Collecting data from JMeter"
+    local JMETER_OUTPUT_PATH="jmeter_output"
+    scp -i "./.ssh/admin.pem" ubuntu@${load_generating_host}:${JMETER_OUTPUT_PATH} output/${file}/jmeter_output
 }
 
 cleanFunction()
 {
-    if $clean_flag ; then
-        echo "Cleaning services"
-        docker-compose --file $file down
+    echo "Cleaning services"
+    docker-compose --file $file down
+    checkLastStatusFunction
 
-        echo "Cleaning prometheus metrics"
-        docker-compose \
+    echo "Cleaning prometheus metrics"
+    ssh -i "./.ssh/admin.pem" ubuntu@${load_generating_host} \
+        "docker-compose \
             --file infrastructure/monitoring/docker-compose-monitoring.yml up \
             --build \
             --force-recreate \
             --no-deps \
             --detach \
-            prometheus
-    fi
+            prometheus"
+    checkLastStatusFunction
 }
 
 
-clean_flag=true
-
-while getopts "f:c:" opt
+while getopts ":f:l:b:" opt
 do
     case "$opt" in
         f ) file="$OPTARG" ;;
-        c ) if [ "$OPTARG" = true ] || [ "$OPTARG" = false ] ; then
-                clean_flag="$OPTARG"
-            else
-                helpFunction
-            fi
-        ;;
+        l ) load_generating_host="$OPTARG" ;;
+        b ) benchmark_host="$OPTARG" ;;
         ? ) helpFunction ;;
     esac
 done
 
-if [ -z "$file" ]
+if [ -z "$file" ] || [ -z "$load_generating_host" ] || [ -z "$benchmark_host" ]
 then
     echo "Some or all of the parameters are empty";
     helpFunction
 fi
 
 setupFunction
+
+waitForServicesFunction
 
 benchmarkFunction
 

@@ -1,0 +1,44 @@
+---
+- name: Provision benchmark server
+  hosts: localhost
+  connection: local 
+  tasks:
+
+  - name: Install update
+    shell: | 
+        sudo apt-get update -y
+
+  - name: Install pip3
+    apt:
+      update_cache: yes
+      name: python3-pip
+    become: yes
+
+  - name: Install git
+    apt:
+      name: git
+      state: present
+      update_cache: yes
+    become: yes
+
+  - name: Install python docker sdk
+    shell: |
+      pip3 install docker
+    become: yes
+
+  - name: Install docker
+    apt:
+      name: docker.io
+    become: yes
+
+  - name: Configuration of various things
+    shell: | 
+        sudo groupadd docker  
+        sudo usermod -aG docker $USER
+        sudo apt install docker-compose -y
+
+  - name: Start Docker
+    shell: |
+      systemctl start docker
+      systemctl enable docker
+    become: yes

@@ -4,3 +4,4 @@
 **/*.out
 **/*.tfplan
 terraform.tfstate*
+admin.pem

@@ -1,4 +1,4 @@
-name: "Launching benchmarks"
+name: "4. Run benchmarks"
 
 on: 
   workflow_dispatch:
@@ -29,8 +29,8 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           key: ${{ secrets.EC2_SSH_KEY }}
-          host: ${{ secrets.HOST_DNS }}
+          host: ${{ secrets.BENCHMARK_DNS }}
           username: ubuntu
           port: 22 
           script:  |
-            bash scripts/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -c false
+            bash scripts/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }} -b ${{ secrets.BENCHMARK_DNS }}

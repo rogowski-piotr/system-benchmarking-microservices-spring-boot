@@ -1,0 +1,55 @@
+name: "3. Load generating server configuration"
+
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v2
+
+      - name: Deploy to load generating server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.LOAD_GENERATING_DNS }}
+          REMOTE_USER: ubuntu
+          TARGET: /home/ubuntu
+
+      - name: Ansible configuration
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.LOAD_GENERATING_DNS }}
+          username: ubuntu
+          port: 22 
+          script:  |
+            sudo apt update &&\
+             sudo apt-get install -y ansible &&\
+              cd infrastructure/ansible &&\
+               ansible-playbook --connection=local provision_load_generating_server.yml
+
+      - name: Set up monitoring
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.LOAD_GENERATING_DNS }}
+          username: ubuntu
+          port: 22 
+          script:  |
+            bash ./scripts/load-env/prepare_load_environment.sh -h ${{ secrets.BENCHMARK_DNS }} 
+
+      - name: Decrypt secret
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.LOAD_GENERATING_DNS }}
+          username: ubuntu
+          port: 22 
+          script:  |
+            gpg --quiet --decrypt --batch --yes --passphrase="${{ secrets.PASSWORD }}" ./infrastructure/ssh_key/admin.pem.gpg > .ssh/admin.pem
+            chmod 400 .ssh/admin.pem
+

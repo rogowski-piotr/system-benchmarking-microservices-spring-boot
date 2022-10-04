@@ -1,0 +1,54 @@
+name: "2. Benchmark server configuration"
+
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v2
+
+      - name: Deploy to benchmark server
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.BENCHMARK_DNS }}
+          REMOTE_USER: ubuntu
+          TARGET: /home/ubuntu
+
+      - name: Ansible configuration
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.BENCHMARK_DNS }}
+          username: ubuntu
+          port: 22 
+          script:  |
+            sudo apt update &&\
+             sudo apt-get install -y ansible &&\
+              cd infrastructure/ansible &&\
+               ansible-playbook --connection=local provision_benchmark_server.yml
+
+      - name: Set up cAdvisor
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.BENCHMARK_DNS }}
+          username: ubuntu
+          port: 22 
+          script:  |
+            sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d
+
+      - name: Decrypt secret
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.BENCHMARK_DNS }}
+          username: ubuntu
+          port: 22 
+          script:  |
+            gpg --quiet --decrypt --batch --yes --passphrase="${{ secrets.PASSWORD }}" ./infrastructure/ssh_key/admin.pem.gpg > .ssh/admin.pem
+            chmod 400 .ssh/admin.pem

@@ -1,6 +1,6 @@
 ---
 
-- name: Provision Web Server
+- name: Provision load generating server
   hosts: localhost
   connection: local 
   tasks:
@@ -37,6 +37,17 @@
         sudo groupadd docker  
         sudo usermod -aG docker $USER
         sudo apt install docker-compose -y
+
+  - name: Installation of Java and JMeter
+    shell: | 
+        sudo apt update -y  
+        sudo apt install openjdk-18-jre -y
+        wget https://dlcdn.apache.org//jmeter/binaries/apache-jmeter-5.5.tgz
+        tar -xf apache-jmeter-5.5.tgz
+        sudo rm apache-jmeter-5.5.tgz
+        cd apache-jmeter-5.5/bin/
+        ./jmeter.sh -n -t examples/CSVSample.jmx -l CSVSample.jtl               #execute the sample jmx file which is in example folder
+
 
   - name: Start Docker
     shell: |
