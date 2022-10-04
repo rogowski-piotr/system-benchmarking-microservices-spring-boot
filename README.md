@@ -130,7 +130,7 @@ The benchmark process is based on several steps:
   <li>Move the generated key to the system-benchmarking-monolith-vs-microservices/infrastructure/ssh_key folder</li>
   <li>Encrypt the key with gpg</li> 
 ```shell script
-gpg --symmetric --cipher-algo AES256 admin.pem</code> </li>
+gpg --symmetric --cipher-algo AES256 admin.pem
 ```
     <p><i>Thanks to the fact that an entry admin.pem was added to gitignore, the key will not be added to the remote repository, it will only appear in the local one</i></p>
   <li>
