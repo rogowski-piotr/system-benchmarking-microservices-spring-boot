@@ -87,6 +87,10 @@ The <b>monolith architecture</b> contains one component. All the necessary funct
 
 ## Infrastructure overview
 
+<p align="center">
+    <img width="100%" height="100%" src="resources/AWS-infrastructure.drawio.png">
+</p>
+
 ## Benchmark overview
 
 To run benchmark requires to prepare an environment using configuration scripts or use appropriate workflow. Environment should have all necessary dependendent software and properly configured monitoring environment. if the environment is properly configured, just run this script:
@@ -110,6 +114,53 @@ The benchmark process is based on several steps:
 </p>
 
 ## Start Guide
+
+### Steps needed to create the infrastructure
+
+<ol>
+  <li>
+    <a href="https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct&src=header_signup">Creating an AWS account</a>
+      <ul>
+        <li>Create an IAM account named <b><i>admin</i></b> and add it to the group <b><i>Administrators</i></b> <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html">Detailed instruction</a></li>
+        <li>Generate a key for the admin account and save it as <b><i>admin.pem</i></b></li>
+      </ul>
+  </li>
+  <li>Move the generated key to the system-benchmarking-monolith-vs-microservices/infrastructure/ssh_key folder</li>
+  <li>Encrypt the key with gpg</li> 
+    <ul>
+    <li><code>gpg --symmetric --cipher-algo AES256 admin.pem</code> </li>
+    </ul>
+    <p><i>Thanks to the fact that an entry admin.pem was added to gitignore, the key will not be added to the remote repository, it will only appear in the local one</i></p>
+  <li>
+      <a href="https://app.terraform.io/public/signup/account?product_intent=terraform">Creating an Terraform cloud account</a>     
+    <ul>
+      <li>Name your organization <b><i>Projekt-badawczy</i></b></li>
+      <li>Create workspace <b><i>gh-actions</i></b> </li>
+      <li><a href="https://learn.hashicorp.com/tutorials/terraform/github-actions">Detailed instruction</a></li> 
+    </ul>
+  </li>
+
+  <li>
+    Github secrets should be set as follows
+    <ul>
+      <li><b>TF_API_TOKEN</b> - Terraform cloud API</li>
+      <li><b>EC2_SSH_KEY</b> - Unencrypted content of admin.pem key</li>
+      <li><b>BENCHMARK_DNS</b> - Public IPv4 DNS adress of a benchmark environment server</li>
+      <li><b>LOAD_GENERATING_DNS</b> - Public IPv4 DNS adress of a load generating environment server </li>
+      <li><b>PASSWORD</b>  - password used to encrypt admin.pem key with gpg</li>
+    </ul>
+  </li>
+  <li>
+  <a href="https://github.com/rogowski-piotr/system-benchmarking-monolith-vs-microservices/actions">Github actions</a>
+  <p>Building the entire infrastructure is done automatically using workflows. They have been numbered from 1 to 4, respectively, according to the order in which they should be run.</p>
+  <ul>
+    <li><a href="https://github.com/rogowski-piotr/system-benchmarking-monolith-vs-microservices/actions/workflows/run_terraform.yml">Preparing cloud environment </a> is responsible for running the terraform code, that is, building the entire infrastructure in AWS</li>
+    <li><a href="https://github.com/rogowski-piotr/system-benchmarking-monolith-vs-microservices/actions/workflows/benchmark_server_configuration.yml">Benchmark server configuration </a> is responsible for running the ansible code, installing the appropriate dependencies and software i.e. cAdvisor and configuring the benchmark server </li>
+    <li><a href="https://github.com/rogowski-piotr/system-benchmarking-monolith-vs-microservices/actions/workflows/load_generating_server_configuration.yml">Load generating server configuration </a> is responsible for running the ansible code, installing the appropriate dependencies and software i.e.JMeter, Grafana, Prometheus and configuring the load generating server </li>
+    <li><a href="https://github.com/rogowski-piotr/system-benchmarking-monolith-vs-microservices/actions/workflows/run_benchmarks.yml">Run benchmarks </a> simply runs benchmarks</li>
+  </ul>
+  </li>
+</ol> 
 
 ## About Authors
 This project is a part of the "Projekt Badawczy" program performed by students of Computer Science master degree studies at GUT.
