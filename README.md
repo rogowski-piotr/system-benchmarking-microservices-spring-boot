@@ -121,8 +121,9 @@ The benchmark process is based on several steps:
   <li>
     <a href="https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct&src=header_signup">Creating an AWS account</a>
       <ul>
-        <li>Create an IAM account named <b><i>admin</i></b> and add it to the group <b><i>Administrators</i></b> <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html">Detailed instruction</a></li>
+        <li>Create an IAM account named <b><i>admin</i></b> and add it to the group <b><i>Administrators</i></b></li>
         <li>Generate a key for the admin account and save it as <b><i>admin.pem</i></b></li>
+        <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html">Detailed instruction</a>
       </ul>
   </li>
   <li>Move the generated key to the system-benchmarking-monolith-vs-microservices/infrastructure/ssh_key folder</li>
@@ -136,7 +137,7 @@ The benchmark process is based on several steps:
     <ul>
       <li>Name your organization <b><i>Projekt-badawczy</i></b></li>
       <li>Create workspace <b><i>gh-actions</i></b> </li>
-      <li><a href="https://learn.hashicorp.com/tutorials/terraform/github-actions">Detailed instruction</a></li> 
+      <a href="https://learn.hashicorp.com/tutorials/terraform/github-actions">Detailed instruction</a>
     </ul>
   </li>
 
