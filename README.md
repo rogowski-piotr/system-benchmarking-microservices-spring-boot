@@ -122,6 +122,7 @@ The benchmark process is based on several steps:
     <a href="https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct&src=header_signup">Creating an AWS account</a>
       <ul>
         <li>Create an IAM account named <b><i>admin</i></b> and add it to the group <b><i>Administrators</i></b></li>
+        <li>Create an IAM account named <b><i>terrafom</i></b> and add it to the group <b><i>Administrators</i></b></li>
         <li>Generate a key for the admin account and save it as <b><i>admin.pem</i></b></li>
       </ul>
     <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html">Detailed instruction</a>
