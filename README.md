@@ -88,7 +88,7 @@ The <b>monolith architecture</b> contains one component. All the necessary funct
 ## Infrastructure overview
 
 <p align="center">
-    <img width="100%" height="100%" src="resources/AWS-infrastructure.drawio.png">
+    <img width="70%" height="100%" src="resources/AWS-infrastructure.drawio.png">
 </p>
 
 ## Benchmark overview
