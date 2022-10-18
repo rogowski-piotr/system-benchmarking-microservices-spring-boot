@@ -42,7 +42,8 @@ benchmarkFunction()
 {
     echo "Benchmark started"
     startTimestamp=$(date +%s)
-    ssh -i "./.ssh/admin.pem" ubuntu@${load_generating_host} "bash scripts/load-env/run_load.sh ${benchmark_host}"
+    ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null \
+        -i "./.ssh/admin.pem" ubuntu@${load_generating_host} "bash scripts/load-env/run_load.sh ${benchmark_host}"
     finishTimestamp=$(date +%s)
 }
 
@@ -66,7 +67,8 @@ collectDataFunction()
 
     echo "Collecting data from JMeter"
     local JMETER_OUTPUT_PATH="jmeter_output"
-    scp -i "./.ssh/admin.pem" ubuntu@${load_generating_host}:${JMETER_OUTPUT_PATH} output/${file}/jmeter_output
+    scp -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null \
+        -i "./.ssh/admin.pem" ubuntu@${load_generating_host}:${JMETER_OUTPUT_PATH} output/${file}/jmeter_output
 }
 
 cleanFunction()
@@ -76,7 +78,8 @@ cleanFunction()
     checkLastStatusFunction
 
     echo "Cleaning prometheus metrics"
-    ssh -i "./.ssh/admin.pem" ubuntu@${load_generating_host} \
+    ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null \
+        -i "./.ssh/admin.pem" ubuntu@${load_generating_host} \
         "docker-compose \
             --file infrastructure/monitoring/docker-compose-monitoring.yml up \
             --build \

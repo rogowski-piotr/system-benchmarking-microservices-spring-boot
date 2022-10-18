@@ -39,8 +39,15 @@ jobs:
         uses: nicklasfrahm/scp-action@main
         with:
           direction: download
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           host: ${{ secrets.BENCHMARK_DNS }}
+          insecure_ignore_fingerprint: true
           username: ubuntu
           source: ./output
           target: ./output
+
+      - name: list files 1
+        run:  ls -lhra
+
+      - name: list files 2
+        run:  ls -lhra output/
