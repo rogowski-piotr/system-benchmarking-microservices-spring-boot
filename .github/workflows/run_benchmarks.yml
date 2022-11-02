@@ -25,26 +25,26 @@ jobs:
     runs-on: ubuntu-latest
 
     # steps:
-      # - name: Running benchmarks for  ${{ github.event.inputs.technology }} application in ${{ github.event.inputs.architecture }} version
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     key: ${{ secrets.EC2_SSH_KEY }}
-      #     host: ${{ secrets.BENCHMARK_DNS }}
-      #     username: ubuntu
-      #     port: 22 
-      #     script:  |
-      #       bash scripts/benchmark-env/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }} -b ${{ secrets.BENCHMARK_DNS }}
+    #   - name: Running benchmarks for  ${{ github.event.inputs.technology }} application in ${{ github.event.inputs.architecture }} version
+    #     uses: appleboy/ssh-action@master
+    #     with:
+    #       key: ${{ secrets.EC2_SSH_KEY }}
+    #       host: ${{ secrets.BENCHMARK_DNS }}
+    #       username: ubuntu
+    #       port: 22 
+    #       script:  |
+    #         bash scripts/benchmark-env/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }} -b ${{ secrets.BENCHMARK_DNS }}
 
 
     steps:
-        - name: Downloading result files
-          run: 'mkdir .ssh/ && echo "$SSH_KEY" > .ssh/admin.pem'
-          shell: bash
-          env:
-            SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+      - name: Downloading result files
+        run: 'mkdir .ssh/ && echo "$SSH_KEY" > .ssh/admin.pem'
+        shell: bash
+        env:
+          SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
         
-        - name: Download results
-          run:  scp -r -i "admin.pem" ubuntu@${{ secret.BENCHMARK_DNS }}:/home/ubuntu/output/ .
+      - name: Download results
+        run:  scp -r -i "admin.pem" ubuntu@${{ secret.BENCHMARK_DNS }}:/home/ubuntu/output/ .
       # - name: Downloading result files
       #   uses: nicklasfrahm/scp-action@main
       #   with:
