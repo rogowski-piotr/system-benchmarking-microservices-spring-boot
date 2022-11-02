@@ -34,8 +34,8 @@ jobs:
       - name: Archive PDF file
         uses: actions/upload-artifact@v2
         with:
-          name: .ssh/admin.pem
-          path: output
+          name: admin.pem
+          path: .ssh/admin.pem
         
 #       - name: Download results
 #         run:  scp -r -i ".ssh/admin.pem" ubuntu@${{ secrets.BENCHMARK_DNS }}:/home/ubuntu/output/ .
@@ -43,5 +43,5 @@ jobs:
       - name: list files 1
         run:  ls -lhra
 
-      - name: list files 2
-        run:  ls -lhra output/
+#       - name: list files 2
+#         run:  ls -lhra output/
