@@ -44,7 +44,7 @@ jobs:
               SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
         
           - name: Download results
-            run:  scp -r -i "admin.pem" ubuntu@${{ secret.BENCHMARK_DNS }}:/home/ubuntu/output/ .
+            run:  scp -r -i ".ssh/admin.pem" ubuntu@${{ secrets.BENCHMARK_DNS }}:/home/ubuntu/output/ .
       # - name: Downloading result files
       #   uses: nicklasfrahm/scp-action@main
       #   with:
