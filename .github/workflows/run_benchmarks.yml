@@ -37,10 +37,9 @@ jobs:
 
 
     steps:
-      - name: Checkout
-        uses: webfactory/ssh-agent@v0.6.0
-          with:
-          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+      - uses: webfactory/ssh-agent@v0.6.0
+        with:
+            ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
       - name: Downloading result files
         run: 'mkdir .ssh/ && echo "$SSH_KEY" > .ssh/admin.pem && chmod 400 .ssh/admin.pem && ls -lhra .ssh/ && cat .ssh/admin.pem'
