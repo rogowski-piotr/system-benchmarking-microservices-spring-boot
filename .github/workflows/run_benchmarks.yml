@@ -37,9 +37,16 @@ jobs:
 
 
     steps:
-      - name: Store ssh key
-        run: 'mkdir .ssh/ && echo ${{ secrets.EC2_SSH_KEY }} | base64 -d > .ssh/admin.pem.b64 && cat .ssh/admin.pem.b64 | base64 -d > .ssh/admin.pem'
+      - uses: webfactory/ssh-agent@v0.6.0
+        with:
+            ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
+      - name: Downloading result files
+        run: 'mkdir .ssh/ && echo "$SSH_KEY" > .ssh/admin.pem && chmod 600 .ssh/admin.pem && ls -lhra .ssh/ && cat .ssh/admin.pem'
+        shell: bash
+        env:
+          SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+        
       - name: Download results
         run:  scp -r -i ".ssh/admin.pem" ubuntu@${{ secrets.BENCHMARK_DNS }}:/home/ubuntu/output/ .
       # - name: Downloading result files
