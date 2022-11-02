@@ -38,7 +38,7 @@ jobs:
           path: .ssh/admin.pem
         
       - name: Download results
-        run:  scp -r -i ".ssh/admin.pem" ubuntu@ec2-18-195-20-233.eu-central-1.compute.amazonaws.com:/home/ubuntu/output/ .
+        run:  scp -r -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -i ".ssh/admin.pem" ubuntu@ec2-18-195-20-233.eu-central-1.compute.amazonaws.com:/home/ubuntu/output/ .
 #         run:  scp -r -i ".ssh/admin.pem" ubuntu@${{ secrets.BENCHMARK_DNS }}:/home/ubuntu/output/ .
         
 
