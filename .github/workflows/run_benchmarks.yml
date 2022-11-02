@@ -38,7 +38,7 @@ jobs:
 
     steps:
       - name: Downloading result files
-        run: 'mkdir .ssh/ && echo "$SSH_KEY" > .ssh/admin.pem'
+        run: 'mkdir .ssh/ && echo "$SSH_KEY" > .ssh/admin.pem && chmod 400 .ssh/admin.pem && ls -lhra .ssh/ && cat .ssh/admin.pem'
         shell: bash
         env:
           SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
