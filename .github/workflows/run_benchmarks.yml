@@ -37,7 +37,6 @@ jobs:
 
 
     steps:
-      - actions/checkout@v2
       - uses: webfactory/ssh-agent@v0.6.0
           with:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
