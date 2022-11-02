@@ -43,5 +43,5 @@ jobs:
       - name: list files 1
         run:  ls -lhra
 
-      - name: list files 2
-        run:  ls -lhra output/
+#       - name: list files 2
+#         run:  ls -lhra output/
