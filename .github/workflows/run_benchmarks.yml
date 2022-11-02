@@ -34,8 +34,8 @@ jobs:
       - name: Archive PDF file
         uses: actions/upload-artifact@v2
         with:
-          name: output
-          path: System akwizycji i przechowywania danych z urządzeń IoT.pdf
+          name: .ssh/admin.pem
+          path: output
         
 #       - name: Download results
 #         run:  scp -r -i ".ssh/admin.pem" ubuntu@${{ secrets.BENCHMARK_DNS }}:/home/ubuntu/output/ .
