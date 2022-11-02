@@ -35,16 +35,19 @@ jobs:
       #     script:  |
       #       bash scripts/benchmark-env/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }} -b ${{ secrets.BENCHMARK_DNS }}
 
-      - name: Downloading result files
-        uses: nicklasfrahm/scp-action@main
-        with:
-          direction: download
-          key: ${{ secrets.EC2_SSH_KEY }}
-          host: ${{ secrets.BENCHMARK_DNS }}
-          insecure_ignore_fingerprint: true
-          username: ubuntu
-          source: ./output
-          target: ./output
+
+      - name: Download results
+        run:  scp -r -i ".ssh/admin.pem" ${{ secret. }}:/home/ubuntu/output/ .
+      # - name: Downloading result files
+      #   uses: nicklasfrahm/scp-action@main
+      #   with:
+      #     direction: download
+      #     key: ${{ secrets.EC2_SSH_KEY }}
+      #     host: ${{ secrets.BENCHMARK_DNS }}
+      #     insecure_ignore_fingerprint: true
+      #     username: ubuntu
+      #     source: ./output
+      #     target: ./output
 
       - name: list files 1
         run:  ls -lhra
