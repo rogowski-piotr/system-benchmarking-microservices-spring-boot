@@ -23,43 +23,22 @@ jobs:
   deploy:
     name: Performance of benchmarks
     runs-on: ubuntu-latest
-
-    # steps:
-    #   - name: Running benchmarks for  ${{ github.event.inputs.technology }} application in ${{ github.event.inputs.architecture }} version
-    #     uses: appleboy/ssh-action@master
-    #     with:
-    #       key: ${{ secrets.EC2_SSH_KEY }}
-    #       host: ${{ secrets.BENCHMARK_DNS }}
-    #       username: ubuntu
-    #       port: 22 
-    #       script:  |
-    #         bash scripts/benchmark-env/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }} -b ${{ secrets.BENCHMARK_DNS }}
-
-
+    
     steps:
-      - uses: webfactory/ssh-agent@v0.6.0
-        with:
-            ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
-
       - name: Downloading result files
         run: 'mkdir .ssh/ && echo "$SSH_KEY" > .ssh/admin.pem && chmod 600 .ssh/admin.pem && ls -lhra .ssh/ && cat .ssh/admin.pem'
         shell: bash
         env:
           SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
-          SSH_KEY_PATH: ${{ github.workspace }}/.ssh/admin.pem
+          
+      - name: Archive PDF file
+        uses: actions/upload-artifact@v2
+        with:
+          name: .ssh/admin.pem
+          path: output
         
-      - name: Download results
-        run:  scp -r -i $SSH_KEY_PATH ubuntu@${{ secrets.BENCHMARK_DNS }}:/home/ubuntu/output/ .
-      # - name: Downloading result files
-      #   uses: nicklasfrahm/scp-action@main
-      #   with:
-      #     direction: download
-      #     key: ${{ secrets.EC2_SSH_KEY }}
-      #     host: ${{ secrets.BENCHMARK_DNS }}
-      #     insecure_ignore_fingerprint: true
-      #     username: ubuntu
-      #     source: ./output
-      #     target: ./output
+#       - name: Download results
+#         run:  scp -r -i ".ssh/admin.pem" ubuntu@${{ secrets.BENCHMARK_DNS }}:/home/ubuntu/output/ .
 
       - name: list files 1
         run:  ls -lhra
