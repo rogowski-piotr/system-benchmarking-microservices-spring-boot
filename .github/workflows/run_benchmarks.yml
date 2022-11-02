@@ -23,8 +23,8 @@ jobs:
   deploy:
     name: Performance of benchmarks
     runs-on: ubuntu-latest
+    steps:
 
-    # steps:
     #   - name: Running benchmarks for  ${{ github.event.inputs.technology }} application in ${{ github.event.inputs.architecture }} version
     #     uses: appleboy/ssh-action@master
     #     with:
