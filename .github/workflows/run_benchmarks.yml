@@ -24,23 +24,23 @@ jobs:
     name: Performance of benchmarks
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Running benchmarks for  ${{ github.event.inputs.technology }} application in ${{ github.event.inputs.architecture }} version
-        uses: appleboy/ssh-action@master
-        with:
-          key: ${{ secrets.EC2_SSH_KEY }}
-          host: ${{ secrets.BENCHMARK_DNS }}
-          username: ubuntu
-          port: 22 
-          script:  |
-            bash scripts/benchmark-env/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }} -b ${{ secrets.BENCHMARK_DNS }}
+    # steps:
+    #   - name: Running benchmarks for  ${{ github.event.inputs.technology }} application in ${{ github.event.inputs.architecture }} version
+    #     uses: appleboy/ssh-action@master
+    #     with:
+    #       key: ${{ secrets.EC2_SSH_KEY }}
+    #       host: ${{ secrets.BENCHMARK_DNS }}
+    #       username: ubuntu
+    #       port: 22 
+    #       script:  |
+    #         bash scripts/benchmark-env/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }} -b ${{ secrets.BENCHMARK_DNS }}
 
       - name: Archive code coverage results
         uses: actions/upload-artifact@v3
         with:
           name: test
-          path: output/test.html
-          
+          path: ./output/test.html
+
       # - name: Downloading result files
       #   uses: nicklasfrahm/scp-action@main
       #   with:
