@@ -25,25 +25,32 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Downloading result files
-        run: 'mkdir .ssh/ && echo "$SSH_KEY" > .ssh/admin.pem && chmod 600 .ssh/admin.pem && ls -lhra .ssh/ && cat .ssh/admin.pem'
+      # - name: Running benchmarks for  ${{ github.event.inputs.technology }} application in ${{ github.event.inputs.architecture }} version
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     key: ${{ secrets.EC2_SSH_KEY }}
+      #     host: ${{ secrets.BENCHMARK_DNS }}
+      #     username: ubuntu
+      #     port: 22 
+      #     script: |
+      #       bash scripts/benchmark-env/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }} -b ${{ secrets.BENCHMARK_DNS }}
+            
+      - name: Store ssh key
+        run: |
+          mkdir .ssh/
+          echo "$SSH_KEY" > .ssh/admin.pem
+          chmod 600 .ssh/admin.pem
         shell: bash
         env:
           SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
-          
-      - name: Archive PDF file
+      
+      - name: Download results
+        run: |
+          scp -r -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null \
+            -i ".ssh/admin.pem" ubuntu@${{ secrets.BENCHMARK_DNS }}:/home/ubuntu/output/ .
+     
+      - name: Archive result files
         uses: actions/upload-artifact@v2
         with:
-          name: admin.pem
-          path: .ssh/admin.pem
-        
-      - name: Download results
-        run:  scp -r -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null -i ".ssh/admin.pem" ubuntu@ec2-18-195-20-233.eu-central-1.compute.amazonaws.com:/home/ubuntu/output/ .
-#         run:  scp -r -i ".ssh/admin.pem" ubuntu@${{ secrets.BENCHMARK_DNS }}:/home/ubuntu/output/ .
-        
-
-      - name: list files 1
-        run:  ls -lhra
-
-#       - name: list files 2
-#         run:  ls -lhra output/
+          name: output
+          path: output
