@@ -25,29 +25,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # - name: Running benchmarks for  ${{ github.event.inputs.technology }} application in ${{ github.event.inputs.architecture }} version
-      #   uses: appleboy/ssh-action@master
+      - name: Running benchmarks for  ${{ github.event.inputs.technology }} application in ${{ github.event.inputs.architecture }} version
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.BENCHMARK_DNS }}
+          username: ubuntu
+          port: 22 
+          script:  |
+            bash scripts/benchmark-env/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }} -b ${{ secrets.BENCHMARK_DNS }}
+
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test
+          path: output/test.html
+          
+      # - name: Downloading result files
+      #   uses: nicklasfrahm/scp-action@main
       #   with:
+      #     direction: download
       #     key: ${{ secrets.EC2_SSH_KEY }}
       #     host: ${{ secrets.BENCHMARK_DNS }}
       #     username: ubuntu
-      #     port: 22 
-      #     script:  |
-      #       bash scripts/benchmark-env/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }} -b ${{ secrets.BENCHMARK_DNS }}
+      #     source: ./output
+      #     target: ./output
 
-      - name: Downloading result files
-        uses: nicklasfrahm/scp-action@main
-        with:
-          direction: download
-          key: ${{ secrets.EC2_SSH_KEY }}
-          host: ${{ secrets.BENCHMARK_DNS }}
-          insecure_ignore_fingerprint: true
-          username: ubuntu
-          source: ./output
-          target: ./output
+      # - name: list files 1
+      #   run:  ls -lhra
 
-      - name: list files 1
-        run:  ls -lhra
-
-      - name: list files 2
-        run:  ls -lhra output/
+      # - name: list files 2
+      #   run:  ls -lhra output/
