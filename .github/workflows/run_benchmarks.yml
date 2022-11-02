@@ -46,9 +46,10 @@ jobs:
         shell: bash
         env:
           SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+          SSH_KEY_PATH: ${{ github.workspace }}/.ssh/admin.pem
         
       - name: Download results
-        run:  scp -r -i ".ssh/admin.pem" ubuntu@${{ secrets.BENCHMARK_DNS }}:/home/ubuntu/output/ .
+        run:  scp -r -i $SSH_KEY_PATH ubuntu@${{ secrets.BENCHMARK_DNS }}:/home/ubuntu/output/ .
       # - name: Downloading result files
       #   uses: nicklasfrahm/scp-action@main
       #   with:
