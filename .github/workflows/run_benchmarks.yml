@@ -24,7 +24,7 @@ jobs:
     name: Performance of benchmarks
     runs-on: ubuntu-latest
 
-    steps:
+    # steps:
       # - name: Running benchmarks for  ${{ github.event.inputs.technology }} application in ${{ github.event.inputs.architecture }} version
       #   uses: appleboy/ssh-action@master
       #   with:
@@ -35,7 +35,8 @@ jobs:
       #     script:  |
       #       bash scripts/benchmark-env/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }} -b ${{ secrets.BENCHMARK_DNS }}
 
-      - name: Downloading result files
+
+    steps:
         - run: 'mkdir .ssh/ && echo "$SSH_KEY" > .ssh/admin.pem'
           shell: bash
           env:
