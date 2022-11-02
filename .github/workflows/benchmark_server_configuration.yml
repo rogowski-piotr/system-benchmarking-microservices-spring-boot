@@ -1,10 +1,10 @@
-name: "2. Benchmark server configuration"
+name: "2. Configure benchmark server"
 
 on: workflow_dispatch
 
 jobs:
-  deploy:
-    name: Deploy to EC2
+  configure_benchmark_server:
+    name: Configure benchmark server via Ansible
     runs-on: ubuntu-latest
 
     steps:

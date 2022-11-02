@@ -1,4 +1,4 @@
-name: "1. Preparing cloud environment"
+name: "1. Prepare cloud environment"
 
 on: 
   workflow_dispatch:
@@ -17,8 +17,8 @@ on:
         - t2.2xlarge
 
 jobs:
-  terraform:
-    name: "Terraform"
+  prepare_cloud_environment:
+    name: "Prepare cloud environment via Terraform"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
