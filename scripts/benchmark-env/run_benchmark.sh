@@ -43,7 +43,7 @@ benchmarkFunction()
     echo "Benchmark started"
     startTimestamp=$(date +%s)
     ssh -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null \
-        -i "./.ssh/admin.pem" ubuntu@${load_generating_host} "bash scripts/load-env/run_load.sh -h ${benchmark_host}"
+        -i "./.ssh/admin.pem" ubuntu@${load_generating_host} "bash scripts/load-env/run_load.sh"
     finishTimestamp=$(date +%s)
 }
 

@@ -8,6 +8,8 @@ services:
       - --config.file=/etc/prometheus/prometheus.yml
     volumes:
       - ../../infrastructure/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    networks:
+      - monitoring-network
     ports:
       - 9090:9090
 
@@ -22,5 +24,10 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
       - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - monitoring-network
     ports:
       - 3000:3000
+
+networks:
+  monitoring-network:
