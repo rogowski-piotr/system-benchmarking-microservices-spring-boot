@@ -25,16 +25,6 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Running benchmarks for  ${{ github.event.inputs.technology }} application in ${{ github.event.inputs.architecture }} version
-        uses: appleboy/ssh-action@master
-        with:
-          key: ${{ secrets.EC2_SSH_KEY }}
-          host: ${{ secrets.BENCHMARK_DNS }}
-          username: ubuntu
-          port: 22 
-          script: |
-            bash scripts/benchmark-env/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }} -b ${{ secrets.BENCHMARK_DNS }}
-            
       - name: Store ssh key
         run: |
           mkdir .ssh/
@@ -43,11 +33,79 @@ jobs:
         shell: bash
         env:
           SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
-      
-      - name: Download results
+
+      - name: Start services in ${{ github.event.inputs.technology }} technology, ${{ github.event.inputs.architecture }} architecture
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.BENCHMARK_DNS }}
+          username: ubuntu
+          port: 22 
+          script: |
+            bash scripts/setup_services.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml
+
+      - name: Wait for services
         run: |
-          scp -r -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null \
-            -i ".ssh/admin.pem" ubuntu@${{ secrets.BENCHMARK_DNS }}:/home/ubuntu/output/ .
+          pip install -r scripts/service_availability_checker/requirements.txt
+          python3 scripts/service_availability_checker/service_availability_checker.py \
+            --host ${{ secrets.BENCHMARK_DNS }} \
+            --port 8080 \
+            --timeout 30 \
+            --health_endpoint /api/places/0
+
+      - name: Save start timestamp
+        run: echo $(date +%s) > start_timestamp
+
+      - name: Run JMeter
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.LOAD_GENERATING_DNS }}
+          username: ubuntu
+          port: 22 
+          script: bash scripts/start_jmeter.sh
+            
+      - name: Save finish timestamp
+        run: echo $(date +%s) > finish_timestamp
+
+      - name: Save containers names
+        run: |
+          ssh -oStrictHostKeyChecking=no \
+            -oUserKnownHostsFile=/dev/null \
+            -i "./.ssh/admin.pem" \
+            ubuntu@${load_generating_host} \
+            "echo $(docker ps --format {{.Names}})" > containers_under_test
+
+      - name: Download results
+        run: bash scripts/collect_results.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }}
+
+      - name: Stop services
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.BENCHMARK_DNS }}
+          username: ubuntu
+          port: 22 
+          script: |
+            docker-compose \
+              --file docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml \
+              down
+
+      - name: Cleaning prometheus metrics
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.LOAD_GENERATING_DNS }}
+          username: ubuntu
+          port: 22 
+          script: |
+            docker-compose \
+              --file infrastructure/monitoring/docker-compose-monitoring.yml up \
+              --build \
+              --force-recreate \
+              --no-deps \
+              --detach \
+              prometheus
      
       - name: Archive result files
         uses: actions/upload-artifact@v2
