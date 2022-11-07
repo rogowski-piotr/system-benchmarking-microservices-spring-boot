@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  jmeter:
+    image: justb4/jmeter:latest
+    container_name: jmeter
+    network_mode: "host"
+    command: -n -t /mnt/jmeter/JMeterAPITestPlan.jmx -l /mnt/jmeter/jmeter_output.csv
+    volumes:
+      - ./infrastructure/jmeter/JMeterAPITestPlan.jmx:/mnt/jmeter/JMeterAPITestPlan.jmx:ro
+      - .:/mnt/jmeter

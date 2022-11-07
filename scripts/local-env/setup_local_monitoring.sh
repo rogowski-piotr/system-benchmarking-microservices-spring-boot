@@ -4,7 +4,7 @@ PROMETHEUS_CONFIG_PLACEHOLDER="CADVISOR_HOST_PLACEHOLDER"
 PROMETHEUS_CONFIG_PATH="infrastructure/monitoring/prometheus.yml"
 
 JMETER_CONFIG_PLACEHOLDER="BENCHMARK_HOST_PLACEHOLDER"
-JMETER_CONFIG_PATH="infrastructure/JMeterAPITestPlan.jmx"
+JMETER_CONFIG_PATH="infrastructure/jmeter/JMeterAPITestPlan.jmx"
 
 DOCKER_COMPOSE_MONITORING_FILE="infrastructure/monitoring/docker-compose-monitoring.yml"
 DOCKER_COMPOSE_CADVISOR_FILE="infrastructure/monitoring/docker-compose-cadvisor.yml"

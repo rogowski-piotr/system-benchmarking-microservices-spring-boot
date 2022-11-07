@@ -39,6 +39,12 @@ cleanFunction()
         --detach \
         prometheus
     checkLastStatusFunction
+
+    echo "Cleaning some trash files"
+    rm ./start_timestamp
+    rm ./finish_timestamp
+    rm ./containers_under_test
+    rm ./JMeterAPITestPlan.jmx
 }
 
 
@@ -59,20 +65,38 @@ elif [ ! -f $FILE ]; then
 fi
 
 
+# Setup local Docker monitoring (Grafana, Prometheus, CAdvisor)
 source $(dirname $0)/setup_local_monitoring.sh
+checkLastStatusFunction
 
+# Setup services under test
 source $(dirname $0)/../setup_services.sh -f $FILE
+checkLastStatusFunction
 
+# Wait until services will be available
 waitForServicesFunction
+checkLastStatusFunction
 
+# Save start timestamp
 echo $(date +%s) > start_timestamp
+checkLastStatusFunction
 
-source $(dirname $0)/../start_jmeter.sh
+# Run JMeter as Docker container
+source $(dirname $0)/../run_jmeter.sh
+checkLastStatusFunction
 
+# Save finish timestamp
 echo $(date +%s) > finish_timestamp
+checkLastStatusFunction
 
+# Save containers names under test
 echo $(docker ps --format {{.Names}}) > containers_under_test
+checkLastStatusFunction
 
+# Collect results from CAdvisor and JMeter
 source $(dirname $0)/../collect_results.sh -f $FILE -l localhost
+checkLastStatusFunction
 
+# Clean after benchmark
 cleanFunction
+checkLastStatusFunction

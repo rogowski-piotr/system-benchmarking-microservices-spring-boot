@@ -63,7 +63,7 @@ jobs:
           host: ${{ secrets.LOAD_GENERATING_DNS }}
           username: ubuntu
           port: 22 
-          script: bash scripts/start_jmeter.sh
+          script: bash scripts/run_jmeter.sh
             
       - name: Save finish timestamp
         run: echo $(date +%s) > finish_timestamp

@@ -55,12 +55,12 @@ curl --location -g --request GET "http://${LOAD_GENERATING_HOST}:9090/api/v1/que
 
 
 echo "Collecting data from JMeter"
-JMETER_OUTPUT_PATH="jmeter_output"
+JMETER_OUTPUT_PATH="jmeter_output.csv"
 
 if [[ "$LOAD_GENERATING_HOST" =~ ^(localhost|127.0.0.1)$ ]]
 then
     mv $JMETER_OUTPUT_PATH output/${FILE}/
 else
     scp -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null \
-        -i "./.ssh/admin.pem" ubuntu@${LOAD_GENERATING_HOST}:${JMETER_OUTPUT_PATH} output/${FILE}/jmeter_output
+        -i "./.ssh/admin.pem" ubuntu@${LOAD_GENERATING_HOST}:${JMETER_OUTPUT_PATH} output/${FILE}/jmeter_output.csv
 fi

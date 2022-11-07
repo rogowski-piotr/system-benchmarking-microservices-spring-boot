@@ -168,8 +168,7 @@ The benchmark process is based on several steps:
   </li>
 </ol>
 
-
-### Steps to run benchmark
+### Steps to run benchmark in cloud environment
 To start benchmark process and prepare cloud environment dedicated github workflows have been prepared:
  
 1. <b>Prepare cloud environment</b> prepare cloud environment on AWS platform using Terraform
@@ -179,6 +178,11 @@ To start benchmark process and prepare cloud environment dedicated github workfl
 
 All related results with single run available at Run benchmark run history as workflow artifact.
 
+### Steps to run benchmark in local environment
+To start benchmark in local environment run this script:
+```shell script
+bash scripts/local-env/run_benchmark.sh -f <docker-compose file>
+```
 
 ## About Authors
 This project is a part of the "Projekt Badawczy" program performed by students of Computer Science master degree studies at GUT.
