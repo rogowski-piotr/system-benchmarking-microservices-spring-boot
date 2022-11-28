@@ -8,16 +8,27 @@ on:
         required: true
         type: 'choice'
         options:
-        - flask
-        - dotnet
-        - spring-boot
+          - flask
+          - dotnet
+          - spring-boot
       architecture:
         description: 'Choose architecture'     
         required: true
         type: 'choice'
         options:
-        - monolith
-        - microservices
+          - monolith
+          - microservices
+      number_instances:
+        description: 'Number of instances to scale (microservices architecture only)'
+        required: false
+        type: 'choice'
+        default: 1
+        options:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
 
 jobs:
   run_benchmark:
@@ -42,7 +53,7 @@ jobs:
           username: ubuntu
           port: 22 
           script: |
-            bash scripts/setup_services.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml
+            bash scripts/setup_services.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -n ${{ github.event.inputs.number_instances }}
 
       - name: Wait for services
         run: |
