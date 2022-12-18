@@ -117,6 +117,12 @@ jobs:
               --no-deps \
               --detach \
               prometheus
+
+      - name: Generate plots
+        run: |
+          cp output/* post_processing/01_data/
+          docker-compose -f post_processing\docker-compose.yml up
+          cp post_processing/03_output/* output/
      
       - name: Archive result files
         uses: actions/upload-artifact@v2
