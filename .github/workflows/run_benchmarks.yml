@@ -36,6 +36,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Download repository
+        uses: actions/checkout@v2
+
       - name: Store ssh key
         run: |
           mkdir .ssh/
@@ -84,7 +87,7 @@ jobs:
           ssh -oStrictHostKeyChecking=no \
             -oUserKnownHostsFile=/dev/null \
             -i "./.ssh/admin.pem" \
-            ubuntu@${load_generating_host} \
+            ubuntu@${{ secrets.LOAD_GENERATING_DNS }} \
             "echo $(docker ps --format {{.Names}})" > containers_under_test
 
       - name: Download results
