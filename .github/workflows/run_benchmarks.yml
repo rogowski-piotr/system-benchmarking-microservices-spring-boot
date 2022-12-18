@@ -126,6 +126,7 @@ jobs:
 
       - name: Generate plots
         run: |
+          mkdir post_processing/03_output
           cp -r output/* post_processing/01_data/
           docker-compose -f post_processing/docker-compose.yml up
           cp -r post_processing/03_output/* output/
