@@ -64,12 +64,16 @@ The applications run on EC2 which is a virtual machine running the Linux operati
 
 
 ### Aplication load:
-* AWS EC2 platform as independent environment for generating the load
-* JMeter as tool for as a tool for generating a load on multiple threads
+* To generate the load we use the JMeter tool that allows parameterization of load generation using multiple threads.
+* The load generation process is embedded in a separate environment to do not disturb measurement process of resource consumption by the real application being the object under test.
+
+
+### Monitoring
+* A set of technologies was used to monitor resource consumption by the application: CAdvisor, Prometheus and Grafana. Thanks to this, it is possible to view the collected metrics in real time via connecting to Grafana tool available on port 3000.
 
 
 ### Postprocessing:
-* CAdvisor, Prometheus, Grafana as metrics providers
+
 * R programming language - generating static charts
 
 
