@@ -1,5 +1,17 @@
 #!/bin/bash
 
+echo "hello"
+echo "now current folder content:"
+ls -lathr
+
+echo "ls data folder"
+ls -la ./01_data
+
+echo "ls code folder"
+ls -la ./02_code
+
+echo "ls output folder"
+ls -la ./03_output
 
 data_dir=./01_data
 for single_data_dir in "$data_dir"/*
