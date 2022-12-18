@@ -7,6 +7,6 @@ services:
     entrypoint: [ "bash", "entrypoint.sh" ]
     volumes:
       - ../post_processing/entrypoint.sh:/entrypoint.sh
-      - ../post_processing/01_data:/01_data:ro
+      - ../output:/01_data:ro
       - ../post_processing/02_code:/02_code:ro
       - ../post_processing/03_output:/03_output
