@@ -82,14 +82,13 @@ jobs:
       - name: Save finish timestamp
         run: echo $(date +%s) > finish_timestamp
 
-# TODO: prawdopodobnie nier działa
       - name: Save containers names
         run: |
           ssh -oStrictHostKeyChecking=no \
             -oUserKnownHostsFile=/dev/null \
             -i "./.ssh/admin.pem" \
             ubuntu@${{ secrets.BENCHMARK_DNS }} \
-            "docker ps --format {{.Names}}" 2>&1 | tee containers_under_test
+            "docker ps --format {{.Names}}" | tee containers_under_test
           cat containers_under_test
 
       - name: Download results
