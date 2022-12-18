@@ -91,6 +91,14 @@ jobs:
             ubuntu@${{ secrets.LOAD_GENERATING_DNS }} \
             "echo $(docker ps --format {{.Names}})" > containers_under_test
           cat containers_under_test
+      
+      - name: Show containers names
+        run: |
+          ssh -oStrictHostKeyChecking=no \
+            -oUserKnownHostsFile=/dev/null \
+            -i "./.ssh/admin.pem" \
+            ubuntu@${{ secrets.LOAD_GENERATING_DNS }} \
+            "echo $(docker ps --format {{.Names}})"
 
       - name: Download results
         run: |
