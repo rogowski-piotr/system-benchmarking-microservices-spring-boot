@@ -89,7 +89,6 @@ jobs:
             -i "./.ssh/admin.pem" \
             ubuntu@${{ secrets.BENCHMARK_DNS }} \
             "docker ps --format {{.Names}}" | tee containers_under_test
-          cat containers_under_test
 
       - name: Download results
         run: |

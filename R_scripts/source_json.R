@@ -50,7 +50,8 @@ load_data <- function(path, file1, file2, parsed_data){
 
 # The main directory for the output files (without the "/" character at the end)
 
-dir <- "D:/studies/mgr2/proj_bad/outputy"
+# dir <- "D:/studies/mgr2/proj_bad/outputy"
+dir <- file.path(getwd(), "output")
 
 #+ List of the sources. This script assumes there is a special naming convention. 
 

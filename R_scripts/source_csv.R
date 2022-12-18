@@ -17,8 +17,8 @@ load_data <- function(path, parsed_data){
   
   technology_name <- ""
   if (toupper(paste(strsplit(path, "-")[[1]][3], collapse = " ")) != "SPRING") { 
-    technology_name <- paste(strsplit(path, "-")[[1]][3], collapse = " ")
-    architecture_name <- paste(strsplit(paste(strsplit(path, "-")[[1]][4], collapse = " "), "\\.")[[1]][1], collapse = " ")
+    technology_name <- paste(strsplit(paste(strsplit(path, "-")[[1]][4], collapse = " "), "\\.")[[1]][1], collapse = " ")
+    architecture_name <- paste(strsplit(path, "-")[[1]][3], collapse = " ")
   } 
   else { 
     technology_name <- paste(strsplit(path, "-")[[1]][3:4], collapse = " ")
@@ -48,7 +48,9 @@ load_data <- function(path, parsed_data){
 
 # The main directory for the output files (without the "/" character at the end)
 
-dir <- "D:/studies/mgr2/proj_bad/outputy"
+# dir <- "D:/studies/mgr2/proj_bad/outputy"
+dir <- file.path(getwd(), "output")
+dir
 
 #+ List of the sources. This script assumes there is a special naming convention. 
 
@@ -99,7 +101,7 @@ png(file=paste("throughput_architecture.png", sep = ""), width = 1200, height= 8
 
 p1 = ggplot(parsed_data[toupper(parsed_data$Architecture) == "MONOLITH",], aes(x = Technology, y = Throughput)) + 
   geom_boxplot(fill = c("lightgreen")) +
-  facet_wrap(~Route, ncol = 1) +
+  # facet_wrap(~Route, ncol = 1) +
   xlab("") +
   ylab("Throughput [kB/s]") +
   labs(subtitle = "Monolith") 
@@ -108,7 +110,7 @@ p1 = ggplot(parsed_data[toupper(parsed_data$Architecture) == "MONOLITH",], aes(x
 
 p2 = ggplot(parsed_data[toupper(parsed_data$Architecture) == "MICROSERVICES",], aes(x = Technology, y = Throughput)) + 
   geom_boxplot(fill = c("lightgreen")) +
-  facet_wrap(~Route, ncol = 1) +
+  # facet_wrap(~Route, ncol = 1) +
   xlab("") +
   ylab("") +
   labs(subtitle = "Microservices") 
@@ -124,7 +126,7 @@ png(file=paste("throughput_route.png", sep = ""), width = 1200, height= 800)
 
 p1 = ggplot(parsed_data[toupper(parsed_data$Route) == "ROUTE1",], aes(x = Technology, y = Throughput)) + 
   geom_boxplot(fill = c("lightgreen")) +
-  facet_wrap(~Architecture, ncol = 1) +
+  # facet_wrap(~Architecture, ncol = 1) +
   xlab("") +
   ylab("Throughput [kB/s]") +
   labs(subtitle = "Route 1") 
@@ -133,7 +135,7 @@ p1 = ggplot(parsed_data[toupper(parsed_data$Route) == "ROUTE1",], aes(x = Techno
 
 p2 = ggplot(parsed_data[toupper(parsed_data$Route) == "ROUTE2",], aes(x = Technology, y = Throughput)) + 
   geom_boxplot(fill = c("lightgreen")) +
-  facet_wrap(~Architecture, ncol = 1) +
+  # facet_wrap(~Architecture, ncol = 1) +
   xlab("") +
   ylab("") +
   labs(subtitle = "Route 2") 
@@ -151,7 +153,7 @@ png(file=paste("latency_architecture.png", sep = ""), width = 1200, height= 800)
 
 p1 = ggplot(parsed_data[toupper(parsed_data$Architecture) == "MONOLITH",], aes(x = Technology, y = Latency)) + 
   geom_boxplot(fill = c("lightgreen")) +
-  facet_wrap(~Route, ncol = 1) +
+  # facet_wrap(~Route, ncol = 1) +
   xlab("") +
   ylab("Time elapsed [ms]") +
   labs(subtitle = "Monolith") 
@@ -160,7 +162,7 @@ p1 = ggplot(parsed_data[toupper(parsed_data$Architecture) == "MONOLITH",], aes(x
 
 p2 = ggplot(parsed_data[toupper(parsed_data$Architecture) == "MICROSERVICES",], aes(x = Technology, y = Latency)) + 
   geom_boxplot(fill = c("lightgreen")) +
-  facet_wrap(~Route, ncol = 1) +
+  # facet_wrap(~Route, ncol = 1) +
   xlab("") +
   ylab("") +
   labs(subtitle = "Microservices") 
@@ -176,7 +178,7 @@ png(file=paste("latency_route.png", sep = ""), width = 1200, height= 800)
 
 p1 = ggplot(parsed_data[toupper(parsed_data$Route) == "ROUTE1",], aes(x = Technology, y = Latency)) + 
   geom_boxplot(fill = c("lightgreen")) +
-  facet_wrap(~Architecture, ncol = 1) +
+  # facet_wrap(~Architecture, ncol = 1) +
   xlab("") +
   ylab("Time elapsed [ms]") +
   labs(subtitle = "Route 1") 
@@ -185,7 +187,7 @@ p1 = ggplot(parsed_data[toupper(parsed_data$Route) == "ROUTE1",], aes(x = Techno
 
 p2 = ggplot(parsed_data[toupper(parsed_data$Route) == "ROUTE2",], aes(x = Technology, y = Latency)) + 
   geom_boxplot(fill = c("lightgreen")) +
-  facet_wrap(~Architecture, ncol = 1) +
+  # facet_wrap(~Architecture, ncol = 1) +
   xlab("") +
   ylab("") +
   labs(subtitle = "Route 2") 
