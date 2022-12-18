@@ -82,6 +82,7 @@ jobs:
       - name: Save finish timestamp
         run: echo $(date +%s) > finish_timestamp
 
+# TODO: prawdopodobnie nier działa
       - name: Save containers names
         run: |
           ssh -oStrictHostKeyChecking=no \
@@ -89,6 +90,7 @@ jobs:
             -i "./.ssh/admin.pem" \
             ubuntu@${{ secrets.LOAD_GENERATING_DNS }} \
             "echo $(docker ps --format {{.Names}})" > containers_under_test
+          cat containers_under_test
 
       - name: Download results
         run: |
