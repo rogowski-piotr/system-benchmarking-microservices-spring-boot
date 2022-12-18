@@ -31,6 +31,13 @@ containers=$(<containers_under_test)
 startTimestamp=$(<start_timestamp)
 finishTimestamp=$(<finish_timestamp)
 
+echo "Collecting results:"
+echo "start timestamp: $startTimestamp"
+echo "start timestamp: $startTimestamp"
+echo "finish timestamp: $finishTimestamp"
+echo "containers: $containers"
+
+
 if [ -z "$containers" ] || [ -z "$startTimestamp" ] || [ -z "$finishTimestamp" ]
 then
     echo "Can not read some or all of the parameters from files";
@@ -59,8 +66,10 @@ JMETER_OUTPUT_PATH="jmeter_output.csv"
 
 if [[ "$LOAD_GENERATING_HOST" =~ ^(localhost|127.0.0.1)$ ]]
 then
+    echo "using local option"
     mv $JMETER_OUTPUT_PATH output/${FILE}/
 else
+    echo "using remote option"
     scp -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null \
         -i "./.ssh/admin.pem" ubuntu@${LOAD_GENERATING_HOST}:${JMETER_OUTPUT_PATH} output/${FILE}/jmeter_output.csv
 fi

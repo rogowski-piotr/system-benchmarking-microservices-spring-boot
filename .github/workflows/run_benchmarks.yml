@@ -91,7 +91,10 @@ jobs:
             "echo $(docker ps --format {{.Names}})" > containers_under_test
 
       - name: Download results
-        run: bash scripts/collect_results.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }}
+        run: |
+          bash scripts/collect_results.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }}
+          ls -lhra output
+          ls -lhra output/docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml
 
       - name: Stop services
         uses: appleboy/ssh-action@master
