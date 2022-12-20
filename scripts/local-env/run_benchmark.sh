@@ -100,3 +100,8 @@ checkLastStatusFunction
 # Clean after benchmark
 cleanFunction
 checkLastStatusFunction
+
+# Generate plots using R
+mkdir post_processing/03_output
+docker-compose -f post_processing/docker-compose.yml up
+cp -r post_processing/03_output/* output/
