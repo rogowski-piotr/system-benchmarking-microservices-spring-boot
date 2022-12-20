@@ -102,6 +102,7 @@ cleanFunction
 checkLastStatusFunction
 
 # Generate plots using R
+dos2unix post_processing/entrypoint.sh
 mkdir post_processing/03_output
 docker-compose -f post_processing/docker-compose.yml up
 cp -r post_processing/03_output/* output/
