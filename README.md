@@ -12,6 +12,9 @@
 * [Infrastructure Overview](#infrastructure-overview)
 * [Benchmark Overview](#benchmark-overview)
 * [Start Guide](#start-guide)
+  * [Prerequisite steps to prepare cloud environment](#prerequisite-steps-to-prepare-cloud-environment)
+  * [Steps to run benchmark in cloud environment](#steps-to-run-benchmark-in-cloud-environment)
+  * [Steps to run benchmark in local environment](#steps-to-run-benchmark-in-local-environment)
 * [About Authors](#about-authors)
 
 
@@ -126,7 +129,7 @@ The benchmark process is based on several steps:
 ## Start Guide
 
 
-### Steps to create the infrastructure
+### Prerequisite steps to prepare cloud environment
 <ol>
   <li>
     <a href="https://portal.aws.amazon.com/gp/aws/developer/registration/index.html?nc2=h_ct&src=header_signup">Creating an AWS account</a>
