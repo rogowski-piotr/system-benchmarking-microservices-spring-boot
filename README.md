@@ -191,5 +191,12 @@ To start benchmark in local environment run this script:
 bash scripts/local-env/run_benchmark.sh -f <docker-compose file>
 ```
 
+## Results
+The data was collected using a test plan that performed requests using 15 threads for 30 seconds. The services were deployed on the t2.micro instance on the AWS platform.
+
+<p align="center">
+    <img width="100%" height="100%" src="resources/results/results_req_per_sec.png">
+</p>
+
 ## About Authors
 This project is a part of the "Projekt Badawczy" program performed by students of Computer Science master degree studies at GUT.
