@@ -1,9 +1,12 @@
 package pl.edu.pg.benchmarking.distance;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import pl.edu.pg.benchmarking.distance.dto.DistanceResponse;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import pl.edu.pg.benchmarking.distance.dto.DistanceRequest;
+import pl.edu.pg.benchmarking.distance.dto.DistanceResponse;
 
 import java.util.List;
 
@@ -18,16 +21,13 @@ public class DistanceController {
     }
 
     @PostMapping
-    public ResponseEntity<DistanceResponse> calculateDistance(@RequestBody DistanceRequest request) {
+    public ResponseEntity<List<DistanceResponse>> calculateDistance(@RequestBody List<DistanceRequest> request) {
         List<Point> points = DistanceRequest.dtoToEntityMapper().apply(request);
-        Point point1 = points.get(0);
-        Point point2 = points.get(1);
-
-        Double distance = distanceService.calculateDistance(
-                point1.getLatitude(), point1.getLongitude(),
-                point2.getLatitude(), point2.getLongitude());
-
-        return ResponseEntity.ok(DistanceResponse.entityToDtoMapper().apply(distance));
+        List<Double> distances = points.stream()
+                .map(pointPair -> distanceService.calculateDistance(
+                        pointPair.getLatitude1(), pointPair.getLongitude1(),
+                        pointPair.getLatitude2(), pointPair.getLongitude2())
+                ).toList();
+        return ResponseEntity.ok(DistanceResponse.entityToDtoMapper().apply(points, distances));
     }
-
 }
