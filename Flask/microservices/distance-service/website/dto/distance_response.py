@@ -15,8 +15,8 @@ def entity_to_dto_mapper(points: List[Point], distances_list: List[float]) -> li
 
 class DistanceResponse:
     def __init__(self, place_id_1: int, place_id_2: int, distance: float) -> None:
-        self.place_id_1 = place_id_1
-        self.place_id_2 = place_id_2
+        self.placeId1 = place_id_1
+        self.placeId2 = place_id_2
         self.distance = distance
 
     def as_dict(self):

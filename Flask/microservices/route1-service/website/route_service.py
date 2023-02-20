@@ -1,5 +1,6 @@
-from website.place_repository import PlaceRepository
-from website.distance_repository import DistanceRepository
+from collections import ChainMap
+from website.place.place_repository import PlaceRepository
+from website.distance.distance_repository import DistanceRepository
 from static.utils import parse_str_to_list
 
 
@@ -7,11 +8,11 @@ class RouteService:
     def __init__(self) -> None:
         self.distance_repository = DistanceRepository()
         self.place_repository = PlaceRepository()
+        self.places_distance_map = ChainMap()
 
     def find_distance(self, place_id1: int, place_id2: int) -> float:
-        coordinates1 = self.place_repository.find_place_coordinates(place_id1)
-        coordinates2 = self.place_repository.find_place_coordinates(place_id2)
-        return self.distance_repository.find_distance(coordinates1, coordinates2)
+        key_pair = (place_id1, place_id2)
+        return self.places_distance_map.get(key_pair)
 
     def find_closest_neighbour(self, place_start: int, places: list) -> int:
         closest_neighbour_id = None
@@ -29,8 +30,11 @@ class RouteService:
 
         return closest_neighbour_id
 
-    def compute_route(self, id: str) -> list:
-        places = parse_str_to_list(id)
+    def compute_route(self, ids: str) -> list:
+        places_coordinates = self.place_repository.find_places_coordinates(ids)
+        self.places_distance_map = self.distance_repository.find_distances(places_coordinates)
+        
+        places = parse_str_to_list(ids)
         current_place = places[0]
         places_amount = len(places)
         visited_places: list = []
