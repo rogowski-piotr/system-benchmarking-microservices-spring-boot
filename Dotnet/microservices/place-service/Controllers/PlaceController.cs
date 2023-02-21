@@ -14,10 +14,10 @@ namespace PlaceService.Controllers
             _placeRepository = placeRepository;
         }
 
-        [Route("api/places")]
+        [Route("api/places/all")]
         public IActionResult Places()
         {
-            return Ok(PlacesResponse.GetPlacesResponses(_placeRepository.Places));
+            return Ok(PlacesAllResponse.GetPlacesResponses(_placeRepository.Places));
         }
 
         [Route("api/places/{id}")]
@@ -30,6 +30,16 @@ namespace PlaceService.Controllers
                 return NotFound();
 
             return Ok(PlaceResponse.EntityToDtoMapper(place));
+        }
+
+        [Route("api/places")]
+        [HttpGet]
+        public IActionResult PlacesById(string ids)
+        {
+            var idsList = Array.ConvertAll(ids.Split(','), x => Int32.Parse(x)).ToList();
+            var places = _placeRepository.FindByIds(idsList);
+            var responseDto = PlacesResponse.GetPlacesResponses(places);
+            return Ok(responseDto);
         }
     }
 }

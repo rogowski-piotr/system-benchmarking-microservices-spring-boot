@@ -15,5 +15,8 @@ namespace PlaceService.Repositories
 
         public Place FindById(int id)
             => Places.FirstOrDefault(f => f.Id == id);
+
+        public List<Place> FindByIds(List<Int32> ids)
+            => Places.FindAll(place => ids.Contains(place.Id));
     }
 }
