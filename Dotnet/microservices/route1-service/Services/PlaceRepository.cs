@@ -11,11 +11,11 @@ namespace Route1Service.Services
             _httpClient = new() { BaseAddress = new(configuration["PlaceServiceUri"]) };
         }
 
-        public async Task<string> FindPlaceCoordinatesAsync(int placeId)
+        public async Task<List<PlaceResponse>> FindPlacesCoordinatesAsync(List<int> ids)
         {
-            var response = await _httpClient.GetFromJsonAsync<PlaceResponse>($"places/{placeId}");
-
-            return response.Coordinates;
+            String idsParam = string.Join(",", ids);
+            var response = await _httpClient.GetFromJsonAsync<List<PlaceResponse>>($"places?ids={idsParam}");
+            return response;
         }
     }
 }
