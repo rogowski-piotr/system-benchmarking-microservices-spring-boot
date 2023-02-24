@@ -1,5 +1,4 @@
 ﻿using Route1Service.Models;
-using System.Text.Json;
 
 namespace Route1Service.Services
 {
