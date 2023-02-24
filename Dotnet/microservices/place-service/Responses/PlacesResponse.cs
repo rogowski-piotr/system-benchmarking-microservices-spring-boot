@@ -9,16 +9,16 @@ namespace PlaceService.Responses
         [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonPropertyName("city")]
-        public string City { get; set; }
+        [JsonPropertyName("coordinates")]
+        public string Coordinates { get; set; }
 
-        private PlacesResponse(int id, string city)
+        private PlacesResponse(int id, string coordinates)
         {
             Id = id;
-            City = city;
+            Coordinates = coordinates;
         }
 
         public static List<PlacesResponse> GetPlacesResponses(List<Place> collection)
-            => collection.ConvertAll(new Converter<Place, PlacesResponse>(c => new(c.Id, c.City)));
+            => collection.ConvertAll(new Converter<Place, PlacesResponse>(c => new(c.Id, c.Coordinates)));
     }
 }

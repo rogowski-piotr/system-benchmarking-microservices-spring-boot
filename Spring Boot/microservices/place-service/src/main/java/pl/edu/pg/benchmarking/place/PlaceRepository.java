@@ -3,7 +3,6 @@ package pl.edu.pg.benchmarking.place;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import jakarta.annotation.PostConstruct;
-import lombok.Getter;
 import org.springframework.stereotype.Repository;
 
 import java.io.Reader;
@@ -11,18 +10,27 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.logging.Logger;
 
 @Repository
 public class PlaceRepository {
-
     private final Logger LOG = Logger.getLogger(this.getClass().getName());
 
-    @Getter
     private List<Place> places;
+
+    public List<Place> findAll() {
+        return places;
+    }
 
     public Optional<Place> findById(Integer id) {
         return places.stream().filter(place -> place.getId().equals(id)).findFirst();
+    }
+
+    public List<Place> findByIds(Set<Integer> ids) {
+        return places.stream()
+                .filter(place -> ids.contains(place.getId()))
+                .toList();
     }
 
     @PostConstruct
@@ -36,5 +44,4 @@ public class PlaceRepository {
             LOG.severe("Can not read json file with cities coordinates");
         }
     }
-
 }

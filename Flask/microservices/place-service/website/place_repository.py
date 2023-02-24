@@ -1,5 +1,5 @@
 import json
-from typing import List, Optional
+from typing import List, Optional, Set
 from website.place import Place
 
 
@@ -22,3 +22,6 @@ class PlaceRepository:
             if place.id == place_id:
                 return place
         return None
+
+    def find_by_ids(self, ids: Set[int]) -> List[Place]:
+        return filter(lambda place: place.id in ids, self.places)

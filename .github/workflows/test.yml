@@ -24,7 +24,7 @@ jobs:
       - name: Run e2e tests
         run:  |
           pip install -r .github/e2e/requirements.txt && \
-          python -m pytest --timeout=10 .github/e2e/
+          python -m pytest --timeout=10 .github/e2e/e2e_microservices_tests.py
 
 
   spring-boot-monolith:
@@ -46,7 +46,7 @@ jobs:
         run: python3 scripts/service_availability_checker/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
 
       - name: Run e2e tests
-        run: python -m pytest --timeout=10 .github/e2e/
+        run: python -m pytest --timeout=10 .github/e2e/e2e_monolith_tests.py
 
 
   flask-microservices:
@@ -68,7 +68,7 @@ jobs:
         run: python3 scripts/service_availability_checker/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
 
       - name: Run e2e tests
-        run: python -m pytest --timeout=10 .github/e2e/
+        run: python -m pytest --timeout=10 .github/e2e/e2e_microservices_tests.py
 
 
   flask-monolith:
@@ -90,7 +90,7 @@ jobs:
         run: python3 scripts/service_availability_checker/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
 
       - name: Run e2e tests
-        run: python -m pytest --timeout=10 .github/e2e/
+        run: python -m pytest --timeout=10 .github/e2e/e2e_monolith_tests.py
 
 
   dotnet-microservices:
@@ -112,7 +112,7 @@ jobs:
         run: python3 scripts/service_availability_checker/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
 
       - name: Run e2e tests
-        run: python -m pytest --timeout=10 .github/e2e/
+        run: python -m pytest --timeout=10 .github/e2e/e2e_microservices_tests.py
 
 
   dotnet-monolith:
@@ -134,4 +134,4 @@ jobs:
         run: python3 scripts/service_availability_checker/service_availability_checker.py --host localhost --port 8080 --timeout 30 --health_endpoint /api/places/0
 
       - name: Run e2e tests
-        run: python -m pytest --timeout=10 .github/e2e/
+        run: python -m pytest --timeout=10 .github/e2e/e2e_monolith_tests.py

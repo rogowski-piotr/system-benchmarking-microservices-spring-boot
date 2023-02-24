@@ -11,11 +11,7 @@ distance_service = SphericalDistanceService()
 @distance_views.route('', methods=['POST'])
 def calculate_distance() -> dict:
     points = distance_request.dto_to_entity_mapper(request.json)
-    point1 = points[0]
-    point2 = points[1]
-
-    distance: float = distance_service.calculate_distance(
-        point1.latitude, point1.longitude, point2.latitude, point2.longitude)
-
-    dto = distance_response.entity_to_dto_mapper(distance)
-    return jsonify(dto.as_dict())
+    distances_mapped = map(lambda points_pair: distance_service.calculate_distance(points_pair), points)
+    distances_list = list(distances_mapped)
+    dto = distance_response.entity_to_dto_mapper(points, distances_list)
+    return jsonify(dto)
