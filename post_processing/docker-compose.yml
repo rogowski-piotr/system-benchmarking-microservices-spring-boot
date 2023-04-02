@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  post-processing:
+    build: .
+    container_name: post-processing
+    entrypoint: [ "bash", "entrypoint.sh" ]
+    volumes:
+      - ../post_processing/entrypoint.sh:/entrypoint.sh
+      - ../output:/01_data:ro
+      - ../post_processing/02_code:/02_code:ro
+      - ../post_processing/03_output:/03_output

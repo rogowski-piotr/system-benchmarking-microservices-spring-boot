@@ -1,4 +1,4 @@
-name: "4. Run benchmarks"
+name: "4. Run benchmark"
 
 on: 
   workflow_dispatch:
@@ -8,33 +8,37 @@ on:
         required: true
         type: 'choice'
         options:
-        - flask
-        - dotnet
-        - spring-boot
+          - flask
+          - dotnet
+          - spring-boot
       architecture:
         description: 'Choose architecture'     
         required: true
         type: 'choice'
         options:
-        - monolith
-        - microservices
+          - monolith
+          - microservices
+      number_instances:
+        description: 'Number of instances to scale (microservices architecture only)'
+        required: false
+        type: 'choice'
+        default: 1
+        options:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
 
 jobs:
-  deploy:
-    name: Performance of benchmarks
+  run_benchmark:
+    name: Run benchmark
     runs-on: ubuntu-latest
     
     steps:
-      # - name: Running benchmarks for  ${{ github.event.inputs.technology }} application in ${{ github.event.inputs.architecture }} version
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     key: ${{ secrets.EC2_SSH_KEY }}
-      #     host: ${{ secrets.BENCHMARK_DNS }}
-      #     username: ubuntu
-      #     port: 22 
-      #     script: |
-      #       bash scripts/benchmark-env/run_benchmark.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }} -b ${{ secrets.BENCHMARK_DNS }}
-            
+      - name: Download repository
+        uses: actions/checkout@v2
+
       - name: Store ssh key
         run: |
           mkdir .ssh/
@@ -43,11 +47,88 @@ jobs:
         shell: bash
         env:
           SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
-      
+
+      - name: Start services in ${{ github.event.inputs.technology }} technology, ${{ github.event.inputs.architecture }} architecture
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.BENCHMARK_DNS }}
+          username: ubuntu
+          port: 22 
+          script: |
+            bash scripts/setup_services.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -n ${{ github.event.inputs.number_instances }}
+
+      - name: Wait for services
+        run: |
+          pip install -r scripts/service_availability_checker/requirements.txt
+          python3 scripts/service_availability_checker/service_availability_checker.py \
+            --host ${{ secrets.BENCHMARK_DNS }} \
+            --port 8080 \
+            --timeout 30 \
+            --health_endpoint /api/places/0
+
+      - name: Save start timestamp
+        run: echo $(date +%s) > start_timestamp
+
+      - name: Run JMeter
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.LOAD_GENERATING_DNS }}
+          username: ubuntu
+          port: 22 
+          script: bash scripts/run_jmeter.sh
+            
+      - name: Save finish timestamp
+        run: echo $(date +%s) > finish_timestamp
+
+      - name: Save containers names
+        run: |
+          ssh -oStrictHostKeyChecking=no \
+            -oUserKnownHostsFile=/dev/null \
+            -i "./.ssh/admin.pem" \
+            ubuntu@${{ secrets.BENCHMARK_DNS }} \
+            "docker ps --format {{.Names}}" | tee containers_under_test
+
       - name: Download results
         run: |
-          scp -r -oStrictHostKeyChecking=no -oUserKnownHostsFile=/dev/null \
-            -i ".ssh/admin.pem" ubuntu@${{ secrets.BENCHMARK_DNS }}:/home/ubuntu/output/ .
+          bash scripts/collect_results.sh -f docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml -l ${{ secrets.LOAD_GENERATING_DNS }}
+          ls -lhra output
+          ls -lhra output/docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml
+
+      - name: Stop services
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.BENCHMARK_DNS }}
+          username: ubuntu
+          port: 22 
+          script: |
+            docker-compose \
+              --file docker-compose-${{ github.event.inputs.technology }}-${{ github.event.inputs.architecture }}.yml \
+              down
+
+      - name: Cleaning prometheus metrics
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.LOAD_GENERATING_DNS }}
+          username: ubuntu
+          port: 22 
+          script: |
+            docker-compose \
+              --file infrastructure/monitoring/docker-compose-monitoring.yml up \
+              --build \
+              --force-recreate \
+              --no-deps \
+              --detach \
+              prometheus
+
+      - name: Generate plots
+        run: |
+          mkdir post_processing/03_output
+          docker-compose -f post_processing/docker-compose.yml up
+          cp -r post_processing/03_output/* output/
      
       - name: Archive result files
         uses: actions/upload-artifact@v2

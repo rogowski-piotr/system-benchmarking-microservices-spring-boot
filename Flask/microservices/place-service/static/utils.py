@@ -8,3 +8,9 @@ def attributes(obj) -> dict:
             value = getattr(obj, name)
             pr[name] = value
     return pr
+
+def parse_str_to_list(id: str) -> list:
+    try:
+        return [int(i) for i in id.split(',')]
+    except ValueError:
+        raise ParseArguments

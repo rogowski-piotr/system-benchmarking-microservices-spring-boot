@@ -1,24 +1,32 @@
 package pl.edu.pg.benchmarking.route2;
 
 import org.springframework.stereotype.Service;
-
-import java.util.*;
+import pl.edu.pg.benchmarking.route2.distance.DistanceRepository;
+import pl.edu.pg.benchmarking.route2.place.PlaceRepository;
+import pl.edu.pg.benchmarking.route2.distance.DistanceRepository.PlacesPair;
+import pl.edu.pg.benchmarking.route2.place.PlaceDto.GetPlaceDtoResponse;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class RouteService {
     private final DistanceRepository distanceRepository;
     private final PlaceRepository placeRepository;
+    private Map<PlacesPair, Double> placesDistanceMap = new HashMap<>();
 
     public RouteService(DistanceRepository distanceRepository, PlaceRepository placeRepository) {
         this.distanceRepository = distanceRepository;
         this.placeRepository = placeRepository;
     }
 
-    private Double findDistance(Integer placeId1, Integer placeId2) {
-        String coordinates1 = placeRepository.findPlaceCoordinates(placeId1);
-        String coordinates2 = placeRepository.findPlaceCoordinates(placeId2);
-        return distanceRepository.findDistance(coordinates1, coordinates2);
+    private double findDistance(int placeId1, int placeId2) {
+        PlacesPair keyPair = new PlacesPair(placeId1, placeId2);
+        return placesDistanceMap.get(keyPair);
     }
 
     public List<List<Integer>> computePermutationRecursive(Integer[] elements) {
@@ -45,6 +53,9 @@ public class RouteService {
     }
 
     public List<Integer> computeRoute(Collection<Integer> places) {
+        List<GetPlaceDtoResponse> placesCoordinates = placeRepository.findPlacesCoordinates(places);
+        this.placesDistanceMap = distanceRepository.findDistances(placesCoordinates);
+
         List<List<Integer>> listOfPermutations = computePermutationRecursive(Arrays.copyOfRange(places.toArray(new Integer[0]), 1, places.size()));
 
         listOfPermutations.forEach(permutationList -> {

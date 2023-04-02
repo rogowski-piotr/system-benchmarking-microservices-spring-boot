@@ -1,12 +1,9 @@
-import imp
-from website.route_repository import RouteRepository
 from flask import Blueprint, request, jsonify
 from website.route_service import RouteService
 from static.exceptions import *
 
 
 route1_views = Blueprint('route1', __name__)
-route_repository = RouteRepository()
 route_service = RouteService()
 
 @route1_views.route('', methods=['GET'])

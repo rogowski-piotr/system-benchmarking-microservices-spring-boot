@@ -1,22 +1,24 @@
-﻿namespace Route1Service.Services
+﻿using Route1Service.Models;
+
+namespace Route1Service.Services
 {
     public class RouteService
     {
         private readonly DistanceRepository _distanceRepository;
         private readonly PlaceRepository _placeRepository;
+        private Dictionary<(int, int), double> _placesDistanceMap;
 
         public RouteService(DistanceRepository distanceRepository, PlaceRepository placeRepository)
         {
             _distanceRepository = distanceRepository;
             _placeRepository = placeRepository;
+            _placesDistanceMap = new Dictionary<(int, int), double>();
         }
 
         public async Task<double> FindDistanceAsync(int place1Id, int place2Id)
         {
-            var cords1 = _placeRepository.FindPlaceCoordinatesAsync(place1Id);
-            var cords2 = _placeRepository.FindPlaceCoordinatesAsync(place2Id);
-
-            return await _distanceRepository.FindDistanceAsync(await cords1, await cords2);
+            var key = (place1Id, place2Id);
+            return this._placesDistanceMap[key];
         }
 
         private async Task<int> FindClosestNeighborAsync(int placeStart, List<int> places)
@@ -48,6 +50,9 @@
 
         public async Task<List<int>> ComputeRouteAsync(List<int> places)
         {
+            List<PlaceResponse> placesCoordinates = await _placeRepository.FindPlacesCoordinatesAsync(places);
+            this._placesDistanceMap = await _distanceRepository.FindDistancesAsync(placesCoordinates);
+
             var currentPlace = places[0];
             var placeAmount = places.Count;
 

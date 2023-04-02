@@ -1,6 +1,6 @@
-from pickletools import read_unicodestring1
-from website.place_repository import PlaceRepository
-from website.distance_repository import DistanceRepository
+from collections import ChainMap
+from website.place.place_repository import PlaceRepository
+from website.distance.distance_repository import DistanceRepository
 from static.utils import parse_str_to_list
 from typing import List
 
@@ -9,11 +9,11 @@ class RouteService:
     def __init__(self) -> None:
         self.distance_repository = DistanceRepository()
         self.place_repository = PlaceRepository()
+        self.places_distance_map = ChainMap()
 
     def find_distance(self, place_id1: int, place_id2: int) -> float:
-        coordinates1 = self.place_repository.find_place_coordinates(place_id1)
-        coordinates2 = self.place_repository.find_place_coordinates(place_id2)
-        return self.distance_repository.find_distance(coordinates1, coordinates2)
+        key_pair = (place_id1, place_id2)
+        return self.places_distance_map.get(key_pair)
 
     def compute_permutation_recursive_list(self, elements: List[int]) -> List[List[int]]:
         return self.compute_permutation_recursive(len(elements), elements, [])
@@ -40,16 +40,16 @@ class RouteService:
         input[b] = tmp
         return input
 
-    def compute_route(self, id: str) -> List[int]:
-        places = parse_str_to_list(id)
+    def compute_route(self, ids: str) -> List[int]:
+        places_coordinates = self.place_repository.find_places_coordinates(ids)
+        self.places_distance_map = self.distance_repository.find_distances(places_coordinates)
 
+        places = parse_str_to_list(ids)
         list_of_permutations = self.compute_permutation_recursive_list(places[1:])
-
 
         for permutation in list_of_permutations:
             permutation.insert(0, places[0])
             permutation.append(places[0])
-
 
         shortest_way = None
         shortest_distance = None

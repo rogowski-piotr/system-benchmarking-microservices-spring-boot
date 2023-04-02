@@ -1,28 +1,213 @@
 {
 	"info": {
-		"_postman_id": "3c755a65-bbef-4834-b4af-ce09e8adbc7e",
+		"_postman_id": "922c9f13-48c2-4e3f-8701-9fb68b9d9f2d",
 		"name": "System Benchmarking",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17578128"
 	},
 	"item": [
 		{
-			"name": "All Places",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/places",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"places"
-					]
+			"name": "Monolith only",
+			"item": [
+				{
+					"name": "All Places",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/places",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"places"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "distance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"coordinate1\": \"54.367, 18.633\",\r\n    \"coordinate2\": \"50.05, 19.95\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/distance",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"distance"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Microservices only",
+			"item": [
+				{
+					"name": "All Places",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/places/all",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"places",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Places by ids",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/places?ids=1,22,333,1000",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"places"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "1,22,333,1000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "distance",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"placeId1\": 1,\r\n        \"placeId2\": 2,\r\n        \"coordinates1\": \"54.367, 18.633\",\r\n        \"coordinates2\": \"50.05, 19.95\"\r\n    },\r\n    {\r\n        \"placeId1\": 3,\r\n        \"placeId2\": 4,\r\n        \"coordinates1\": \"55.367, 19.633\",\r\n        \"coordinates2\": \"52.05, 14.95\"\r\n    },\r\n    {\r\n        \"placeId1\": 1,\r\n        \"placeId2\": 3,\r\n        \"coordinates1\": \"54.367, 18.633\",\r\n        \"coordinates2\": \"55.367, 19.633\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/distance",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"distance"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Prometheus",
+			"item": [
+				{
+					"name": "prometheus metric",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/v1/query_range?query=sum(rate(container_cpu_user_seconds_total{image!=\"\"}[5m])*100)&start=1660949480&end=1660949490&step=5s",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"query_range"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "sum(rate(container_cpu_user_seconds_total{image!=\"\"}[5m])*100)"
+								},
+								{
+									"key": "start",
+									"value": "1660949480"
+								},
+								{
+									"key": "end",
+									"value": "1660949490"
+								},
+								{
+									"key": "step",
+									"value": "5s"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "prometheus clean",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/v1/admin/tsdb/delete_series?match[]={job=\"cadvisor\"}'",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"tsdb",
+								"delete_series"
+							],
+							"query": [
+								{
+									"key": "match[]",
+									"value": "{job=\"cadvisor\"}'"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "One Place",
@@ -30,7 +215,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/places/1",
+					"raw": "localhost:8080/api/places/4",
 					"host": [
 						"localhost"
 					],
@@ -38,35 +223,7 @@
 					"path": [
 						"api",
 						"places",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "distance",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"coordinate1\": \"54.367, 18.633\",\r\n    \"coordinate2\": \"50.05, 19.95\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/api/distance",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"distance"
+						"4"
 					]
 				}
 			},
@@ -78,7 +235,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/route1?id=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+					"raw": "localhost:8080/api/route1?id=1,2,3",
 					"host": [
 						"localhost"
 					],
@@ -90,7 +247,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+							"value": "1,2,3"
 						}
 					]
 				}
@@ -103,7 +260,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/route2?id=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
+					"raw": "localhost:8080/api/route2?id=5,900,2317,2",
 					"host": [
 						"localhost"
 					],
@@ -115,7 +272,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"
+							"value": "5,900,2317,2"
 						}
 					]
 				}

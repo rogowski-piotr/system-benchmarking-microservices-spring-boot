@@ -6,18 +6,17 @@ from website.point import Point
 COORDINATE_REGEX: Final[str] = "([0-9]+.[0-9]+), ([0-9]+.[0-9]+)"
 
 
-def dto_to_entity_mapper(request: dict) -> List[Point]:
-    return DistanceRequest(request).points
+def dto_to_entity_mapper(request: list) -> List[Point]:
+    mapped_result = map(lambda places_element: DistanceRequest(places_element).to_point(), request)
+    return list(mapped_result)
 
 
 class DistanceRequest:
-    def __init__(self, request: dict) -> None:
-        self.coordinate1 = request["coordinate1"]
-        self.coordinate2 = request["coordinate2"]
-        self.points = [
-            Point(self.parse_to_latitude(self.coordinate1), self.parse_to_longitude(self.coordinate1)),
-            Point(self.parse_to_latitude(self.coordinate2), self.parse_to_longitude(self.coordinate2))
-        ]
+    def __init__(self, request_single_place: dict) -> None:
+        self.place_id_1 = request_single_place["placeId1"]
+        self.place_id_2 = request_single_place["placeId2"]
+        self.coordinates_1 = request_single_place["coordinates1"]
+        self.coordinates_2 = request_single_place["coordinates2"]
 
     def parse_to_latitude(self, coordinate: str) -> float:
         result = re.search(COORDINATE_REGEX, coordinate)
@@ -26,3 +25,13 @@ class DistanceRequest:
     def parse_to_longitude(self, coordinate: str) -> float:
         result = re.search(COORDINATE_REGEX, coordinate)
         return float(result.group(2))
+
+    def to_point(self) -> Point:
+        return Point(
+            self.place_id_1,
+            self.place_id_2,
+            self.parse_to_latitude(self.coordinates_1),
+            self.parse_to_latitude(self.coordinates_2),
+            self.parse_to_longitude(self.coordinates_1),
+            self.parse_to_longitude(self.coordinates_2)
+        )

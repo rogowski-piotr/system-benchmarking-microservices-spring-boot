@@ -1,10 +1,10 @@
-name: "3. Load generating server configuration"
+name: "3. Configure load generating server"
 
 on: workflow_dispatch
 
 jobs:
-  deploy:
-    name: Deploy to EC2
+  configure_load_generating_server:
+    name: Configure load generating server via Ansible
     runs-on: ubuntu-latest
 
     steps:
