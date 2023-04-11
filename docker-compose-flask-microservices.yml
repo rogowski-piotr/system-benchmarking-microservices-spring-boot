@@ -3,21 +3,25 @@ version: '3.8'
 services:
   place-service:
     build: Flask/microservices/place-service/
+    image: s192258/place-service:flask
     networks:
       - app-network
 
   distance-service:
     build: Flask/microservices/distance-service/
+    image: s192258/distance-service:flask
     networks:
       - app-network
 
   route1-service:
     build: Flask/microservices/route1-service/
+    image: s192258/route1-service:flask
     networks:
       - app-network
   
   route2-service:
     build: Flask/microservices/route2-service/
+    image: s192258/route2-service:flask
     networks:
       - app-network
     

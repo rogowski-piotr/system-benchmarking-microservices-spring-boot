@@ -3,21 +3,25 @@ version: '3.9'
 services:
   place-service:
     build: Spring Boot/microservices/place-service/
+    image: s192258/place-service:spring
     networks:
       - app-network
 
   distance-service:
     build: Spring Boot/microservices/distance-service/
+    image: s192258/distance-service:spring
     networks:
       - app-network
 
   route1-service:
     build: Spring Boot/microservices/route1-service/
+    image: s192258/route1-service:spring
     networks:
       - app-network
 
   route2-service:
     build: Spring Boot/microservices/route2-service/
+    image: s192258/route2-service:spring
     networks:
       - app-network
 

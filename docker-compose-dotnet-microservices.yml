@@ -3,21 +3,25 @@ version: '3.8'
 services:
   place-service:
     build: Dotnet/microservices/place-service/
+    image: s192258/place-service:dotnet
     networks:
       - app-network
 
   distance-service:
     build: Dotnet/microservices/distance-service/
+    image: s192258/distance-service:dotnet
     networks:
     - app-network
 
   route1-service:
     build: Dotnet/microservices/route1-service/
+    image: s192258/route1-service:dotnet
     networks:
     - app-network
 
   route2-service:
     build: Dotnet/microservices/route2-service/
+    image: s192258/route2-service:dotnet
     networks:
     - app-network
 
