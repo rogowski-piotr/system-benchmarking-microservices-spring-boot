@@ -32,15 +32,15 @@ jobs:
               cd infrastructure/ansible &&\
                ansible-playbook --connection=local provision_benchmark_server.yml
 
-      - name: Set up cAdvisor
-        uses: appleboy/ssh-action@master
-        with:
-          key: ${{ secrets.EC2_SSH_KEY }}
-          host: ${{ secrets.BENCHMARK_DNS }}
-          username: ubuntu
-          port: 22 
-          script:  |
-            sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d
+#       - name: Set up cAdvisor
+#         uses: appleboy/ssh-action@master
+#         with:
+#           key: ${{ secrets.EC2_SSH_KEY }}
+#           host: ${{ secrets.BENCHMARK_DNS }}
+#           username: ubuntu
+#           port: 22 
+#           script:  |
+#             sudo docker-compose -f infrastructure/monitoring/docker-compose-cadvisor.yml up -d
 
       - name: Decrypt secret
         uses: appleboy/ssh-action@master
