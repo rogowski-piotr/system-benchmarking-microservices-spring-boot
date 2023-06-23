@@ -15,4 +15,4 @@ RUN pip3 install -r requirements.txt
 
 COPY . /app
 
-ENTRYPOINT [ "python3", "-B", "app.py" ]
+ENTRYPOINT [ "gunicorn", "app:app", "-w", "1", "-k", "gthread", "--thread=3", "--bind", "0.0.0.0:8084"]
