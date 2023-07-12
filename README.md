@@ -192,10 +192,24 @@ bash scripts/local-env/run_benchmark.sh -f <docker-compose file>
 ```
 
 ## Results
-The data was collected using a test plan that performed requests using 15 threads for 30 seconds. The services were deployed on the t2.micro instance on the AWS platform.
+The data was collected using a varying number of users, where each user was represented by a separate thread. The number of threads used varied depending on the scenario, and each workload performed requests for a duration of 30 seconds. The services were deployed on the AWS EC2 T2 Instances.
+
+### Vertical scaling - CPU Usage
 
 <p align="center">
-    <img width="100%" height="100%" src="resources/results/results_req_per_sec.png">
+    <img width="100%" height="100%" src="resources/results/cpu_usage_combined.png">
+</p>
+
+### Vertical scaling - Throughput
+
+<p align="center">
+    <img width="100%" height="100%" src="resources/results/throughput_vertical_all.png">
+</p>
+
+### Horizontal scaling - Throughput
+
+<p align="center">
+    <img width="100%" height="100%" src="resources/results/throughput_horizontal_combined.png">
 </p>
 
 ## About Authors
